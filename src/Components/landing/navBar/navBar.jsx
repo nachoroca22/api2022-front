@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid,Button,Typography,Toolbar,AppBar } from "@mui/material";
+import { Grid,Button,Typography,Toolbar, Link } from "@mui/material";
 import "./navBar.css"
 import { Box } from "@mui/system";
 
@@ -13,8 +13,8 @@ const Navbar = ({isScrolling}) => {
         <Grid container>
           <Box sx={{ flexGrow: 1 }}>
             <Toolbar justifyContent= 'center'>
-             <Typography variant="p1" component="div" sx={{ flexGrow: 1 }}>
-                    tuprofe.com
+             <Typography variant="p1" component="div"  sx={{ flexGrow: 1 }}>
+             <Link underline="none" href="/" style={{fontSize: 25, color:'white'}}>tuprofe.com</Link>
                 </Typography>
                 <Button variant='outlined' style={{borderColor:'#ffffff',textTransform:'capitalize',fontSize: 18, color:'white'}}  sx={{ mr: 2 }} >sign up</Button> 
                 <Button variant='outlined' style={{borderColor:'#ffffff',textTransform:'capitalize',fontSize: 18, color:'white'}}  sx={{ mr: 10 }} >sign in</Button> 
