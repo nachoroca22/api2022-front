@@ -1,0 +1,28 @@
+{"cursos": [{
+        "nombre": "Jose Perez",
+        "apellido": "soy jose el profe",
+        "calificaciones": [1,4,5,2,4,5,4,2],
+        "raiting":4,
+        "duracion": 3,
+        "calificacion": 4,
+        "descripcion": "es una muy buena clase la que doy",
+        "costo": 600,
+        "comentarios": ["gran profe", "muy buena"]
+},
+{
+    "mariaMatematica":{
+        "profesor": "Maria Perez",
+        "presentacion": "soy maria el profe",
+        "frecuencia": "semanal",
+        "duracion": 3,
+        "calificacion": 4,
+        "descripcion": "es una muy buena clase ",
+        "costo": 600,
+        "comentarios": ["gran profe"]
+    }
+}
+
+] }
+  
+
+    

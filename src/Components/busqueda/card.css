@@ -1,0 +1,36 @@
+.card{
+    margin: 20px;
+    width: 100%;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    display:grid;
+    padding: 15px;
+
+}
+
+.card-desc{
+    display:grid;
+    width:90%;
+    align-items: center;
+    display: block;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    background-color: white;
+}
+.card-title {
+    margin: auto;
+    text-align: center;
+    font-size: 22px;
+}
+.card-materia {
+    text-align: center;
+    font-size: 20px;
+}
+.card-raiting {
+    margin-top: auto;
+    align-self: center;
+    justify-self: center;
+}

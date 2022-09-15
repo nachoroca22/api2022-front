@@ -13,7 +13,10 @@ const Cover = () => {
         <p> Profesores calificados, en linea o persencial</p>
         <Grid container justifyContent="center" >
           <Grid item>
-           <Button variant='outlined' style={{borderColor:'#ffffff',textTransform:'capitalize',fontSize: 26, color:'white'}} >sign up</Button> 
+           <Button variant='outlined' 
+           style={{borderColor:'#ffffff',textTransform:'initial',fontSize: 26, color:'white'}} 
+           href='/busqueda'>
+            Buscar materias</Button> 
           </Grid>
         </Grid>
            

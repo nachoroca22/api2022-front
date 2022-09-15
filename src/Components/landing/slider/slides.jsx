@@ -13,8 +13,8 @@ import yoga from "../../media/slide_yoga.jpg";
 
 const slidesInfo =[
     {src: crypto,
-    alt:"Crytomonedas",
-    desc:"Crytomonedas"},
+    alt:"Criptomonedas",
+    desc:"Criptomonedas"},
 
     {src:finance,
     alt:"Finanzas",
