@@ -1,14 +1,15 @@
 .carousel-container {
-    display: flex;
+    display:flex;
+    height: 90vh;
     vertical-align: center;
     align-items: center;
-    background-color: black;
-    height: 90vh;
+    background-color: #F2EDDB;
+    position: center;
     
   }
   
   .carousel-title {
-    color: white;
+    color: #10223D;
     width: 40%;
     overflow: hidden;
     text-align: center;
@@ -26,7 +27,7 @@
   
   .slide-container > img {
     object-fit: contain;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ;
   }
   
   .slide-container:hover > img {
@@ -53,24 +54,24 @@
   }
   
   .BrainhubCarousel__arrows {
-    background-color: white;
+    background-color: #d6533c;
     border-radius: 50%;
     margin: 20px;
   }
   
   .BrainhubCarousel__arrows > span {
-    border-color: black;
+    border-color: #10223D;
   }
   
   .BrainhubCarousel__arrows:hover {
-    background-color: white !important;
+    background-color: #d6533c !important;
   }
   
   .BrainhubCarousel__arrows:hover > span {
-    border-color: black !important;
+    border-color: #10223D !important;
   }
   
-  @media only screen and (max-width: 260px) {
+  @media only screen and (max-width: 200px) {
     .carousel-container {
       flex-direction: column;
     }

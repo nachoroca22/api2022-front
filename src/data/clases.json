@@ -27,7 +27,7 @@
 {       
     "id": 2,
     "profesor": "Joao Pedra",
-    "materia": "Finanzas",
+    "materia": "Matematica",
     "tipo": "Individual",
     "presentacion": "soy maria el profe",
     "frecuencia": "Semanal",
@@ -40,7 +40,7 @@
 {       
     "id": 3,
     "profesor": "Pedro Sanchez",
-    "materia": "Criptomonedas",
+    "materia": "Musica",
     "tipo": "Grupal",
     "presentacion": "soy maria el profe",
     "frecuencia": "Semanal",
@@ -53,7 +53,7 @@
 {       
     "id": 4,
     "profesor": "Analia Palamara",
-    "materia": "Fotogafia",
+    "materia": "Programacion",
     "tipo": "Grupal",
     "presentacion": "soy maria el profe",
     "frecuencia": "Semanal",
@@ -67,7 +67,7 @@
 {       
     "id": 5,
     "profesor": "Micaela Pepin",
-    "materia": "Piano",
+    "materia": "Fotografia",
     "tipo": "Individual",
     "presentacion": "soy maria el profe",
     "frecuencia": "Semanal",
@@ -81,7 +81,7 @@
 {       
     "id": 6,
     "profesor": "Romina Fernandez",
-    "materia": "Quimica",
+    "materia": "Fotografia",
     "tipo": "Individual",
     "presentacion": "soy maria el profe",
     "frecuencia": "Semanal",
@@ -95,7 +95,7 @@
 {       
     "id": 7,
     "profesor": "Samantha Mont ",
-    "materia": "Yoga",
+    "materia": "Musica",
     "tipo": "Grupal",
     "presentacion": "soy maria el profe",
     "frecuencia": "Semanal",

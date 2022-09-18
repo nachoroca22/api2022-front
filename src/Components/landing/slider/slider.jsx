@@ -8,7 +8,7 @@ import './slider.css'
 
 function slider() {
   return (
-    <Grid container className='carousel-container' margin-top="1">
+    <Grid container className='carousel-container' alignContent="normal">
         <Grid item xs={12} sm={12} md={6} lg={3} className='carousel-title'>
             <h2> Materias </h2>
         </Grid>

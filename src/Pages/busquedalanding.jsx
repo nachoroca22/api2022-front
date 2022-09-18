@@ -10,10 +10,10 @@ function Busquedalanding() {
   const {materia,tipo,frecuencia,calificacion} = useParams()
 
     return (
-      <React.Fragment >
+      <React.Fragment>
         <Navbar></Navbar>
         <Grid container xs={12} sm={12} md={12} lg={12} direction="row" justifyContent="center" alignItems="center"
-          sx={{marginTop:"80px",paddingBottom:"15px",paddingTop:"15px" ,marginBottom:"30px", height:"flex", backgroundColor: "#000000"}}
+          sx={{marginTop:"80px",paddingBottom:"15px",paddingTop:"15px" ,marginBottom:"3px", height:"flex", backgroundColor: "#F2EDDB"}}
         >
           <Filter></Filter>
         </Grid>
