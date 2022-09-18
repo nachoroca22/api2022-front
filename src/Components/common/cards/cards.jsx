@@ -11,7 +11,7 @@ function Cards(props){
 
     return(
         <div>
-            <Grid container spacing={2} direction="row" justifyContent="space-evenly" alignItems="center">
+            <Grid container spacing={2} backgroundColor='#F2EDDB' direction="row" justifyContent="space-evenly" alignItems="center">
                
                {(Clases.filter(materia => materia.materia == props.materia || props.materia=="Todas")
                .filter(tipo => tipo.tipo == props.tipo || props.tipo=="Todas")

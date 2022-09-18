@@ -1,13 +1,12 @@
 .card{
     margin: 20px;
     width: 100%;
-    background-color: white;
-    align-items: center;
+    background-color: #F2EDDB;
     justify-content: center;
     justify-items: center;
     display:grid;
-    padding: 15px;
-
+    color: #10223D;
+    padding: 1px;
 }
 
 .card-desc{
@@ -18,7 +17,8 @@
     justify-content: center;
     text-align: center;
     margin: auto;
-    background-color: white;
+    color: #10223D;
+    background-color: #F2EDDB;
 }
 .card-title {
     margin: auto;
