@@ -3,6 +3,7 @@
     vertical-align: center;
     align-items: center;
     background-color: black;
+    height: 90vh;
     
   }
   
@@ -81,6 +82,6 @@
     }
   
     .slide-container {
-      width: 100%;
+      width: 50%;
     }
   }

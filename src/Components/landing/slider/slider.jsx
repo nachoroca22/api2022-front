@@ -16,16 +16,11 @@ function slider() {
             <Carousel
                 plugins={['arrows',"infinite"]}
                 centered
-                offset={5}
+                infinite
+                offset={50}
                 slides={slides}
-                itemWidth={400}
-                breakpoints={{
-                    960: {
-                      slidesPerPage: 1,
-                      arrows: false,
-                      itemWidth: 250,
-                    },
-                  }}
+                itemWidth={250}
+                
             />
         </Grid>
         
