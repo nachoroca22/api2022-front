@@ -10,6 +10,7 @@ import './card.css'
 
 
 export default function CardProfe(props) {
+  
   return (
     <Card className='card' sx={{ maxWidth: 345 ,  height:450 }}>
       <CardMedia 

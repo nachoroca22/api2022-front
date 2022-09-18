@@ -1,10 +1,7 @@
-import React,{Component}  from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
-import { Switch, ThemeProvider, Typography } from '@mui/material';
-import Home from './Pages/landing.jsx';
-import Busqueda from './Pages/busquedalanding.jsx';
-import Cards from './Components/busqueda/cards.jsx';
-
+import React  from 'react';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Home from './Pages/Landing.jsx';
+import Busqueda from './Pages/Busquedalanding.jsx';
 
 function App() {
   return (
@@ -12,8 +9,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home/>}> </Route>
-          <Route path="/busqueda" element={<Busqueda/>}> </Route>
-          <Route path='/cards' element={<Cards></Cards>}></Route>
+          <Route path="/busqueda/:materia/:tipo/:frecuencia/:calificacion/" element={<Busqueda />}> </Route>
         </Routes>
       </Router>
       
