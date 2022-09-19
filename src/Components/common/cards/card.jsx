@@ -47,7 +47,10 @@ export default function CardProfe(props) {
         
       </CardContent>
       <CardActions>
-        <Button size="small">+ info</Button>
+        <Button size="small"
+                  href='/profesores'>
+                  + info
+        </Button> 
       </CardActions>
     </Card>
   );
