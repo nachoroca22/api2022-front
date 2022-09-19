@@ -4,15 +4,18 @@ import "./navBar.css"
 import { Box } from "@mui/system";
 import { useState } from "react";
 import Login from "../../Login/login.jsx";
-
+import SignUp from "../../Login/signup.jsx"
 
 export default function Navbar ({isScrolling}) {
   const toTheTop = () => {window.scrollTo({top: 0, left:0, behavior:'smooth'})}
 
-  const [isOpenModal, setIsOpenModal] = useState();
-  const openModal = () =>{setIsOpenModal(true)};
-  const closeModal = () =>{setIsOpenModal(false)};
+  const [isOpenModalSignIn, setIsOpenModalSignIn] = useState();
+  const openModalSignIn = () =>{setIsOpenModalSignIn(true)};
+  const closeModalSignIn = () =>{setIsOpenModalSignIn(false)};
 
+  const [isOpenModalSignUp, setIsOpenModalSignUp] = useState();
+  const openModalSignUp = () =>{setIsOpenModalSignUp(true)};
+  const closeModalSignUp = () =>{setIsOpenModalSignUp(false)};
 
   return (
     <nav className={`navbar ${isScrolling > 20 ? "scrolling" : null}`}>
@@ -24,6 +27,7 @@ export default function Navbar ({isScrolling}) {
              <Link underline="none" href="/" style={{fontSize: 35, color:'#d6533c'}}>tuprofe.com</Link>
                 </Typography>
                 <Button 
+                  onClick={openModalSignUp}
                   variant='outlined' 
                   style={{borderRadius:"15px",
                     borderColor:'#d6533c',
@@ -32,9 +36,14 @@ export default function Navbar ({isScrolling}) {
                   sx={{ mr: 2 }} 
                     >sign up
                   </Button> 
-
+                  <Modal
+                  open={isOpenModalSignUp}
+                  onClose={closeModalSignUp}
+                >
+                  <SignUp></SignUp>
+                </Modal>
                 <Button 
-                  onClick={openModal}
+                  onClick={openModalSignIn}
                   variant='outlined' 
                   style={{borderRadius:"15px",
                     borderColor:'#d6533c',
@@ -44,8 +53,8 @@ export default function Navbar ({isScrolling}) {
                     >sign in
                 </Button> 
                 <Modal
-                  open={isOpenModal}
-                  onClose={closeModal}
+                  open={isOpenModalSignIn}
+                  onClose={closeModalSignIn}
                 >
                   <Login></Login>
                 </Modal>
