@@ -12,12 +12,14 @@ import './card.css'
 export default function CardProfe(props) {
   
   return (
-    <Card className='card' sx={{ maxWidth: 345 ,  height:450 }}>
+    <Card  className='card' sx={{paddingTop:"5px",borderRadius:"20px", border: "1px double #d6533c",color: "#10223D", maxWidth: 345 ,  height:450, backgroundColor:"#F2EDDB" }}>
       <CardMedia 
         component="img"
         style={{
+            paddingTop:"2px",
             width: "auto",
-            maxHeight: "200px"
+            maxHeight: "200px",
+            borderRadius:"20px"
           }}
         image={props.foto}
         alt="foto pefil"
@@ -36,7 +38,7 @@ export default function CardProfe(props) {
         </Typography>
         <Rating value={props.calificacion} precision={0.5} size="large" ></Rating>
         
-        <Typography  variant="body2" color="text.secondary" sx={{
+        <Typography  variant="body2" sx={{
             overflow: "hidden",
             textOverflow: "ellipsis",
             display: "-webkit-box",

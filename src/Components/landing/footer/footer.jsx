@@ -6,10 +6,10 @@ import "./footer.css"
 function footer() {
     return (
         <Grid container className="footer" justifyContent="center"> 
-            <Grid item  xs={12} className="footer-info">
+            <Grid item paddingTop={10} xs={12} className="footer-info">
                 <h1> tuprofe.com</h1>
             </Grid>
-            <Grid item  xs={12}className="footer-contact">
+            <Grid item   xs={12}className="footer-contact">
                 <h3>Seguínos</h3>
             </Grid>
                 <Grid item xs={12} className="sns-links" >

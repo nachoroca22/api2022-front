@@ -4,6 +4,7 @@ import Home from './Pages/landing.jsx';
 import Busqueda from './Pages/busquedalanding.jsx';
 import Profesores from './Pages/profesores.jsx';
 
+
 function App() {
   return (
     <div className='App'>

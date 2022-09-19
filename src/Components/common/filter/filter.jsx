@@ -36,17 +36,17 @@ export default function Cover() {
   }  
 
   return (
-        <Container > 
-          <Card style={{border: "1px solid white",backgroundColor:'transparent', borderRadius:"20px"}}>
+        <Container> 
+          <Card style={{borderColor:"transparent" ,backgroundColor:'transparent'}}>
             <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1} marginTop={2}>
               <Grid item xs={6} sm={6} md={3} lg={3} container direction="row" justifyContent="center" alignItems="center">
                   <FormControl sx={{width:'70%'}}> 
-                    <InputLabel style={{color:"#ffffff"}}> Materias </InputLabel>
+                    <InputLabel style={{color:"#d6533c"}}> Materias </InputLabel>
                       <Select 
                         defaultValue=""
                         name="formMateria"  
                         value={formMateria}  
-                        sx={{marginTop:"15px", height:"50px",borderRadius:"15px",border: "1px solid white", color: "#ffffff", "& .MuiSvgIcon-root": {color: "white",},}}
+                        sx={{marginTop:"15px", height:"50px",borderRadius:"15px",borderColor:"#d6533c", border: "1px solid #d6533c", color: "#d6533c", "& .MuiSvgIcon-root": {color: "#d6533c",},}}
                         onChange={handleOnchangeMateria}
                       >
                         
@@ -57,14 +57,14 @@ export default function Cover() {
                 </Grid> 
 
 
-                <Grid item xs={6} sm={6} md={3} lg={3} container direction="row" justifyContent="center" alignItems="center">
+                <Grid  item xs={6} sm={6} md={3} lg={3} container direction="row" justifyContent="center" alignItems="center">
                   <FormControl sx={{width:'70%'}}> 
-                    <InputLabel style={{color:"#ffffff"}}> Tipo de Clase </InputLabel>
+                    <InputLabel style={{color:"#d6533c"}}> Tipo de Clase </InputLabel>
                       <Select 
                         defaultValue=""
                         name="formTipoDeClase"
                         value={formTipoDeClase}                      
-                        sx={{marginTop:"15px",height:"50px", borderRadius:"15px",border: "1px solid white", color: "#ffffff", "& .MuiSvgIcon-root": {color: "white",},}}
+                        sx={{marginTop:"15px",height:"50px", borderRadius:"15px",borderColor:"#d6533c", border: "1px solid #d6533c", color: "#d6533c", "& .MuiSvgIcon-root": {color: "#d6533c",},}}
                         onChange={handleOnchangeTipoDeClase}
                       >
                         
@@ -76,12 +76,12 @@ export default function Cover() {
 
                 <Grid item xs={6} sm={6} md={3} lg={3} container direction="row" justifyContent="center" alignItems="center">
                   <FormControl sx={{width:'70%'}}> 
-                    <InputLabel style={{color:"#ffffff"}}> Frecuencia </InputLabel>
+                    <InputLabel style={{color:"#d6533c"}}> Frecuencia </InputLabel>
                       <Select 
                         defaultValue=""
                         name="formFrecuencia"
                         value={formFrecuencia}                     
-                        sx={{marginTop:"15px",height:"50px",borderRadius:"15px",border: "1px solid white", color: "#ffffff", "& .MuiSvgIcon-root": {color: "white",},}}
+                        sx={{marginTop:"15px",height:"50px",borderRadius:"15px",borderColor:"#d6533c", border: "1px solid #d6533c", color: "#d6533c", "& .MuiSvgIcon-root": {color: "#d6533c",},}}
                         onChange={handleOnchangeFrecuencia}
                       >
                         
@@ -93,13 +93,13 @@ export default function Cover() {
 
               <Grid item xs={6} sm={6} md={3} lg={3} container direction="row" justifyContent="center" alignItems="center">
                 <FormControl sx={{width:'70%'}}> 
-                  <InputLabel style={{color:"#ffffff"}}> Calificacion </InputLabel>
+                  <InputLabel style={{color:"#d6533c"}}> Calificacion </InputLabel>
                     <Select 
                       defaultValue=""
                       name="formCalificacion"
                       
                       value={formCalificacion}                    
-                      sx={{marginTop:"15px",height:"50px",borderRadius:"15px",border: "1px solid white", color: "#ffffff", "& .MuiSvgIcon-root": {color: "white",},}}
+                      sx={{marginTop:"15px",height:"50px",borderRadius:"15px",border: "1px solid #d6533c",borderColor:"#d6533c" ,color: "#d6533c", "& .MuiSvgIcon-root": {color: "#d6533c",},}}
                       onChange={handleOnchangeCalificacion}
                     >
                       
@@ -113,7 +113,7 @@ export default function Cover() {
               <Button 
                 component={RouterLink} to={`/busqueda/${formMateria}/${formTipoDeClase}/${formFrecuencia}/${formCalificacion}`}
                 variant='outlined' 
-                style={{borderRadius:"15px",borderColor:'#ffffff',textTransform:'initial',fontSize: 20, color:'white'}}            
+                style={{borderRadius:"15px",borderColor:'#d6533c',textTransform:'initial',fontSize: 20, color:'#d6533c'}}            
                 >
                   Buscar</Button> 
               </Grid>
