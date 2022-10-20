@@ -1,8 +1,8 @@
 import * as React from 'react';
-import  Navbar from "../Components/landing/navBar/navBar"
-import Cards from '../Components/common/cards/cards.jsx';
+import  Navbar from "../Components/landing/navBar/NavBar"
+import Cards from '../Components/Common/Cards/Cards.jsx';
 import { useParams } from 'react-router-dom';
-import Filter from '../Components/common/filter/filter.jsx'
+import Filter from '../Components/Common/Filter/Filter.jsx'
 import {Grid} from '@mui/material';
 
 function Busquedalanding() {
@@ -23,7 +23,7 @@ function Busquedalanding() {
           frecuencia={frecuencia}
           calificacion={calificacion}
         ></Cards> 
-        
+ 
       </React.Fragment>
     );
   }

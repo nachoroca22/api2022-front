@@ -1,28 +1,23 @@
-{"cursos": [{
-        "nombre": "Jose Perez",
-        "apellido": "soy jose el profe",
-        "calificaciones": [1,4,5,2,4,5,4,2],
-        "raiting":4,
-        "duracion": 3,
-        "calificacion": 4,
-        "descripcion": "es una muy buena clase la que doy",
-        "costo": 600,
-        "comentarios": ["gran profe", "muy buena"]
+[{
+        "nombre": "Jose",
+        "apellido": "Chatruc",
+        "genero": "Masculino",
+        "fechaNac": "22/11/1984",
+        "profesorEmail": "jose.chatruc@gmail.com",
+        "presentacion": "Me llamo Jose, soy docente hace mas de 10 años de nivel primario, secundario y universitario",
+        "titulos":"Hice bachiller en arte y me gradue del conservatorio y tengo un master en uquelele"
 },
-{
-    "mariaMatematica":{
-        "profesor": "Maria Perez",
-        "presentacion": "soy maria el profe",
-        "frecuencia": "semanal",
-        "duracion": 3,
-        "calificacion": 4,
-        "descripcion": "es una muy buena clase ",
-        "costo": 600,
-        "comentarios": ["gran profe"]
-    }
+[{
+        "nombre": "Analia",
+        "apellido": "Palamara",
+        "genero": "Femenino",
+        "fechaNac": "15/01/1990",
+        "profesorEmail": "analia.palamara@gmail.com",
+        "presentacion": "Me llamo Analia, soy desarrolladora Full Stack hace mas de 10 años, trabajo en una empresa como desarrolladora y tambien de manera independinte",
+        "titulos":"Realice mis estudios secundarios en una escuela tecniica. Me recibi de Tecnica en Desarrollo de software en la UADE y realice cursos de distintos lenguajes como PHP, JS, React, etc"
 }
 
-] }
+]
   
 
     
