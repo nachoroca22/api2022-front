@@ -12,6 +12,7 @@ import ModalClasesProfe from './Components/landing/ClaseClaseProfe/MapClaseProfe
 import { ThemeProvider } from '@emotion/react';
 import { temaPersonalizado } from './theme/theme.jsx';
 
+
 function App() {
   return (
     <div className='App'>
@@ -28,8 +29,7 @@ function App() {
             <Route path='/alumnos/home/' element={<AlumnosHome/>}></Route>  
             <Route path='/alumnos/contrataciones' element={<AlumnosContrataciones/>}></Route> 
           </Routes>
-      </Router>
-
+        </Router>
       </ThemeProvider>
     </div>
   );
