@@ -1,0 +1,13 @@
+[{"Profe": [
+    {"user":"profe",
+     "password": "123456",
+     "rol": "Profe"
+    }
+]},
+{"Alumno": [
+    {"user":"alumno",
+     "password": "1234567",
+     "rol": "Alumno"
+    }
+]}
+]
