@@ -2,7 +2,7 @@ import * as React from 'react';
 import "./cover.css"
 import videoHome from "../../media/cover.mp4"
 import imagen from '../../media/logo.png'
-import Filter from '../../common/filter/filter.jsx'
+import Filter from '../../Common/Filter/Filter.jsx'
 export default function Cover() {
 
 

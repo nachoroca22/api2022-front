@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import Card from "./card.jsx"
+import Card from "./Card.jsx"
 import foto from "../../media/foto.jpg"
 import data from "../../../data/clases.json"
 
@@ -18,13 +18,18 @@ function Cards(props){
                .filter(frecuencia => frecuencia.frecuencia == props.frecuencia || props.frecuencia=="Todas")
                .filter(calificacion => calificacion.calificacion == props.calificacion || props.calificacion=="Todas"))
                .map(clase=>(<Card key={Clases.id} 
+                                id={clase.id}
                                 foto={foto}
                                 profesor={clase.profesor}
-                                calificacion={clase.calificacion}
-                                costo={clase.costo}
-                                descripcion={clase.descripcion}
+                                presentacion={clase.presentacion}
+                                titulos={clase.titulos}
                                 materia={clase.materia}
                                 tipo={clase.tipo}
+                                frecuencia={clase.frecuencia}
+                                duracion={clase.duracion}
+                                calificacion={clase.calificacion}
+                                descripcion={clase.descripcion}
+                                costo={clase.costo}
                             ></Card>))
                 }
             </Grid>

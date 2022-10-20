@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Cover from "../Components/landing/Cover/cover"
-import Navbar from "../Components/landing/navBar/navBar"
+import Cover from "../Components/landing/Cover/Cover"
+import Navbar from "../Components/landing/navBar/NavBar"
 import { useState, useEffect } from 'react';
-import Aboutdesc from "../Components/landing/about/about"
-import Slider from "../Components/landing/slider/slider"
+import Aboutdesc from "../Components/landing/about/About"
+import Slider from "../Components/landing/slider/Slider"
 import Footer from "../Components/landing/footer/footer"
 import Info from "../Components/landing/info/info"
 

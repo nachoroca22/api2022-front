@@ -3,8 +3,8 @@ import { Grid,Typography,Button,Toolbar, Link, Modal} from "@mui/material";
 import "./navBar.css"
 import { Box } from "@mui/system";
 import { useState } from "react";
-import Login from "../../Login/login.jsx";
-import SignUp from "../../Login/signup.jsx"
+import Login from "../../Login/Login.jsx";
+import SignUp from "../../Login/Signup.jsx"
 
 export default function Navbar ({isScrolling}) {
   const toTheTop = () => {window.scrollTo({top: 0, left:0, behavior:'smooth'})}

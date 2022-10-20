@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,9 +8,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
 import './card.css'
+import {Link as RouterLink,} from 'react-router-dom';
 
 
 export default function CardProfe(props) {
+  const [isOpenModalClaseProfe, setIsOpenModalClaseProfe] = useState();
+  const openModalClaseProfe = () =>{setIsOpenModalClaseProfe(true)};
+  const closeModalClaseProfe = () =>{setIsOpenModalClaseProfe(false)};
+
   
   return (
     <Card  className='card' sx={{paddingTop:"5px",borderRadius:"20px", border: "1px double #d6533c",color: "#10223D", maxWidth: 345 ,  height:450, backgroundColor:"#F2EDDB" }}>
@@ -30,13 +36,13 @@ export default function CardProfe(props) {
             {props.profesor}
         </Typography>
         <Typography gutterBottom variant="h7" component="div" style={{ fontWeight: 600 }}>
-            {props.materia} - ${props.costo} 
+            {props.materia} - ${props.costo}
         <Typography variant="h7" marginTop="5px" component="div" style={{ fontWeight: 600 }}>
             {props.tipo}
         </Typography>
             
         </Typography>
-        <Rating value={props.calificacion} precision={0.5} size="large" ></Rating>
+        <Rating readOnly value={props.calificacion} precision={0.5} size="large" ></Rating>
         
         <Typography  variant="body2" sx={{
             overflow: "hidden",
@@ -49,10 +55,14 @@ export default function CardProfe(props) {
         
       </CardContent>
       <CardActions>
-        <Button size="small"
-                  href='/profesores'>
-                  + info
-        </Button> 
+        <Button 
+        onClick={() => openModalClaseProfe()}
+        size="small"
+        target="_blank"
+        component={RouterLink} to={`/busqueda/clase/${props.id}`}
+        >
+          + infoves
+        </Button>
       </CardActions>
     </Card>
   );
