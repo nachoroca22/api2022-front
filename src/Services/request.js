@@ -79,7 +79,7 @@ export const postToken = async (endpoint, request, token) => {
   }
 };
 
-export const get = async (endpoint,request) => {
+export const get = async (endpoint) => {
   try {
     var authorizationConfig = {
       headers: { Authorization: "Bearer " + getToken(), 
@@ -89,8 +89,8 @@ export const get = async (endpoint,request) => {
     };
 
     logRequest(endpoint, null, authorizationConfig);
-
-    var response = await axios.get(endpoint,request,authorizationConfig);
+    
+    var response = await axios.get(endpoint,authorizationConfig);
 
     logResponse(endpoint, response);
 
