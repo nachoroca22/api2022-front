@@ -17,6 +17,7 @@ export default function Perfil() {
           .then((response) => {
             setProfesor(response?.status === 200 ? response.data.docs : []);
           }) 
+
       };
     
     if (profesor === null) {
@@ -30,6 +31,7 @@ export default function Perfil() {
                     <Grid item xs={12} sm={12} md={12} lg={12} textAlign="center" marginBottom="30px">
                         <Typography color="#10223D" variant="h4" noWrap component="div" >
                             Hola *Nombre Profesor*!
+                            
                         </Typography>
                     </Grid>
                     
