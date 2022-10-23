@@ -5,33 +5,64 @@ import { LoadingButton } from '@mui/lab'
 import { obtenerProfesor } from "../../Services/profesores";
 
 export default function Perfil() {
+    const initialProfesor = {
+        id_user: null,
+        apellido: "",
+        name: "",
+        usuario: "",
+        rol: "",
+        estado: null,
+        fechaIngreso: "",
+        fechaNac: "",  
+        genero: "",
+        presentacion: "",    
+        estudios: "",
+    }
     const token = sessionStorage.getItem("token")
     const id = sessionStorage.getItem("id")
-    const [profesor, setProfesor] = React.useState(null);
-    const [id_user,setIdUser] = React.useState(null);
+    const [profesor, setProfesor] = React.useState(initialProfesor);
+    const [submitted, setSubmitted] = React.useState(false);
+
+    //const [id_user,setIdUser] = React.useState(null);
 
 
     const recargarProfesor = () => {
-        console.log("OYEEEEE",id)
         obtenerProfesor(id)
           .then((response) => {
-            setProfesor(response?.status === 200 ? response.data.docs : []);
-          }) 
-
+            setProfesor( 
+                {id_user: response.data.id_user,
+                apellido: response.data.apellido,
+                name: response.data.name,
+                usuario: response.data.usuario,
+                rol: response.data.rol,
+                estado: response.data.estado,
+                fechaIngreso: response.data.fechaIngreso,
+                fechaNac: response.data.fechaNac,
+                genero: response.data.genero,
+                presentacion: response.data.presentacion,  
+                estudios: response.data.estudios}); 
+                })
+            
       };
     
-    if (profesor === null) {
+    if (submitted === false){
+        setSubmitted(true)
         recargarProfesor();
-      }
+        
+    }
+        
     
+    console.log(profesor)
     return (
         
         <Container> 
                 <Grid container direction="row" justifyContent="center" alignItems="center" marginTop={1}>   
                     <Grid item xs={12} sm={12} md={12} lg={12} textAlign="center" marginBottom="30px">
-                        <Typography color="#10223D" variant="h4" noWrap component="div" >
-                            Hola *Nombre Profesor*!
-                            
+                        <Typography color="#10223D" variant="h4" noWrap component="div" sx={{marginBottom:'20px'}}>
+                            ¡Hola {profesor.name}! 
+                        </Typography>
+                        <Typography color="#d6533c" variant="h5" noWrap component="div" >
+                            Recorda siempre tener actualizado tu perfil.   
                         </Typography>
                     </Grid>
                     
@@ -61,28 +92,24 @@ export default function Perfil() {
                             
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"93%"}}>
-                                    <TextField label="Nombre" id="Nombre"></TextField>
+                                    <TextField label="Nombre" id="Nombre" value={profesor.name}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"93%"}}>
-                                    <TextField label="Apellido" id="Apellido"></TextField>
+                                    <TextField label="Apellido" id="Apellido" value={profesor.apellido}></TextField>
                                 </FormControl>
                             </Grid>
                         </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"95%"}}>
-                                    <Select>
-                                        <MenuItem value={10}>Femenino</MenuItem>
-                                        <MenuItem value={20}>Masculino</MenuItem>
-                                        <MenuItem value={30}>No binario</MenuItem>
-                                    </Select>
+                                    <TextField value={profesor.genero} label="Genero" id="genero" ></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"95%"}}>
-                                <TextField  id="date" type="date"></TextField>
+                                <TextField value={profesor.fechaNac} label="Fecha de Nacimiento - dd/mm/yyyy" id="date"></TextField>
                                 </FormControl>
                             </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -96,17 +123,17 @@ export default function Perfil() {
                         <Grid container  xs={12} sm={12} md={12} lg={12} direction="row" justifyContent="center" alignItems="center" marginTop="15px">
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center">
                                 <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
-                                    <TextField label="Email" id="Email"></TextField>
+                                    <TextField value={profesor.usuario} disabled label="Usuario" id="Email"></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center" marginTop="15px">
                                 <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
-                                    <TextField label="Estudios" id="Estudios" multiline minRows={3} maxRows={20}></TextField>
+                                    <TextField value={profesor.estudios} label="Estudios" id="Estudios" multiline minRows={3} maxRows={20}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center" marginTop="15px">
                                 <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
-                                    <TextField label="Presentacion" id="Presentacion" multiline minRows={3} maxRows={20}></TextField>
+                                    <TextField value={profesor.presentacion} label="Presentacion" id="Presentacion" multiline minRows={3} maxRows={20}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
