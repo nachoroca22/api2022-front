@@ -4,19 +4,36 @@ import data from "../../../data/filtros.json"
 import { Container } from '@mui/system';
 import { useState } from 'react';
 import {Link as RouterLink,} from 'react-router-dom';
+import { obtenerMateriasFiltro } from '../../../Services/clases';
 
-const materias = data[0]["Materias"]
 const tipoClase = data[1]["tipoClase"]
 const frecuencia = data[2]["frecuencia"]
 const calificacion = data[3]["Calificacion"]  
 
 export default function Filtro() {
 
+  // data de file
   const [formMateria,setMateria] = useState('Todas')
   const [formCalificacion,setCalificacion] = useState('Todas')
   const [formFrecuencia,setFrecuencia] = useState('Todas')
   const [formTipoDeClase,setTipoDeClase] = useState('Todas')
 
+  const [materiasFiltro, setMateriasFiltro]=React.useState([]);
+  const [submitted, setSubmitted] = React.useState(false);
+
+  const recargarMateriasFiltro = () => {
+    obtenerMateriasFiltro()
+    .then((response) => {
+      setMateriasFiltro(response.data)
+      
+    })
+  }
+
+  if (submitted === false){
+    setSubmitted(true)
+    recargarMateriasFiltro();
+  }
+  
   const handleOnchangeMateria = (event: SelectChangeEven) => {
     setMateria(event.target.value);   
   }
@@ -48,7 +65,7 @@ export default function Filtro() {
                         onChange={handleOnchangeMateria}
                       >
                         
-                        {materias.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
+                        {materiasFiltro.map((elemento) => (<MenuItem value={elemento} key={elemento}> {elemento} </MenuItem>
                       ))}
                       </Select>
                   </FormControl>

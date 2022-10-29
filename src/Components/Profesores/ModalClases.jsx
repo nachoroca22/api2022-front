@@ -26,7 +26,7 @@ export default function ModalClases (props,clase,children){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Tipo de clase:  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField disabled="true" value={props.clase.tipo} variant="outlined" size="small" style={{color:"#10223D", marginRight:"2px",marginTop:"2px"}}> </TextField> 
+                                <TextField disabled="true" value={props.clase.tipoClase} variant="outlined" size="small" style={{color:"#10223D", marginRight:"2px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                                          
                         </Grid>

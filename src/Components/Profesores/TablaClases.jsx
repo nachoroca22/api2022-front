@@ -24,8 +24,11 @@ import {Modal} from "@mui/material";
 import ModalClases from "./ModalClases.jsx";
 import ModalEditClases from "./ModalEditClases.jsx";
 import ModalConfirmar from "../Common/ModalConfirmar/ModalConfirmar.jsx";
+import { obtenerClasesProfesor } from "../../Services/clases";
 
-const rows = data
+//const rows = data
+
+
 
 interface TablePaginationActionsProps {
   count: number;
@@ -94,18 +97,18 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 function createData(
-  id: string,
-  profesor: string,
+  id_clase: number,
+  id_profesor: number,
   materia: string,
-  usuario: string,
-  tipo: string,
+  tipoClase: string,
   costo: number,
   frecuencia: string,
   duracion: string,
   descripcion: string,
   calificacion: number,
+  contrataciones: number,
 ) {
-  return { materia, tipo, costo, frecuencia, descripcion, calificacion, id, profesor, usuario, duracion  };
+  return { materia, tipoClase, costo, frecuencia, descripcion, calificacion, id_clase, id_profesor, duracion, contrataciones  };
 }
 
 
@@ -124,68 +127,86 @@ export default function BasicTable() {
   const [isOpenModalBorrarClases, setIsOpenModalBorrarClases] = useState();
   const openModalBorrarClases = () =>{setIsOpenModalBorrarClases(true)};
   const closeModalBorrarClases = () =>{setIsOpenModalBorrarClases(false)};
-  
+
   const [claseSeleccionada,setClaseSeleccionada] = useState({
-    id: '',
-    profesor: '',
+    id_clase: '',
+    id_profesor: '',
     materia: '',
-    usuario: '',
-    tipo: '',
+    tipoClase: '',
     costo: '',
     frecuencia: '',
     duracion: '',
     descripcion: '',
     calificacion: '',
-    
-    
+    contrataciones: '',
+
   });
 
   const viewClaseSeleccionada =(clase) => {
     setClaseSeleccionada({
-      id: clase.id,
-      profesor: clase.profesor,
+      id_clase: clase.id_clase,
+      id_profesor: clase.id_profesor,
       materia: clase.materia,
-      usuario: clase.usuario,
-      tipo: clase.tipo,
+      tipoClase: clase.tipoClase,
       costo: clase.costo,
       frecuencia: clase.frecuencia,
       duracion: clase.duracion,
       descripcion: clase.descripcion,
       calificacion: clase.calificacion,
+      contrataciones: clase.contrataciones,
+
     })
     openModalInfoClases(clase)
   }
 
   const editClaseSeleccionada =(clase) => {
     setClaseSeleccionada({
-      id: clase.id,
-      profesor: clase.profesor,
+      id_clase: clase.id_clase,
+      id_profesor: clase.id_profesor,
       materia: clase.materia,
-      usuario: clase.usuario,
-      tipo: clase.tipo,
+      tipoClase: clase.tipoClase,
       costo: clase.costo,
       frecuencia: clase.frecuencia,
       duracion: clase.duracion,
       descripcion: clase.descripcion,
       calificacion: clase.calificacion,
+      contrataciones: clase.contrataciones,
+
+      
     })
     openModalEditClases(clase)
   }
 
   const borrarClaseSeleccionada =(clase) => {
     setClaseSeleccionada({
-      id: clase.id,
-      profesor: clase.profesor,
+      id_clase: clase.id_clase,
+      id_profesor: clase.id_profesor,
       materia: clase.materia,
-      usuario: clase.usuario,
-      tipo: clase.tipo,
+      tipoClase: clase.tipoClase,
       costo: clase.costo,
       frecuencia: clase.frecuencia,
       duracion: clase.duracion,
       descripcion: clase.descripcion,
-      calificacion: clase.calificacion,   
+      calificacion: clase.calificacion,
+      contrataciones: clase.contrataciones,   
     })
     openModalBorrarClases(clase)
+  }
+
+  const [rows, setClasesPofesor]=React.useState([]);
+  const [submitted, setSubmitted] = React.useState(false);
+  const id_profesor = sessionStorage.getItem("id")
+
+  const recargarClasesPofesor = () => {
+    obtenerClasesProfesor(id_profesor)
+    .then((response) => {
+      setClasesPofesor(response.data.docs)
+      console.log(response.data.docs)
+    })
+  }
+  if (submitted === false){
+    setSubmitted(true)
+    recargarClasesPofesor(); 
   }
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -228,7 +249,7 @@ export default function BasicTable() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
             >
               <TableCell sx={{color:"#10223D"}} align="center" component="th" scope="row">{row.materia}</TableCell>
-              <TableCell sx={{color:"#10223D"}} align="center">{row.tipo}</TableCell>
+              <TableCell sx={{color:"#10223D"}} align="center">{row.tipoClase}</TableCell>
               <TableCell sx={{color:"#10223D"}} align="center">${row.costo}</TableCell>
               <TableCell sx={{color:"#10223D"}} align="center">{row.frecuencia}</TableCell>
               <TableCell align="center">
@@ -243,7 +264,7 @@ export default function BasicTable() {
                   }}>
               </InfoIcon>
               <Modal
-                sx={{opacity:"0.5"}}
+                sx={{opacity:"0.7"}}
                 open={isOpenModalInfoClases}
                 onClose={closeModalInfoClases}
               >
@@ -264,7 +285,7 @@ export default function BasicTable() {
 
               </EditIcon>
               <Modal
-                sx={{opacity:"0.5"}}
+                sx={{opacity:"0.7"}}
                 open={isOpenModalEditClases}
                 onClose={closeModalEditClases}
               >
@@ -283,7 +304,7 @@ export default function BasicTable() {
                       }}>
                 </DeleteIcon>
                 <Modal
-                sx={{opacity:"0.5"}}
+                sx={{opacity:"0.7"}}
                 open={isOpenModalBorrarClases}
                 onClose={closeModalBorrarClases}
               >

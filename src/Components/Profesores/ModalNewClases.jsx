@@ -1,11 +1,42 @@
 import React from 'react'
-import { Grid,Paper,InputLabel, TextField, FormControl} from '@mui/material'
+import { Grid,Paper,InputLabel, TextField, FormControl, MenuItem, Select} from '@mui/material'
 import Rating from '@mui/material/Rating';
 import { LoadingButton } from '@mui/lab';
+import { crearClase } from '../../Services/clases';
 
-export default function ModalEditClases (props,clase,children){
+
+export default function ModalNewClases (props,children){
 
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:450, margin:"50px auto"};
+    const frecuencia = ["Unica","Semanal","Mensual"]
+    const tipoClase = ["Individual","Grupal"]
+
+    const [newClase,setNewClase] = React.useState({
+        id_profesor: sessionStorage.getItem("id"),
+        materia: "",
+        tipoClase: "",
+        costo: "",
+        frecuencia: "",
+        duracion: "",
+        descripcion: ""
+    });
+    const [submitted, setSubmitted] = React.useState(false);
+
+    const handleSubmiteed = (event) => {
+        event.preventDefault();
+        crearClase(newClase)
+        .then((response) => {
+            console.log(response)
+        })
+        
+    }
+
+    const handleInputChange = (event) => {
+        setNewClase({
+            ...newClase,
+            [event.target.name] : event.target.value
+        })
+    }
 
     return(
                 <Paper elevation={10} style={paperStyle}>
@@ -18,42 +49,63 @@ export default function ModalEditClases (props,clase,children){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Materia:  </InputLabel>   
                             <FormControl sx={{width:"84%"}}>
-                                <TextField variant="outlined" size="small" style={{color:"#10223D", marginLeft:"40px", marginTop:'2px'}}>  </TextField>              
+                                <TextField onChange={handleInputChange} name="materia" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"40px", marginTop:'2px'}}>  </TextField>              
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Tipo de clase:  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField variant="outlined" size="small" style={{color:"#10223D", marginRight:"2px",marginTop:"2px"}}> </TextField> 
+                                <Select 
+                                        size="small"
+                                        defaultValue=""
+                                        onChange={handleInputChange} 
+                                        name="tipoClase"
+                                        sx={{color:"#10223D", marginLeft:"1px",marginTop:"2px"}}
+                                    >
+                                        
+                                        {tipoClase.map((elemento) => (<MenuItem value={elemento} key={elemento}> {elemento} </MenuItem>
+                                    ))}
+                                    </Select>
+
                             </FormControl>
                                          
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Costo ($):  </InputLabel>   
                             <FormControl sx={{width:"82%"}}>
-                                <TextField variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} name="costo" variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Frecuencia:  </InputLabel>   
                             <FormControl sx={{width:"79%"}}>
-                                <TextField variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"15px",marginTop:"2px"}}> </TextField> 
+                                <Select 
+                                    size="small"
+                                    defaultValue=""
+                                    onChange={handleInputChange} 
+                                    name="frecuencia"
+                                    sx={{color:"#10223D", marginLeft:"16px",marginTop:"2px"}}
+                                >
+                                    
+                                    {frecuencia.map((elemento) => (<MenuItem value={elemento} key={elemento}> {elemento} </MenuItem>
+                                ))}
+                                </Select>
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Duración (hs):  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} name="duracion" variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center"  sx={{borderBottom: "1px solid #10223D", paddingBottom:"15px"}}>
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'10px', fontSize:"15px"}}> Descripción:  </InputLabel>   
                             <FormControl sx={{width:"100%"}}>
-                                <TextField multiline variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} multiline name="descripcion" variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
                             </FormControl>         
                         </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                            <LoadingButton variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Guardar</LoadingButton> 
+                            <LoadingButton onClick={handleSubmiteed} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Guardar</LoadingButton> 
                         </Grid>
 
                     </Grid>
