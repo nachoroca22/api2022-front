@@ -101,38 +101,11 @@ export default function ResponsiveDrawer(props: Props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
   
-  const [claseNew,setClaseNew] = useState({
-    id: '',
-    profesor: '',
-    materia: '',
-    usuario: '',
-    tipo: '',
-    costo: '',
-    frecuencia: '',
-    duracion: '',
-    descripcion: '',
-    calificacion: '',
-  });
-
-  const cargarNewClase =(claseNew) => {
-    setClaseNew({
-      id: '',
-      profesor: '',
-      materia: '',
-      usuario: '',
-      tipo: '',
-      costo: '',
-      frecuencia: '',
-      duracion: '',
-      descripcion: '',
-      calificacion: '',
-    })
-    openModalNewClases(claseNew)
-  }
-  const [isOpenModalNewClases, setIsOpenModalNewClases] = useState();
-  const openModalNewClases = (claseNew) =>{setIsOpenModalNewClases(true)};
+  const [isOpenModalNewClases, setIsOpenModalNewClases] = useState(false);
+  const openModalNewClases = () =>{setIsOpenModalNewClases(true)};
   const closeModalNewClases = () =>{setIsOpenModalNewClases(false)};
   
+
   return (
     <Box sx={{ display: 'flex',backgroundColor:"#F2EDDB" }}>
       <CssBaseline />
@@ -202,7 +175,7 @@ export default function ResponsiveDrawer(props: Props) {
 
           <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
             <LoadingButton 
-              onClick={()=>cargarNewClase(claseNew)}
+              onClick={openModalNewClases}
               variant="contained" 
               size='large' 
               sx={{borderRadius:"10px",marginBottom:"20px" }}
@@ -214,7 +187,8 @@ export default function ResponsiveDrawer(props: Props) {
                 onClose={closeModalNewClases}
               >
               <ModalNewClases>
-               clase={claseNew}
+                open={isOpenModalNewClases}
+                onClose={closeModalNewClases}
               </ModalNewClases>
             </Modal>
         </Grid>

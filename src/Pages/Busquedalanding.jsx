@@ -4,10 +4,54 @@ import Cards from '../Components/Common/Cards/Cards.jsx';
 import { useParams } from 'react-router-dom';
 import Filter from '../Components/Common/Filter/Filter.jsx'
 import {Grid} from '@mui/material';
+import {obtenerClasesFiltradas} from "../Services/clases"
 
 function Busquedalanding() {
 
   const {materia,tipo,frecuencia,calificacion} = useParams()
+ 
+  const initialClasesFiltradas = {
+    name: "",
+    apellido: "",
+    id_user: null,
+    materia: "",
+    tipoClase: "",
+    costo: "",
+    frecuencia: "",
+    duracion: "",  
+    descripcion: "",
+    id_clase: null,    
+    totalCount: null,
+  }
+  const [clasesFiltradas, setClasesFiltradas] = React.useState([initialClasesFiltradas]);
+  const [submitted, setSubmitted] = React.useState(false);
+
+  const recargarClasesFiltradas = () => {
+    obtenerClasesFiltradas()
+      .then((response) => {
+        setClasesFiltradas( 
+            {name: response.data.name,
+            apellido: response.data.apellido,
+            id_user: response.data.id_user,
+            materia: response.data.materia,
+            tipoClase: response.data.tipoClase,
+            costo: response.data.costo,
+            frecuencia: response.data.frecuencia,
+            duracion: response.data.duracion,
+            descripcion: response.data.descripcion,
+            id_clase: response.data.id_clase,  
+            totalCount: response.data.totalCount}); 
+            })
+        
+  };
+
+  if (submitted === false){
+      setSubmitted(true)
+      recargarClasesFiltradas();
+  }
+  console.log(clasesFiltradas)
+  
+
 
     return (
       <React.Fragment>

@@ -1,11 +1,43 @@
 import React from 'react'
-import { Grid,Paper,InputLabel, TextField, FormControl} from '@mui/material'
+import { Grid,Paper,InputLabel, TextField, FormControl, MenuItem, Select} from '@mui/material'
 import Rating from '@mui/material/Rating';
 import { LoadingButton } from '@mui/lab';
+import {actualizarClase} from "../../Services/clases"
+
+
 
 export default function ModalEditClases (props,clase,children){
 
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:450, margin:"50px auto"};
+    const frecuencia = ["Unica","Semanal","Mensual"]
+    const tipoClase = ["Individual","Grupal"]
+    const [submitted, setSubmitted] = React.useState(false);
+
+    const [newClase,setNewClase] = React.useState({
+        id_profesor: sessionStorage.getItem("id"),
+        id_clase: props.clase.id_clase,
+        materia: props.clase.materia,
+        tipoClase: props.clase.tipoClase,
+        costo: props.clase.costo,
+        frecuencia: props.clase.frecuencia,
+        duracion: props.clase.duracion,
+        descripcion: props.clase.descripcion
+    });
+    
+    const handleSubmiteed = (event) => {
+        console.log("sumiteed",newClase)
+        event.preventDefault();
+        actualizarClase(newClase)
+        .then((response) => {
+        })
+        
+    }
+    const handleInputChange = (event) => {
+        setNewClase({
+            [event.target.name] : event.target.value
+        })
+    }
+    
 
     return(
                 <Paper elevation={10} style={paperStyle}>
@@ -15,48 +47,68 @@ export default function ModalEditClases (props,clase,children){
                             <InputLabel style={{color:"#d6533c", fontSize:"25px"}}> Información de la Clase </InputLabel> 
                             </Grid>
                             <Grid container alignItems="center" justifyContent="center">
-                                <Rating value={props.clase.calificacion} precision={0.5} size="medium" sx={{marginBottom:"15px", alignSelf:"center"}}></Rating>
+                                <Rating value={newClase.calificacion} precision={0.5} size="medium" sx={{marginBottom:"15px", alignSelf:"center"}}></Rating>
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Materia:  </InputLabel>   
                             <FormControl sx={{width:"84%"}}>
-                                <TextField value={props.clase.materia} variant="outlined" size="small" style={{color:"#10223D", marginLeft:"40px", marginTop:'2px'}}>  </TextField>              
+                                <TextField disabled value={newClase.materia} variant="outlined" size="small" style={{color:"#10223D", marginLeft:"40px", marginTop:'2px'}}>  </TextField>              
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Tipo de clase:  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField value={props.clase.tipo} variant="outlined" size="small" style={{color:"#10223D", marginRight:"2px",marginTop:"2px"}}> </TextField> 
+                                <Select 
+                                        size="small"
+                                        defaultValue={newClase.tipoClase}
+                                        onChange={handleInputChange} 
+                                        name="tipoClase"
+                                        sx={{color:"#10223D", marginLeft:"1px",marginTop:"2px"}}
+                                    >             
+                                        {tipoClase.map((elemento) => (<MenuItem value={elemento} key={elemento}> {elemento} </MenuItem>
+                                    ))}
+                                </Select>
+
                             </FormControl>
                                          
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Costo ($):  </InputLabel>   
                             <FormControl sx={{width:"82%"}}>
-                                <TextField value={props.clase.costo} variant="outlined" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} value={newClase.costo} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Frecuencia:  </InputLabel>   
                             <FormControl sx={{width:"79%"}}>
-                                <TextField value={props.clase.frecuencia} variant="outlined" size="small" style={{color:"#10223D", marginLeft:"15px",marginTop:"2px"}}> </TextField> 
+                                <Select 
+                                        size="small"
+                                        defaultValue={newClase.frecuencia}
+                                        onChange={handleInputChange} 
+                                        name="frecuencia"
+                                        sx={{color:"#10223D", marginLeft:"16px",marginTop:"2px"}}
+                                    >
+                                        
+                                        {frecuencia.map((elemento) => (<MenuItem value={elemento} key={elemento}> {elemento} </MenuItem>
+                                    ))}
+                                </Select>
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Duración (hs):  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField value={props.clase.duracion} variant="outlined" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} value={newClase.duracion} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center"  sx={{borderBottom: "1px solid #10223D", paddingBottom:"15px"}}>
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'10px', fontSize:"15px"}}> Descripción:  </InputLabel>   
                             <FormControl sx={{width:"100%"}}>
-                                <TextField multiline value={props.clase.descripcion} variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
+                                <TextField multiline onChange={handleInputChange} value={newClase.descripcion} variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
                             </FormControl>         
                         </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                            <LoadingButton variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 
+                            <LoadingButton onClick={handleSubmiteed}  variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 
                         </Grid>
 
                     </Grid>
