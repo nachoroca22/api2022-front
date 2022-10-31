@@ -1,36 +1,42 @@
 import React from 'react'
-import { Grid,Paper, Avatar, TextField,MenuItem,Select,Typography, FormControl} from '@mui/material'
+import { Grid,Paper, Avatar, TextField,MenuItem,Select,Typography, Modal} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LoadingButton } from '@mui/lab'
+import { useState } from "react";
+import Modalmensaje from "./Modalconfimacion"
+import {createAlumno} from '../../Services/alumnos'
+import {createProfesor} from '../../Services/profesores'
 
-export default function Login (){
+ const Signup = ({props,isOpenModal,closeModal})=>{
 
-    const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding :20,height:'50vh',width:400, margin:"50px auto"};
+    const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding :20,height:'40vh',width:400, margin:"50px auto"};
     const avatarStyle={backgroundColor:'#10223D'};
     const btnstyle={backgroundColor:" #d6533c",  borderRadius:"10px", width:"35%",margin:'8px'};
-
-    const [nombre, setNombre] = React.useState('Composed TextField');
-    const handleChangeNombre = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNombre(event.target.value);
+   
+    const initialAlumno = {
+        apellido: "",
+        name: "",
+        usuario: "",
     }
+    const [alumno, setAlumno] = React.useState(initialAlumno);
 
-    const [apellido, setApellido] = React.useState('Composed TextField');
-    const handleChangeApellido = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setApellido(event.target.value);
-    }
+    const [isOpenModalMensaje, setIsOpenModalMensaje] = useState(false);
+    const openModalMensaje = () =>{setIsOpenModalMensaje(true)};
+    const closeModalMensaje = () =>{setIsOpenModalMensaje(false)};
 
-    const [email, setEmail] = React.useState('Composed TextField');
-    const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-    }
 
-    const [formRol,setRol] = React.useState('')
-    const handleOnchangeRol = (event: SelectChangeEven) => {
-        setRol(event.target.value);   
-    }
+    const handleChange = (e) => {
+        setAlumno((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    };
 
-    const handleSubmit = (nombre,apellido,email,rol) => {
-        alert("Debe completar usuario y password",nombre,apellido,email,rol)     
+    const handleCreateAlumno = () => {
+        createAlumno(alumno)
+          .then((response) => {
+      })
+        closeModal();
     }
       
     return(
@@ -41,16 +47,16 @@ export default function Login (){
                     </Grid>
                     <Grid container direction="row" justifyContent="center" alignItems="center" marginTop="15">
                         <TextField 
-                        onChange={handleChangeNombre}
+                        onChange={handleChange} 
                         placeholder='Nombre' 
-                        name="nombre"                   
+                        name="name"                   
                         width="100%" 
                         size='small'
                         required/>
                     </Grid>
                     <Grid container direction="row" justifyContent="center" alignItems="center" marginTop="5px">
                         <TextField 
-                        onChange={handleChangeApellido}
+                        onChange={handleChange} 
                         placeholder='Apellido' 
                         name="apellido"                   
                         width="100%" 
@@ -59,38 +65,23 @@ export default function Login (){
                     </Grid>
                     <Grid container direction="row" justifyContent="center" alignItems="center" marginTop="5px" marginBottom="30px">
                         <TextField 
-                        onChange={handleChangeEmail}
+                        onChange={handleChange} 
                         placeholder='Email' 
-                        name="email"                   
+                        name="usuario"                   
                         width="100%" 
                         size='small'
                         required/>
                     </Grid>
-{/*                     <Grid item xs={12} sm={12} md={12} lg={12} container marginTop="5px" direction="row" justifyContent="center" alignItems="center">
-                        <FormControl sx={{width:'70%'}}> 
-                            <Select 
-                                defaultValue=""
-                                placeholder='Rol'
-                                name="Rol"  
-                                value={formRol}  
-                                sx={{alignSelf:"center",marginTop:"2px", height:"40px", width:"200px" ,borderRadius:"15px"}}
-                                onChange={handleOnchangeRol}
-                            >
-                                <MenuItem value={10}>Alumno</MenuItem>
-                                <MenuItem value={20}>Profesor</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
                     <Grid item align="center" spacing={3}>
                         <LoadingButton 
-                            onClick={()=>handleSubmit(nombre,apellido,email,formRol)}
+                            onClick={handleCreateAlumno}
                             variant="contained" 
                             style={btnstyle} 
                             fullWidth>
                             Soy profe!
                         </LoadingButton>
                         <LoadingButton 
-                            onClick={()=>handleSubmit(nombre,apellido,email,formRol)}
+                            onClick={handleCreateAlumno}
                             variant="contained" 
                             style={btnstyle} 
                             fullWidth>
@@ -98,8 +89,8 @@ export default function Login (){
                         </LoadingButton>
                         <Typography color="#d6533c" marginTop={2} textAlign="center"> Vas a recibir un correo con la password para acceder </Typography>
                     </Grid> 
-                    
                 </Paper> 
         
     )
 };
+export default Signup
