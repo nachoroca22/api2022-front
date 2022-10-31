@@ -2,7 +2,7 @@ import * as React from 'react';
 import {TextField, Container, FormControl, MenuItem,Select, Grid, Typography, Card, CardMedia} from '@mui/material';
 import foto from "../media/foto.jpg"
 import { LoadingButton } from '@mui/lab'
-import { obtenerProfesor } from "../../Services/profesores";
+import { obtenerProfesor,actualizarProfesor } from "../../Services/profesores";
 
 export default function Perfil() {
     const initialProfesor = {
@@ -51,8 +51,20 @@ export default function Perfil() {
         
     }
         
-    
-    console.log(profesor)
+    const handleChange = (e) => {
+        setProfesor((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const handleActualizarProfesor = () => {
+        actualizarProfesor(profesor)
+          .then((response) => {
+            console.log(response)       
+      })
+    }
+
     return (
         
         <Container> 
@@ -92,24 +104,27 @@ export default function Perfil() {
                             
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"93%"}}>
-                                    <TextField label="Nombre" id="Nombre" value={profesor.name}></TextField>
+                                    <TextField disabled label="Nombre" id="Nombre" value={profesor.name}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"93%"}}>
-                                    <TextField label="Apellido" id="Apellido" value={profesor.apellido}></TextField>
+                                    <TextField disabled label="Apellido" id="Apellido" value={profesor.apellido}></TextField>
                                 </FormControl>
                             </Grid>
                         </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"95%"}}>
-                                    <TextField value={profesor.genero} label="Genero" id="genero" ></TextField>
-                                </FormControl>
+                                    <Select onChange={handleChange} name="genero" size='small' value={profesor.genero}>
+                                        <MenuItem value={10}>Femenino</MenuItem>
+                                        <MenuItem value={20}>Masculino</MenuItem>
+                                        <MenuItem value={30}>No binario</MenuItem>
+                                    </Select>                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"95%"}}>
-                                <TextField value={profesor.fechaNac} label="Fecha de Nacimiento - dd/mm/yyyy" id="date"></TextField>
+                                <TextField onChange={handleChange} name="fechaNac" value={profesor.fechaNac} label="Fecha de Nacimiento - dd/mm/yyyy" id="date"></TextField>
                                 </FormControl>
                             </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -128,16 +143,16 @@ export default function Perfil() {
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center" marginTop="15px">
                                 <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
-                                    <TextField value={profesor.estudios} label="Estudios" id="Estudios" multiline minRows={3} maxRows={20}></TextField>
+                                    <TextField onChange={handleChange} name="estudios" value={profesor.estudios} label="Estudios" id="Estudios" multiline minRows={3} maxRows={20}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center" marginTop="15px">
                                 <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
-                                    <TextField value={profesor.presentacion} label="Presentacion" id="Presentacion" multiline minRows={3} maxRows={20}></TextField>
+                                    <TextField onChange={handleChange} name="presentacion" value={profesor.presentacion} label="Presentacion" id="Presentacion" multiline minRows={3} maxRows={20}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                                <LoadingButton variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 
+                                <LoadingButton onClick={handleActualizarProfesor} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 
                             </Grid>
                         </Grid>    
                     </Card>

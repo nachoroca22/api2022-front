@@ -116,17 +116,17 @@ export default function BasicTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const [isOpenModalInfoClases, setIsOpenModalInfoClases] = useState();
-  const openModalInfoClases = () =>{setIsOpenModalInfoClases(true)};
-  const closeModalInfoClases = () =>{setIsOpenModalInfoClases(false)};
+  const [isOpenModalInfoClases, setIsOpenModalInfoClases] = useState(false);
+  const openModalInfoClases = () => setIsOpenModalInfoClases(true);
+  const closeModalInfoClases = () => setIsOpenModalInfoClases(false);
   
-  const [isOpenModalEditClases, setIsOpenModalEditClases] = useState();
-  const openModalEditClases = () =>{setIsOpenModalEditClases(true)};
-  const closeModalEditClases = () =>{setIsOpenModalEditClases(false)};
+  const [isOpenModalEditClases, setIsOpenModalEditClases] = useState(false);
+  const openModalEditClases = () => setIsOpenModalEditClases(true);
+  const closeModalEditClases = () => setIsOpenModalEditClases(false);
   
-  const [isOpenModalBorrarClases, setIsOpenModalBorrarClases] = useState();
-  const openModalBorrarClases = () =>{setIsOpenModalBorrarClases(true)};
-  const closeModalBorrarClases = () =>{setIsOpenModalBorrarClases(false)};
+  const [isOpenModalBorrarClases, setIsOpenModalBorrarClases] = useState(false);
+  const openModalBorrarClases = () => setIsOpenModalBorrarClases(true);
+  const closeModalBorrarClases = () => setIsOpenModalBorrarClases(false);
 
   const [claseSeleccionada,setClaseSeleccionada] = useState({
     id_clase: '',
@@ -171,10 +171,8 @@ export default function BasicTable() {
       descripcion: clase.descripcion,
       calificacion: clase.calificacion,
       contrataciones: clase.contrataciones,
-
-      
     })
-    openModalEditClases(clase)
+    openModalEditClases()
   }
 
   const borrarClaseSeleccionada =(clase) => {

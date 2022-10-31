@@ -3,7 +3,7 @@ import {TextField, Container, FormControl, MenuItem,Select, Grid, Typography, Ca
 import foto from "../media/foto.jpg"
 import NativeSelect from '@mui/material/NativeSelect';
 import { LoadingButton } from '@mui/lab'
-import { obtenerAlumno, actualizarAlumno} from "../../Services/alumnos";
+import { obtenerAlumno } from "../../Services/alumnos";
 
 
 export default function Perfil() {
@@ -52,19 +52,12 @@ export default function Perfil() {
         
     }
     
-    const handleChange = (e) => {
-        setAlumno((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-        }));
-    };
+    const handleChange = (event) => {
+        setAlumno(event.target.name);
+      };
     
-    const handleActualizarAlumno = () => {
-        actualizarAlumno(alumno)
-          .then((response) => {
-            console.log(response)       
-      })
-    }
+    console.log(alumno)   
+
     return (
         <Container> 
                 <Grid container direction="row" justifyContent="center" alignItems="center" marginTop={1}>   
@@ -87,28 +80,28 @@ export default function Perfil() {
                             
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"93%"}}>
-                                    <TextField disabled onChange={handleChange} name="name" size='small' label="Nombre" id="Nombre" value={alumno.name}></TextField>
+                                    <TextField size='small' label="Nombre" id="Nombre" value={alumno.name}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"93%"}}>
-                                    <TextField disabled  onChange={handleChange} name="apellido" size='small' label="Apellido" id="Apellido" value={alumno.apellido}></TextField>
+                                    <TextField size='small' label="Apellido" id="Apellido" value={alumno.apellido}></TextField>
                                 </FormControl>
                             </Grid>
                         </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"94%"}}>
-                                    <Select onChange={handleChange} name="genero" size='small' value={alumno.genero}>
-                                        <MenuItem value={10}>Femenino</MenuItem>
-                                        <MenuItem value={20}>Masculino</MenuItem>
-                                        <MenuItem value={30}>No binario</MenuItem>
+                                    <Select size='small' value={alumno.genero}>
+                                        <option value={10}>Femenino</option>
+                                        <option value={20}>Masculino</option>
+                                        <option value={30}>No binario</option>
                                     </Select>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"95%"}}>
-                                <TextField onChange={handleChange} name="fechaNac" size='small' id="date" label="Fecha de Nacimiento - dd/mm/yyyy" value={alumno.fechaNac}></TextField>
+                                <TextField size='small' id="date" label="Fecha de Nacimiento - dd/mm/yyyy" value={alumno.fechaNac}></TextField>
                                 </FormControl>
                             </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -132,7 +125,7 @@ export default function Perfil() {
                                 <InputLabel style={{color:"#10223D", marginTop:'10px', fontSize:"17px"}}> Primaria:  </InputLabel>   
                                 <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                     <FormControl sx={{minWidth:"70%",marginLeft:"28px"}}>
-                                        <Select onChange={handleChange} name="nivel_primaria" size='small' value={alumno.nivel_primaria}>
+                                        <Select size='small' value={alumno.nivel_primaria}>
                                             <MenuItem value={10}>Finalizado</MenuItem>
                                             <MenuItem value={20}>En curso</MenuItem>
                                             <MenuItem value={30}>No realizado</MenuItem>
@@ -144,7 +137,7 @@ export default function Perfil() {
                                 <InputLabel style={{color:"#10223D", marginTop:'10px', fontSize:"17px"}}> Secundaria:  </InputLabel>   
                                 <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                     <FormControl sx={{minWidth:"70%",marginLeft:"7px"}}>
-                                        <Select onChange={handleChange} name="nivel_secundaria" size='small' value={alumno.nivel_secundaria}>
+                                        <Select size='small' value={alumno.nivel_secundaria}>
                                             <MenuItem value={10}>Finalizado</MenuItem>
                                             <MenuItem value={20}>En curso</MenuItem>
                                             <MenuItem value={30}>No realizado</MenuItem>
@@ -156,7 +149,7 @@ export default function Perfil() {
                                 <InputLabel style={{color:"#10223D", marginTop:'10px', fontSize:"17px"}}> Terciario:  </InputLabel>   
                                 <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                     <FormControl sx={{minWidth:"70%",marginLeft:"30px"}}>
-                                        <Select onChange={handleChange} name="nivel_terciario" size='small' value={alumno.nivel_terciario}>
+                                        <Select size='small' value={alumno.nivel_terciario}>
                                             <MenuItem value={10}>Finalizado</MenuItem>
                                             <MenuItem value={20}>En curso</MenuItem>
                                             <MenuItem value={30}>No realizado</MenuItem>
@@ -168,7 +161,7 @@ export default function Perfil() {
                                 <InputLabel style={{color:"#10223D", marginTop:'10px', fontSize:"17px"}}> Universitario:  </InputLabel>   
                                 <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                     <FormControl sx={{minWidth:"70%"}}>
-                                        <Select onChange={handleChange} name="nivel_universitario" size='small' value={alumno.nivel_universitario}>
+                                        <Select size='small' value={alumno.nivel_universitario}>
                                             <MenuItem value={10}>Finalizado</MenuItem>
                                             <MenuItem value={20}>En curso</MenuItem>
                                             <MenuItem value={30}>No realizado</MenuItem>
@@ -177,7 +170,7 @@ export default function Perfil() {
                                 </Grid>
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                                <LoadingButton onClick={handleActualizarAlumno} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 
+                                <LoadingButton variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 
                             </Grid>
                         </Grid>    
                     </Card>

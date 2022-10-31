@@ -4,7 +4,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LoadingButton } from '@mui/lab'
 import { useNavigate } from "react-router-dom";
 
-import { login } from "../../Services/login";
+import { loginProfesor,loginAlumno } from "../../Services/login";
 import {
     setToken,
     setActiveSession,
@@ -24,6 +24,7 @@ export default function Login (){
 
     const navigate = useNavigate();
     const [user, setName] = React.useState('Composed TextField');
+
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
       }
@@ -36,7 +37,7 @@ export default function Login (){
     
     const handleSubmitProfesor = (user,password) => {
         {
-           login(user,password).then((response) => {
+           loginProfesor(user,password).then((response) => {
             removeToken();
             removeActiveSession();
             removeID();
@@ -51,12 +52,32 @@ export default function Login (){
 
                 //this.props.history.replace("/profesores/home");
               } else{
-                alert("login erroneo")
+                alert("login profesor erroneo")
               }
            })
     }}
 
-    
+    const handleSubmitAlumno = (user,password) => {
+        {
+           loginAlumno(user,password).then((response) => {
+            removeToken();
+            removeActiveSession();
+            removeID();
+            removeRol();
+
+            if (response.status !== 400) {
+                setToken(response.token);
+                setActiveSession(true);
+                setRol(response.rol);
+                setID(response.id_alumno);
+                navigate("/alumnos/home")
+
+                //this.props.history.replace("/profesores/home");
+              } else{
+                alert("login alumno erroneo")
+              }
+           })
+    }} 
     return(
                 <Paper elevation={10} style={paperStyle}>
                     <Grid align='center'>
@@ -91,7 +112,7 @@ export default function Login (){
                                 Soy profe!
                         </LoadingButton>
                         <LoadingButton 
-                            //onClick={()=>handleSubmitProfesor(user,password)}
+                            onClick={()=>handleSubmitAlumno(user,password)}
                             variant="contained" 
                             style={btnstyle} 
                             fullWidth>
@@ -102,13 +123,7 @@ export default function Login (){
                         <Link href="#" >
                         ¿Olvidaste tu contraseña?
                         </Link>
-                    </Typography>
-                    <Typography marginTop={1} textAlign="center"> ¿No tenes cuenta? <Typography >
-                    <Link href="#" >
-                            Registrate 
-                    </Link>
-                    </Typography>    
-                    </Typography>  
+                    </Typography> 
                 </Paper> 
         
     )

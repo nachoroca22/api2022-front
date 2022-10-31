@@ -32,10 +32,11 @@ export default function ModalEditClases (props,clase,children){
         })
         
     }
-    const handleInputChange = (event) => {
-        setNewClase({
-            [event.target.name] : event.target.value
-        })
+    const handleInputChange = (e) => {
+        setNewClase((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value 
+        }))
     }
     
 
@@ -76,7 +77,7 @@ export default function ModalEditClases (props,clase,children){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Costo ($):  </InputLabel>   
                             <FormControl sx={{width:"82%"}}>
-                                <TextField onChange={handleInputChange} value={newClase.costo} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} name="costo" value={newClase.costo} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
@@ -98,13 +99,13 @@ export default function ModalEditClases (props,clase,children){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Duración (hs):  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField onChange={handleInputChange} value={newClase.duracion} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} name="duracion" value={newClase.duracion} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center"  sx={{borderBottom: "1px solid #10223D", paddingBottom:"15px"}}>
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'10px', fontSize:"15px"}}> Descripción:  </InputLabel>   
                             <FormControl sx={{width:"100%"}}>
-                                <TextField multiline onChange={handleInputChange} value={newClase.descripcion} variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
+                                <TextField multiline name="descripcion" onChange={handleInputChange} value={newClase.descripcion} variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
                             </FormControl>         
                         </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">

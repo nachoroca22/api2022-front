@@ -4,9 +4,10 @@ import "./navBar.css"
 import { Box } from "@mui/system";
 import { useState } from "react";
 import Login from "../../Login/Login.jsx";
-import SignUp from "../../Login/Signup.jsx"
+import SignUp from "../../Login/Signup.jsx";
 
 export default function Navbar ({isScrolling}) {
+
   const toTheTop = () => {window.scrollTo({top: 0, left:0, behavior:'smooth'})}
 
   const [isOpenModalSignIn, setIsOpenModalSignIn] = useState();
@@ -40,7 +41,10 @@ export default function Navbar ({isScrolling}) {
                   open={isOpenModalSignUp}
                   onClose={closeModalSignUp}
                 >
-                  <SignUp></SignUp>
+                  <SignUp
+                    isOpenModal={isOpenModalSignUp}
+                    closeModal={closeModalSignUp}
+                  ></SignUp>
                 </Modal>
                 <Button 
                   onClick={openModalSignIn}
