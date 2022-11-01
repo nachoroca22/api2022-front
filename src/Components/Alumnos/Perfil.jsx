@@ -25,7 +25,8 @@ export default function Perfil() {
     const id = sessionStorage.getItem("id")
     const [alumno, setAlumno] = React.useState(initialAlumno);
     const [submitted, setSubmitted] = React.useState(false);
- 
+    
+    //funciones
     const recargarAlumno = () => {
         obtenerAlumno(id)
           .then((response) => {
