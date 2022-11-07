@@ -7,11 +7,11 @@ import {actualizarClase} from "../../Services/clases"
 
 
 export default function ModalEditClases (props,clase,children){
-
+    console.log(props)
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:450, margin:"50px auto"};
     const frecuencia = ["Unica","Semanal","Mensual"]
     const tipoClase = ["Individual","Grupal"]
-    const [submitted, setSubmitted] = React.useState(false);
+    const [mensajeUpdateClase, setMensajeUpdateClase] = React.useState("");
 
     const [newClase,setNewClase] = React.useState({
         id_profesor: sessionStorage.getItem("id"),
@@ -29,6 +29,7 @@ export default function ModalEditClases (props,clase,children){
         event.preventDefault();
         actualizarClase(newClase)
         .then((response) => {
+            response.message === "Succesfully Updated Clase" ? setMensajeUpdateClase("Se actualizo la clase.") : setMensajeUpdateClase("No se pudo actualizar la clase.") 
         })
         
     }
@@ -77,7 +78,7 @@ export default function ModalEditClases (props,clase,children){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Costo ($):  </InputLabel>   
                             <FormControl sx={{width:"82%"}}>
-                                <TextField onChange={handleInputChange} name="costo" value={newClase.costo} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} InputProps={{inputProps: { min: 0 }}} name="costo" value={newClase.costo} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
@@ -99,7 +100,7 @@ export default function ModalEditClases (props,clase,children){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Duración (hs):  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField onChange={handleInputChange} name="duracion" value={newClase.duracion} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} InputProps={{inputProps: { min: 0 }}} name="duracion" value={newClase.duracion} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center"  sx={{borderBottom: "1px solid #10223D", paddingBottom:"15px"}}>
@@ -108,8 +109,12 @@ export default function ModalEditClases (props,clase,children){
                                 <TextField multiline name="descripcion" onChange={handleInputChange} value={newClase.descripcion} variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
                             </FormControl>         
                         </Grid>
+                        <Grid container alignItems="center" justifyContent="center">
+                            <InputLabel style={{color:"#10223D", fontSize:"19px"}}> {mensajeUpdateClase} </InputLabel> 
+                        </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                            <LoadingButton onClick={handleSubmiteed}  variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 
+                            <LoadingButton onClick={handleSubmiteed}  variant="contained" sx={{borderRadius:"10px",marginTop:"15px", marginRight:"20px" }}> Actualizar</LoadingButton> 
+                            <LoadingButton onClick= {() => {props.onClose()} } variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cancelar</LoadingButton> 
                         </Grid>
 
                     </Grid>

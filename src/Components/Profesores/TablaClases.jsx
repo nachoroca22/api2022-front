@@ -20,10 +20,12 @@ import data from '../../data/clases.json'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
-import {Modal} from "@mui/material";
+import {Grid, Modal} from "@mui/material";
 import ModalClases from "./ModalClases.jsx";
 import ModalEditClases from "./ModalEditClases.jsx";
 import ModalConfirmar from "../Common/ModalConfirmar/ModalConfirmar.jsx";
+import ModalNewClases from "./ModalNewClases.jsx";
+import { LoadingButton } from '@mui/lab'
 import { obtenerClasesProfesor } from "../../Services/clases";
 
 //const rows = data
@@ -116,6 +118,13 @@ export default function BasicTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  const [isOpenModalNewClases, setIsOpenModalNewClases] = useState(false);
+  const openModalNewClases = () => setIsOpenModalNewClases(true);
+  const closeModalNewClases = () => {
+    setIsOpenModalNewClases(false) ;
+    setSubmitted(false)
+  };
+
   const [isOpenModalInfoClases, setIsOpenModalInfoClases] = useState(false);
   const openModalInfoClases = () => setIsOpenModalInfoClases(true);
   const closeModalInfoClases = () => setIsOpenModalInfoClases(false);
@@ -126,8 +135,11 @@ export default function BasicTable() {
   
   const [isOpenModalBorrarClases, setIsOpenModalBorrarClases] = useState(false);
   const openModalBorrarClases = () => setIsOpenModalBorrarClases(true);
-  const closeModalBorrarClases = () => setIsOpenModalBorrarClases(false);
-
+  const closeModalBorrarClases = () => {
+    setIsOpenModalBorrarClases(false);
+    setSubmitted(false)
+  }
+  
   const [claseSeleccionada,setClaseSeleccionada] = useState({
     id_clase: '',
     id_profesor: '',
@@ -188,7 +200,7 @@ export default function BasicTable() {
       calificacion: clase.calificacion,
       contrataciones: clase.contrataciones,   
     })
-    openModalBorrarClases(clase)
+    openModalBorrarClases()
   }
 
   const [rows, setClasesPofesor]=React.useState([]);
@@ -226,6 +238,26 @@ export default function BasicTable() {
   return (
     <TableContainer 
     component={Paper} >
+       <Grid item sx={{backgroundColor:"#F2EDDB"}} xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
+            <LoadingButton 
+              onClick={openModalNewClases}
+              variant="contained" 
+              size='large' 
+              sx={{borderRadius:"10px",marginBottom:"20px",marginTop:"10px" }}
+              > Nueva Clase
+            </LoadingButton> 
+            <Modal
+                sx={{opacity:"1"}}
+                open={isOpenModalNewClases}
+                onClose={closeModalNewClases}
+              >
+              <ModalNewClases
+                open={isOpenModalNewClases}
+                onClose={closeModalNewClases}
+              >
+              </ModalNewClases>
+            </Modal>
+        </Grid>
       <Table  sx={{minWidth: 450, minHeight: 20, backgroundColor:"#F2EDDB"}} aria-label="simple table">
         <TableHead sticky sx={{backgroundColor:"#10223D"}}>
           <TableRow>
@@ -268,6 +300,7 @@ export default function BasicTable() {
               >
               <ModalClases
               clase={claseSeleccionada}
+              onClose={closeModalInfoClases}
               ></ModalClases>
               </Modal>
                 
@@ -289,6 +322,7 @@ export default function BasicTable() {
               >
                 <ModalEditClases
                 clase={claseSeleccionada}
+                onClose={closeModalEditClases}
                 ></ModalEditClases>
               </Modal>
               
@@ -302,16 +336,17 @@ export default function BasicTable() {
                       }}>
                 </DeleteIcon>
                 <Modal
-                sx={{opacity:"0.7"}}
-                open={isOpenModalBorrarClases}
-                onClose={closeModalBorrarClases}
-              >
-                <ModalConfirmar
-                  mensaje="¿Esta seuro que quiere borrar la clase "
-                  close={closeModalBorrarClases}
                   clase={claseSeleccionada}
-                ></ModalConfirmar>
-              </Modal>        
+                  sx={{opacity:"0.7"}}
+                  open={isOpenModalBorrarClases}
+                  onClose={closeModalBorrarClases}
+                >
+                  <ModalConfirmar
+                    mensaje="¿Esta seuro que quiere borrar la clase "
+                    close={closeModalBorrarClases}
+                    clase={claseSeleccionada}
+                  ></ModalConfirmar>
+                </Modal>        
               
              </TableCell>
             </TableRow>
@@ -337,7 +372,10 @@ export default function BasicTable() {
             />
           </TableRow>
         </TableFooter>
-      </Table>
+        
+      </Table>    
     </TableContainer>
+    
+    
   );
 }

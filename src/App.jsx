@@ -20,6 +20,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home/>}> </Route>
             <Route path='/busqueda/clase/:id/' element={<ModalClasesProfe/>}></Route> 
+            {/* <Route path="/busqueda/" element={<Busqueda />}> </Route> */}
             <Route path="/busqueda/:materia/:tipo/:frecuencia/:calificacion/" element={<Busqueda />}> </Route>
             <Route path='/profesores/home/' element={<ProfesoresHome/>}></Route>   
             <Route path='/profesores/clases' element={<ProfesoresClases/>}></Route>       

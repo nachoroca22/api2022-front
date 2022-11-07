@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TextField, Container, FormControl, MenuItem,Select, Grid, Typography, Card, CardMedia} from '@mui/material';
+import {TextField, InputLabel,Container, FormControl, MenuItem,Select, Grid, Typography, Card, CardMedia} from '@mui/material';
 import foto from "../media/foto.jpg"
 import { LoadingButton } from '@mui/lab'
 import { obtenerProfesor,actualizarProfesor } from "../../Services/profesores";
@@ -22,8 +22,7 @@ export default function Perfil() {
     const id = sessionStorage.getItem("id")
     const [profesor, setProfesor] = React.useState(initialProfesor);
     const [submitted, setSubmitted] = React.useState(false);
-
-    //const [id_user,setIdUser] = React.useState(null);
+    const [mensajeUpdatePerfil, setMensajeUpdatePerfil] = React.useState("");
 
 
     const recargarProfesor = () => {
@@ -47,8 +46,7 @@ export default function Perfil() {
     
     if (submitted === false){
         setSubmitted(true)
-        recargarProfesor();
-        
+        recargarProfesor();    
     }
         
     const handleChange = (e) => {
@@ -61,7 +59,8 @@ export default function Perfil() {
     const handleActualizarProfesor = () => {
         actualizarProfesor(profesor)
           .then((response) => {
-            console.log(response)       
+            response.message === "Succesfully Updated Profesor" ? setMensajeUpdatePerfil("Se actualizo el perfil.") : setMensajeUpdatePerfil("No se pudo actualizar el perfil.")
+        
       })
     }
 
@@ -150,6 +149,9 @@ export default function Perfil() {
                                 <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
                                     <TextField onChange={handleChange} name="presentacion" value={profesor.presentacion} label="Presentacion" id="Presentacion" multiline minRows={3} maxRows={20}></TextField>
                                 </FormControl>
+                            </Grid>
+                            <Grid container alignItems="center" justifyContent="center">
+                                <InputLabel style={{color:"#10223D", fontSize:"19px"}}> {mensajeUpdatePerfil} </InputLabel> 
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
                                 <LoadingButton onClick={handleActualizarProfesor} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid,Paper, Avatar, TextField,MenuItem,Select,Typography, Modal} from '@mui/material'
+import { Grid,Paper, InputLabel, Avatar, TextField,MenuItem,Select,Typography, Modal} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LoadingButton } from '@mui/lab'
 import { useState } from "react";
@@ -13,30 +13,54 @@ import {createProfesor} from '../../Services/profesores'
     const avatarStyle={backgroundColor:'#10223D'};
     const btnstyle={backgroundColor:" #d6533c",  borderRadius:"10px", width:"35%",margin:'8px'};
    
-    const initialAlumno = {
+    const initialUsuario = {
         apellido: "",
         name: "",
         usuario: "",
     }
-    const [alumno, setAlumno] = React.useState(initialAlumno);
+    const [usuario, setUsuario] = React.useState(initialUsuario);
 
     const [isOpenModalMensaje, setIsOpenModalMensaje] = useState(false);
     const openModalMensaje = () =>{setIsOpenModalMensaje(true)};
     const closeModalMensaje = () =>{setIsOpenModalMensaje(false)};
+    const [mensajeSignup, setMensajeSignup] = React.useState("");
+    const [botonCerrar, setBotonCerrar] = React.useState(false);
 
 
     const handleChange = (e) => {
-        setAlumno((prev) => ({
+        setUsuario((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,
         }));
     };
 
     const handleCreateAlumno = () => {
-        createAlumno(alumno)
+        createAlumno(usuario)
           .then((response) => {
-      })
-        closeModal();
+            if( response.message === "Succesfully Created Alumno"){
+                setBotonCerrar(true)
+                setMensajeSignup("Se envio la password al correo ingresado.")
+            }else{
+                setBotonCerrar(false)
+                setMensajeSignup("El correo ya se encuentra registrado.")
+                
+            }
+        })
+        
+    }
+
+    const handleCreateProfesor = () => {
+        createProfesor(usuario)
+          .then((response) => {
+            if( response.message !== "Succesfully Created Profesor" ){
+                setBotonCerrar(false)
+                setMensajeSignup("El correo ya se encuentra registrado.")
+            }else{  
+                setBotonCerrar(true)
+                setMensajeSignup("Se envio la password al correo ingresado.")  
+            }
+        })
+        setBotonCerrar(true)
     }
       
     return(
@@ -72,23 +96,37 @@ import {createProfesor} from '../../Services/profesores'
                         size='small'
                         required/>
                     </Grid>
-                    <Grid item align="center" spacing={3}>
-                        <LoadingButton 
-                            onClick={handleCreateAlumno}
-                            variant="contained" 
-                            style={btnstyle} 
-                            fullWidth>
-                            Soy profe!
-                        </LoadingButton>
-                        <LoadingButton 
-                            onClick={handleCreateAlumno}
-                            variant="contained" 
-                            style={btnstyle} 
-                            fullWidth>
-                            Soy alumno!
-                        </LoadingButton>
-                        <Typography color="#d6533c" marginTop={2} textAlign="center"> Vas a recibir un correo con la password para acceder </Typography>
-                    </Grid> 
+                    <Grid container alignItems="center" justifyContent="center">
+                        <InputLabel style={{color:"#10223D", fontSize:"19px",marginBottom:"20px"}}> {mensajeSignup} </InputLabel> 
+                    </Grid>
+
+                    {botonCerrar ? false :
+                        <Grid item align="center" spacing={3}>
+                            <LoadingButton 
+                                onClick={handleCreateProfesor}
+                                variant="contained" 
+                                style={btnstyle} 
+                                fullWidth>
+                                Soy profe!
+                            </LoadingButton>
+                            <LoadingButton 
+                                onClick={handleCreateAlumno}
+                                variant="contained" 
+                                style={btnstyle} 
+                                fullWidth>
+                                Soy alumno!
+                            </LoadingButton>       
+                        </Grid>
+                    }
+                    {botonCerrar ? 
+                        <Grid item align="center" spacing={3}>
+                            <LoadingButton 
+                                onClick={()=>closeModal()} 
+                                variant="contained" 
+                                sx={{borderRadius:"10px",marginTop:"15px" }}
+                                > Cerrar
+                            </LoadingButton> 
+                        </Grid>: false} 
                 </Paper> 
         
     )

@@ -3,7 +3,6 @@ import { getById, put, post , de_lete, get } from "./request";
 
 
 export const createAlumno = async (data) => {
-  console.log(data)
   return await post(webServices.createAlumno,{
     name: data.name,
     apellido: data.apellido,
@@ -13,14 +12,12 @@ export const createAlumno = async (data) => {
 
 
 export const obtenerAlumno = async (data) => {
-  console.log("hooooooolaa",data)
   return await put(webServices.obtenerAlumno,{
     id_alumno: data
   });
   };
 
 export const actualizarAlumno = async (data) => {
-  console.log(data)
   return await post(webServices.actualizarAlumno,{
     id_alumno: data.id_alumno,
     fechaNac: data.fechaNac,
