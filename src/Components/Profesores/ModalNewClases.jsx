@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Grid,Paper,InputLabel, TextField, FormControl, MenuItem, Select} from '@mui/material'
 import Rating from '@mui/material/Rating';
 import { LoadingButton } from '@mui/lab';
 import { crearClase } from '../../Services/clases';
 
 
-export default function ModalNewClases (props,children){
-
+export default function ModalNewClases (props){
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:450, margin:"50px auto"};
     const frecuencia = ["Unica","Semanal","Mensual"]
     const tipoClase = ["Individual","Grupal"]
@@ -20,16 +19,20 @@ export default function ModalNewClases (props,children){
         duracion: "",
         descripcion: ""
     });
-    const [submitted, setSubmitted] = React.useState(false);
+
+    const [mensajeNewClase, setMensajeNewClase] = React.useState("");
+    const [botonCerrar, setBotonCerrar] = React.useState(false);
 
     const handleSubmiteed = (event) => {
         event.preventDefault();
         crearClase(newClase)
         .then((response) => {
-            console.log(response)
+            console.log(response.message)
+            setMensajeNewClase("Se creo la clase: " + newClase.materia)
         })
-        
+        setBotonCerrar(true)
     }
+
 
     const handleInputChange = (event) => {
         setNewClase({
@@ -73,7 +76,7 @@ export default function ModalNewClases (props,children){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Costo ($):  </InputLabel>   
                             <FormControl sx={{width:"82%"}}>
-                                <TextField onChange={handleInputChange} name="costo" variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} InputProps={{inputProps: { min: 0 }}} name="costo" variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"28px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center">
@@ -95,7 +98,7 @@ export default function ModalNewClases (props,children){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Duración (hs):  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField onChange={handleInputChange} name="duracion" variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
+                                <TextField onChange={handleInputChange} name="duracion" InputProps={{inputProps: { min: 0 }}} variant="outlined" type="number" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center"  sx={{borderBottom: "1px solid #10223D", paddingBottom:"15px"}}>
@@ -104,10 +107,24 @@ export default function ModalNewClases (props,children){
                                 <TextField onChange={handleInputChange} multiline name="descripcion" variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
                             </FormControl>         
                         </Grid>
-                        <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                            <LoadingButton onClick={handleSubmiteed} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Guardar</LoadingButton> 
+                        <Grid container alignItems="center" justifyContent="center">
+                                <InputLabel style={{color:"#10223D", fontSize:"19px"}}> {mensajeNewClase} </InputLabel> 
                         </Grid>
-
+                        <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
+                            {botonCerrar ? undefined : <LoadingButton 
+                            onClick={handleSubmiteed} 
+                            variant="contained" 
+                            sx={{borderRadius:"10px",marginTop:"15px", marginRight:"10px" }}
+                            > Guardar
+                            </LoadingButton>} 
+                            
+                            {botonCerrar ? <LoadingButton 
+                                onClick={()=>props.onClose()} 
+                                variant="contained" 
+                                sx={{borderRadius:"10px",marginTop:"15px" }}
+                                > Cerrar
+                            </LoadingButton> : undefined} 
+                        </Grid>
                     </Grid>
                 </Paper> 
 

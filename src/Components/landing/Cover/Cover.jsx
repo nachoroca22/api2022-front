@@ -9,7 +9,7 @@ export default function Cover() {
   return (
       <div className='cover-container'>
         <video className='video' src={videoHome} autoPlay loop muted />
-        <Filter className="filtro-cover"></Filter>       
+        <Filter className="filtro-cover"></Filter>   
     </div>
 
   );

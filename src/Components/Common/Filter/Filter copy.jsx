@@ -56,19 +56,17 @@ const calificacion = [
 
 export default function Filtro() {
 
-  const[ dataFiltros, setDataFiltros]= React.useState({
-    materia: undefined,
-    calificacion: undefined,
-    frecuencia: undefined,
-    tipoClase: undefined,
-  })
-    
+  const dataFiltros = {
+    materia: {formMateria},
+    calificacion: {formCalificacion},
+    frecuencia: {formFrecuencia},
+    tipoClase: {formTipoDeClase},
+  }
 
-
-/*   const [formMateria,setMateria] = useState('Todas')
+  const [formMateria,setMateria] = useState('Todas')
   const [formCalificacion,setCalificacion] = useState('Todas')
   const [formFrecuencia,setFrecuencia] = useState('Todas')
-  const [formTipoDeClase,setTipoDeClase] = useState('Todas') */
+  const [formTipoDeClase,setTipoDeClase] = useState('Todas')
   const [clasesFiltradas, setClasesFiltradas] = React.useState([]);
   const [materiasFiltro, setMateriasFiltro]=React.useState([]);
   const [submitted, setSubmitted] = React.useState(false);
@@ -88,21 +86,12 @@ export default function Filtro() {
   }
 
   const recargarClasesFiltradas = () => {
-    obtenerClasesFiltradas(dataFiltros)
+    obtenerClasesFiltradas()
       .then((response) => {
         setClasesFiltradas(response.data)
    })};
   
-  const handleInputChange = (event) => {
-    console.log(event.target.value)
-    console.log(dataFiltros)
-    setDataFiltros({
-        ...dataFiltros,
-        [event.target.name] : event.target.value
-    })
-  }
-
- /*  const handleOnchangeMateria = (event: SelectChangeEven) => {
+  const handleOnchangeMateria = (event: SelectChangeEven) => {
     setMateria(event.target.value);   
   }
 
@@ -116,7 +105,7 @@ export default function Filtro() {
 
   const handleOnchangeTipoDeClase = (event: SelectChangeEven) => {
     setTipoDeClase(event.target.value);  
-  }   */
+  }  
 
 
   return (
@@ -128,10 +117,10 @@ export default function Filtro() {
                     <InputLabel style={{color:"#10223D"}}> Materias </InputLabel>
                       <Select 
                         defaultValue=""
-                        name="materia"  
-                        value={dataFiltros.materia}  
+                        name="formMateria"  
+                        value={formMateria}  
                         sx={{marginTop:"15px", height:"50px",borderRadius:"15px",borderColor:"#10223D", border: "1px solid #10223D", color: "#10223D", "& .MuiSvgIcon-root": {color: "#10223D",},}}
-                        onChange={handleInputChange}
+                        onChange={handleOnchangeMateria}
                       >
                         
                         {materiasFiltro.map((elemento) => (<MenuItem value={elemento} key={elemento}> {elemento} </MenuItem>
@@ -145,10 +134,10 @@ export default function Filtro() {
                     <InputLabel style={{color:"#10223D"}}> Tipo de Clase </InputLabel>
                       <Select 
                         defaultValue=""
-                        name="tipoClase"
-                        value={dataFiltros.tipoClase}                      
+                        name="formTipoDeClase"
+                        value={formTipoDeClase}                      
                         sx={{marginTop:"15px",height:"50px", borderRadius:"15px",borderColor:"#10223D", border: "1px solid #10223D", color: "#10223D", "& .MuiSvgIcon-root": {color: "#10223D",},}}
-                        onChange={handleInputChange}
+                        onChange={handleOnchangeTipoDeClase}
                       >
                         
                         {tipoClase.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
@@ -162,10 +151,10 @@ export default function Filtro() {
                     <InputLabel style={{color:"#10223D"}}> Frecuencia </InputLabel>
                       <Select 
                         defaultValue=""
-                        name="frecuencia"
-                        value={dataFiltros.frecuencia}                     
+                        name="formFrecuencia"
+                        value={formFrecuencia}                     
                         sx={{marginTop:"15px",height:"50px",borderRadius:"15px",borderColor:"#10223D", border: "1px solid #10223D", color: "#10223D", "& .MuiSvgIcon-root": {color: "#10223D",},}}
-                        onChange={handleInputChange}
+                        onChange={handleOnchangeFrecuencia}
                       >
                         
                         {frecuencia.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
@@ -179,10 +168,11 @@ export default function Filtro() {
                   <InputLabel style={{color:"#10223D"}}> Calificacion </InputLabel>
                     <Select 
                       defaultValue=""
-                      name="calificacion" 
-                      value={dataFiltros.calificacion}                    
+                      name="formCalificacion"
+                      
+                      value={formCalificacion}                    
                       sx={{marginTop:"15px",height:"50px",borderRadius:"15px",border: "1px solid #10223D",borderColor:"#10223D" ,color: "#10223D", "& .MuiSvgIcon-root": {color: "#10223D",},}}
-                      onChange={handleInputChange}
+                      onChange={handleOnchangeCalificacion}
                     >
                       
                       {calificacion.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
@@ -194,7 +184,7 @@ export default function Filtro() {
               <Grid item xs={12} sm={12} md={12} lg={12} container marginTop={3} marginBottom={3} direction="row" justifyContent="center" alignItems="center">
               <Button 
                 onClick={recargarClasesFiltradas}
-                component={RouterLink} to={`/busqueda/${dataFiltros.materia}/${dataFiltros.tipoClase}/${dataFiltros.frecuencia}/${dataFiltros.calificacion}`}
+                component={RouterLink} to={`/busqueda/${formMateria}/${formTipoDeClase}/${formFrecuencia}/${formCalificacion}`}
                 variant='outlined' 
                 style={{borderRadius:"15px",borderColor:'#10223D',textTransform:'initial',fontSize: 20, color:'#10223D'}}            
                 >
@@ -204,11 +194,10 @@ export default function Filtro() {
           </Card>
           <Cards
             clases={clasesFiltradas}
-            //filtros={dataFiltros}
-            /* materia={formMateria}
+            materia={formMateria}
             tipoClase={formTipoDeClase}
             frecuencia={formFrecuencia}
-            calificacion={formCalificacion} */
+            calificacion={formCalificacion}
         ></Cards> 
         </Container>  
   

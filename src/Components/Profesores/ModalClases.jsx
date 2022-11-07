@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid,Paper,InputLabel, TextField, FormControl} from '@mui/material'
 import Rating from '@mui/material/Rating';
+import { LoadingButton } from '@mui/lab'
 
 export default function ModalClases (props,clase,children){
 
@@ -53,6 +54,9 @@ export default function ModalClases (props,clase,children){
                             <FormControl sx={{width:"100%"}}>
                                 <TextField multiline disabled="true" value={props.clase.descripcion} variant="outlined" size="small" style={{color:"#10223D",marginTop:"2px"}}> </TextField> 
                             </FormControl>         
+                        </Grid>
+                        <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
+                            <LoadingButton onClick= {() => {props.onClose()} } variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cerrar</LoadingButton> 
                         </Grid>
                     </Grid>
                 </Paper> 

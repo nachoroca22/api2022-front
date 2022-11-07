@@ -38,7 +38,7 @@ export default function CardProfe(props) {
         <Typography gutterBottom variant="h7" component="div" style={{ fontWeight: 600 }}>
             {props.materia} - ${props.costo}
         <Typography variant="h7" marginTop="5px" component="div" style={{ fontWeight: 600 }}>
-            {props.tipo}
+            {props.tipClase}
         </Typography>
             
         </Typography>

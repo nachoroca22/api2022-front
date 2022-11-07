@@ -21,6 +21,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tabla from './TablaClases'
+import ModalNewClases from "./ModalNewClases.jsx";
 import { LoadingButton } from '@mui/lab'
 
 const drawerWidth = 240;
@@ -100,6 +101,11 @@ export default function ResponsiveDrawer(props: Props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
   
+  const [isOpenModalNewClases, setIsOpenModalNewClases] = useState(false);
+  const openModalNewClases = () => setIsOpenModalNewClases(true);
+  const closeModalNewClases = () => {setIsOpenModalNewClases(false) };
+  
+
   return (
     <Box sx={{ display: 'flex',backgroundColor:"#F2EDDB" }}>
       <CssBaseline />
@@ -166,6 +172,27 @@ export default function ResponsiveDrawer(props: Props) {
         sx={{ backgroundColor:"#F2EDDB",flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)`,backgroundColor:"#F2EDDB"} }}
       >
         <Toolbar sx={{backgroundColor:"#F2EDDB"}} />
+
+          <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
+            <LoadingButton 
+              onClick={openModalNewClases}
+              variant="contained" 
+              size='large' 
+              sx={{borderRadius:"10px",marginBottom:"20px" }}
+              > Nueva Clase
+            </LoadingButton> 
+            <Modal
+                sx={{opacity:"1"}}
+                open={isOpenModalNewClases}
+                close={closeModalNewClases}
+              >
+              <ModalNewClases
+                open={isOpenModalNewClases}
+                close={closeModalNewClases}
+              >
+              </ModalNewClases>
+            </Modal>
+        </Grid>
         <Tabla></Tabla>
         <Container sx={{marginTop:"10px" ,height:"500px",backgroundColor:"#F2EDDB"}} ></Container>
       </Box>

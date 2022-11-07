@@ -25,7 +25,8 @@ export default function Perfil() {
     const id = sessionStorage.getItem("id")
     const [alumno, setAlumno] = React.useState(initialAlumno);
     const [submitted, setSubmitted] = React.useState(false);
-    
+    const [mensajeUpdatePerfil, setMensajeUpdatePerfil] = React.useState("");
+
     //funciones
     const recargarAlumno = () => {
         obtenerAlumno(id)
@@ -63,7 +64,7 @@ export default function Perfil() {
     const handleActualizarAlumno = () => {
         actualizarAlumno(alumno)
           .then((response) => {
-            console.log(response)       
+            response.message === "Succesfully Updated Alumno" ? setMensajeUpdatePerfil("Se actualizo el perfil.") : setMensajeUpdatePerfil("No se pudo actualizar el perfil.")     
       })
     }
     return (
@@ -176,6 +177,9 @@ export default function Perfil() {
                                         </Select>
                                     </FormControl>
                                 </Grid>
+                            </Grid>
+                            <Grid container alignItems="center" justifyContent="center">
+                                <InputLabel style={{color:"#10223D", fontSize:"19px", marginTop:"20px"}}> {mensajeUpdatePerfil} </InputLabel> 
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
                                 <LoadingButton onClick={handleActualizarAlumno} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton> 
