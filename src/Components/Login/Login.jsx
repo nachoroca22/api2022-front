@@ -99,7 +99,7 @@ export default function Login (props){
                 window.location.reload(false);
                 //navigate("/alumnos/home")
             } else{
-                alert("login alumno erroneo")
+                setMensajeSigin("Usuario o password incorrecto")
             }
         })
     }} 
