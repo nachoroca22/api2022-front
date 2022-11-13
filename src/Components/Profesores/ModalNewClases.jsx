@@ -11,7 +11,7 @@ export default function ModalNewClases (props){
     const tipoClase = ["Individual","Grupal"]
 
     const [newClase,setNewClase] = React.useState({
-        id_profesor: sessionStorage.getItem("id"),
+        id_profesor: localStorage.getItem("id"),
         materia: "",
         tipoClase: "",
         costo: "",
@@ -27,7 +27,6 @@ export default function ModalNewClases (props){
         event.preventDefault();
         crearClase(newClase)
         .then((response) => {
-            console.log(response.message)
             setMensajeNewClase("Se creo la clase: " + newClase.materia)
         })
         setBotonCerrar(true)

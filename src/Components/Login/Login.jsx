@@ -16,8 +16,7 @@ import {
     removeID,
   } from "../../Services/mysession";
 
-export default function Login (){
-
+export default function Login (props){
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding :20,height:'50vh',width:400, margin:"50px auto"};
     const avatarStyle={backgroundColor:'#10223D'};
     const btnstyle={backgroundColor:" #d6533c", borderRadius:"10px",width:"35%",margin:'8px'};
@@ -73,7 +72,8 @@ export default function Login (){
                 setActiveSession(true);
                 setRol(response.rol);
                 setID(response.id_user);
-                navigate("/profesores/home")
+                props.onClose()
+                //navigate("/profesores/home")
 
                 //this.props.history.replace("/profesores/home");
               } else{
@@ -95,7 +95,9 @@ export default function Login (){
                 setActiveSession(true);
                 setRol(response.rol);
                 setID(response.id_alumno);
-                navigate("/alumnos/home")
+                props.onClose()
+                window.location.reload(false);
+                //navigate("/alumnos/home")
             } else{
                 alert("login alumno erroneo")
             }

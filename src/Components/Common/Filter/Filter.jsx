@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { Button,Card,FormControl,Grid, InputLabel, MenuItem, Select } from '@mui/material';
-import data from "../../../data/filtros.json"
+import { useParams } from 'react-router-dom';
 import { Container } from '@mui/system';
 import { useState } from 'react';
+import About from "../../../Components/landing/about/About"
 import {Link as RouterLink,} from 'react-router-dom';
 import Cards from "../Cards/Cards";
 import { obtenerMateriasFiltro } from '../../../Services/clases';
 import {obtenerClasesFiltradas} from "../../../Services/clases"
 
-const tipoClase = [
-    {"id":0,
-    "nombre": "Todas"
-    },        
+
+const tipoClaseFilter = [
+  
     {"id":1,
     "nombre": "Grupal"
     },
@@ -19,10 +19,8 @@ const tipoClase = [
     "nombre": "Individual"
     }
   ]
-const frecuencia = [
-    {"id":0,
-    "nombre": "Todas"
-    },        
+const frecuenciaFilter = [
+       
     {"id":1,
     "nombre": "Unica"
     },
@@ -33,10 +31,10 @@ const frecuencia = [
     "nombre":"Mensual"      
     }
 ]
-const calificacion = [
+const calificacionFilter = [
     {"id":0,
-    "nombre": "Todas"
-    },        
+    "nombre": 0
+    }, 
     {"id":1,
     "nombre": 1
     },
@@ -55,53 +53,48 @@ const calificacion = [
 ]  
 
 export default function Filtro() {
-
+  const {materia,tipoclase,frecuencia,calificacion} = useParams()
+  
   const[ dataFiltros, setDataFiltros]= React.useState({
     materia: undefined,
-    calificacion: undefined,
-    frecuencia: undefined,
-    tipoClase: undefined,
+    calificacion: "3",
+    frecuencia: "Unica",
+    tipoClase: "Individual",
   })
-    
 
-
-/*   const [formMateria,setMateria] = useState('Todas')
-  const [formCalificacion,setCalificacion] = useState('Todas')
-  const [formFrecuencia,setFrecuencia] = useState('Todas')
-  const [formTipoDeClase,setTipoDeClase] = useState('Todas') */
   const [clasesFiltradas, setClasesFiltradas] = React.useState([]);
   const [materiasFiltro, setMateriasFiltro]=React.useState([]);
   const [submitted, setSubmitted] = React.useState(false);
+  const [viewAbout, setViewAbout] = React.useState(false);
+  const [viewMensajeBusquedaVacia, setMensajeBusquedaVacia] = React.useState("");
+
 
   const recargarMateriasFiltro = () => {
-    console.log("dataFiltros",dataFiltros)
     obtenerMateriasFiltro(dataFiltros)
     .then((response) => {
       setMateriasFiltro(response.data)
     })
-    
-  }
-
-  if (submitted === false){
-    setSubmitted(true)
-    recargarMateriasFiltro();
   }
 
   const recargarClasesFiltradas = () => {
     obtenerClasesFiltradas(dataFiltros)
       .then((response) => {
+        response.data.length === 0 ? setViewAbout(false) : setViewAbout(true) 
+        response.data.length === 0 ? setMensajeBusquedaVacia("No se encontraron resultados para los filtros ingresados.") : setMensajeBusquedaVacia("") 
         setClasesFiltradas(response.data)
+        
    })};
   
   const handleInputChange = (event) => {
-    console.log(event.target.value)
-    console.log(dataFiltros)
     setDataFiltros({
         ...dataFiltros,
         [event.target.name] : event.target.value
     })
   }
-
+  if (submitted === false){
+    setSubmitted(true)
+    recargarMateriasFiltro();
+  }
  /*  const handleOnchangeMateria = (event: SelectChangeEven) => {
     setMateria(event.target.value);   
   }
@@ -127,6 +120,7 @@ export default function Filtro() {
                   <FormControl sx={{width:'70%'}}> 
                     <InputLabel style={{color:"#10223D"}}> Materias </InputLabel>
                       <Select 
+                        required
                         defaultValue=""
                         name="materia"  
                         value={dataFiltros.materia}  
@@ -150,8 +144,7 @@ export default function Filtro() {
                         sx={{marginTop:"15px",height:"50px", borderRadius:"15px",borderColor:"#10223D", border: "1px solid #10223D", color: "#10223D", "& .MuiSvgIcon-root": {color: "#10223D",},}}
                         onChange={handleInputChange}
                       >
-                        
-                        {tipoClase.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
+                        {tipoClaseFilter.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
                       ))}
                       </Select>
                   </FormControl>
@@ -168,7 +161,7 @@ export default function Filtro() {
                         onChange={handleInputChange}
                       >
                         
-                        {frecuencia.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
+                        {frecuenciaFilter.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
                       ))}
                       </Select>
                   </FormControl>
@@ -185,7 +178,7 @@ export default function Filtro() {
                       onChange={handleInputChange}
                     >
                       
-                      {calificacion.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
+                      {calificacionFilter.map((elemento) => (<MenuItem value={elemento.nombre} key={elemento.id}> {elemento.nombre} </MenuItem>
                     ))}
                     </Select>
                 </FormControl>
@@ -194,9 +187,8 @@ export default function Filtro() {
               <Grid item xs={12} sm={12} md={12} lg={12} container marginTop={3} marginBottom={3} direction="row" justifyContent="center" alignItems="center">
               <Button 
                 onClick={recargarClasesFiltradas}
-                component={RouterLink} to={`/busqueda/${dataFiltros.materia}/${dataFiltros.tipoClase}/${dataFiltros.frecuencia}/${dataFiltros.calificacion}`}
                 variant='outlined' 
-                style={{borderRadius:"15px",borderColor:'#10223D',textTransform:'initial',fontSize: 20, color:'#10223D'}}            
+                style={{borderRadius:"15px",borderColor:'#10223D',textTransform:'initial',fontSize: 20,border:"1px solid", color:'#10223D'}}            
                 >
                   Buscar</Button> 
               </Grid>
@@ -204,12 +196,18 @@ export default function Filtro() {
           </Card>
           <Cards
             clases={clasesFiltradas}
-            //filtros={dataFiltros}
-            /* materia={formMateria}
-            tipoClase={formTipoDeClase}
-            frecuencia={formFrecuencia}
-            calificacion={formCalificacion} */
         ></Cards> 
+         {viewAbout ? undefined : 
+         <Grid container alignContent="center" justifyContent="center">
+          <Grid item>
+            <InputLabel sx={{marginTop:"80px",color:"#10223D", fontSize:"25px"}}> {viewMensajeBusquedaVacia} </InputLabel> 
+          </Grid>
+          <Grid item sx={{marginTop:"150px",marginBottom:"300px"}}>
+            <About sx={{marginTop: "20px"}}></About>
+            </Grid>
+          </Grid>
+        }
+        
         </Container>  
   
   );

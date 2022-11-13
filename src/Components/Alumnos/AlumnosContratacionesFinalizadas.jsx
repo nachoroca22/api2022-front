@@ -12,14 +12,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import SchoolIcon from '@mui/icons-material/School';
 import GavelIcon from '@mui/icons-material/Gavel';
-import CommentIcon from '@mui/icons-material/Comment';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Tabla from './TablaComentarios'
+import Tabla from './TablaContratacionesFinalizadas'
 import { Container } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import {
@@ -57,7 +55,6 @@ export default function ResponsiveDrawer(props: Props) {
     navigate("/")
     
   }
-
   const drawer = (
     <div>
 
@@ -69,7 +66,7 @@ export default function ResponsiveDrawer(props: Props) {
       <Divider sx={{backgroundColor:"#F2EDDB"}} />
       <List sx={{backgroundColor:"#F2EDDB"}}>
           <ListItem sx={{backgroundColor:"#F2EDDB"}}>
-            <ListItemButton to="/profesores/home">
+            <ListItemButton to="/alumnos/home">
               <ListItemIcon> 
                 <HomeIcon sx={{color:'#d6533c'}} ></HomeIcon>
               </ListItemIcon>
@@ -77,15 +74,7 @@ export default function ResponsiveDrawer(props: Props) {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton to="/profesores/clases">
-              <ListItemIcon> 
-              <SchoolIcon sx={{color:'#d6533c'}} /> 
-              </ListItemIcon>
-              <ListItemText sx={{color:'#10223D'}}> Clases</ListItemText>
-            </ListItemButton>         
-          </ListItem>
-          <ListItem>
-            <ListItemButton to="/profesores/contrataciones">
+            <ListItemButton to="/alumnos/contrataciones">
               <ListItemIcon> 
               <GavelIcon sx={{color:'#d6533c'}}  /> 
               </ListItemIcon>
@@ -93,19 +82,11 @@ export default function ResponsiveDrawer(props: Props) {
             </ListItemButton>         
           </ListItem>
           <ListItem>
-            <ListItemButton to="/profesores/contratacionesfinalizadas">
+            <ListItemButton to="/alumnos/contratacionesfinalizadas">
               <ListItemIcon> 
               <GavelIcon sx={{color:'#d6533c'}}  /> 
               </ListItemIcon>
               <ListItemText sx={{color:'#10223D'}} > Contrataciones Finalizadas</ListItemText>
-            </ListItemButton>         
-          </ListItem>
-          <ListItem>
-            <ListItemButton to="/profesores/comentarios">
-              <ListItemIcon> 
-              <CommentIcon sx={{color:'#d6533c'}}  /> 
-              </ListItemIcon>
-              <ListItemText sx={{color:'#10223D'}} > Comentarios</ListItemText>
             </ListItemButton>         
           </ListItem>
       </List>
@@ -147,7 +128,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography color="#10223D" variant="h4" noWrap component="div">
-            Comentarios
+            Contrataciones Finalizadas
           </Typography>
         </Toolbar>
       </AppBar>

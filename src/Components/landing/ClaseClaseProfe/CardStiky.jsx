@@ -1,16 +1,36 @@
 import * as React from 'react';
-import {Paper, Grid, Typography, Card, CardMedia} from '@mui/material';
+import {Paper, Grid, Typography, Card, CardMedia, Modal} from '@mui/material';
 import { LoadingButton } from '@mui/lab'
 import foto from '../../media/foto.jpg'
 import Rating from '@mui/material/Rating';
+import ModalNuevaContratacion from "../../Common/ModalContrataciones/ModalNuevaContratacion"
+import { useState } from 'react';
+import { obtenerAlumno} from "../../../Services/alumnos";
+
 
 export default function CardSticky (props,children){
-
+  
+    const [viewBotonContratar,setViewBotonContratar] = useState(false);
+    const [submitted, setSubmitted] = React.useState(false);
+    const [mensaje, setMensaje] = React.useState("Registrate o inicia sesion para contratar la clase.");     
+    const [isOpenModalNuevaContratacion, setIsOpenModalNuevaContratacion] = useState(false);
+    const openModalNuevaContratacion = () =>{setIsOpenModalNuevaContratacion(true)};
+    const closeModalNuevaContratacion = () =>{setIsOpenModalNuevaContratacion(false)}; 
+  
+    if(submitted === false){
+        const token = localStorage.getItem("token")
+        const rol = localStorage.getItem("rol")
+        if (token !== null && rol === "Alumno"){
+            setViewBotonContratar(true)
+            setSubmitted(true)
+        }
+    } 
+    
     return(
 
                 <Grid container position="fixed" top="120px" xs={12} sm={12} md={12} lg={4}>
                         <Paper elevation={10} sx={{alignItems:"center",maxWidth:"200px", width:"200px",backgroundColor:"#F2EDDB",borderRadius:"20px", marginLeft:"25px",padding:2}}>
-                            <Grid container alignItems="center" justifyItems="center" justifyContent="center">
+                            <Grid container alignItems="center" justifyItems="center" justifyContent="center" textAlign="center">
                                 <CardMedia 
                                     component="img"
                                     style={{
@@ -40,16 +60,57 @@ export default function CardSticky (props,children){
                                         </Typography> 
                                     </Grid>                                  
                                 </Grid>
+                               {viewBotonContratar ?
                                 <LoadingButton 
+                                    onClick={openModalNuevaContratacion}
                                     variant="contained" 
                                     size='large' 
                                     sx={{borderRadius:"10px",marginBottom:"20px" }}
                                 > Contratar
-                                </LoadingButton>
-                                
-                            </Grid>                                                    
-                        </Paper>
-                   
-                </Grid>
+                                </LoadingButton>: mensaje}  
+                                                           
+                            </Grid>  
+                            <Modal
+                                open={isOpenModalNuevaContratacion}
+                                onClose={closeModalNuevaContratacion}
+                                materia= {props.materia}
+                                id_clase = {props.id_clase}
+                                id_user = {props.id_user}
+                                apellido= {props.apellido}
+                                name= {props.name}
+                                tipoClase= {props.tipoClase}
+                                frecuencia= {props.frecuencia}
+                                duracion= {props.duracion}
+                                costo= {props.costo}
+                                usuario={props.usuario}
+                                apellido_alumno={props.apellido_alumno}
+                                name_alumno={props.name_alumno}
+                                id_alumno={props.id_alumno}
+                                telefono_alumno={props.telefono_alumno}
+                                usuario_alumno={props.usuario_alumno}
+                            >
+                                <ModalNuevaContratacion
+                                    materia= {props.materia}
+                                    id_clase = {props.id_clase}
+                                    id_user = {props.id_user}
+                                    apellido= {props.apellido}
+                                    name= {props.name}
+                                    tipoClase= {props.tipoClase}
+                                    frecuencia= {props.frecuencia}
+                                    duracion= {props.duracion}
+                                    costo= {props.costo}
+                                    usuario={props.usuario}
+                                    apellido_alumno={props.apellido_alumno}
+                                    name_alumno={props.name_alumno}
+                                    id_alumno={props.id_alumno}
+                                    telefono_alumno={props.telefono_alumno}
+                                    usuario_alumno={props.usuario_alumno}
+                                    open={isOpenModalNuevaContratacion}
+                                    onClose={closeModalNuevaContratacion}
+                                ></ModalNuevaContratacion> 
 
+                            </Modal>
+                                                                              
+                        </Paper>                  
+                </Grid>
     )};

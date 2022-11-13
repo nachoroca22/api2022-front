@@ -23,7 +23,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import {Grid, Modal} from "@mui/material";
 import ModalClases from "./ModalClases.jsx";
 import ModalEditClases from "./ModalEditClases.jsx";
-import ModalConfirmar from "../Common/ModalConfirmar/ModalConfirmar.jsx";
+import ModalConfirmarBorrarClase from "./ModalConfirmarBorrarClase";
 import ModalNewClases from "./ModalNewClases.jsx";
 import { LoadingButton } from '@mui/lab'
 import { obtenerClasesProfesor } from "../../Services/clases";
@@ -131,7 +131,7 @@ export default function BasicTable() {
   
   const [isOpenModalEditClases, setIsOpenModalEditClases] = useState(false);
   const openModalEditClases = () => setIsOpenModalEditClases(true);
-  const closeModalEditClases = () => setIsOpenModalEditClases(false);
+  const closeModalEditClases = () => {setIsOpenModalEditClases(false);setSubmitted(false)};
   
   const [isOpenModalBorrarClases, setIsOpenModalBorrarClases] = useState(false);
   const openModalBorrarClases = () => setIsOpenModalBorrarClases(true);
@@ -205,13 +205,12 @@ export default function BasicTable() {
 
   const [rows, setClasesPofesor]=React.useState([]);
   const [submitted, setSubmitted] = React.useState(false);
-  const id_profesor = sessionStorage.getItem("id")
+  const id_profesor = localStorage.getItem("id")
 
   const recargarClasesPofesor = () => {
     obtenerClasesProfesor(id_profesor)
     .then((response) => {
       setClasesPofesor(response.data.docs)
-      console.log(response.data.docs)
     })
   }
   if (submitted === false){
@@ -263,8 +262,8 @@ export default function BasicTable() {
           <TableRow>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Materia</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Tipo</TableCell>
-            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Costo</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Frecuencia</TableCell>
+            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Costo</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Gestionar</TableCell>
             
           </TableRow>
@@ -280,8 +279,8 @@ export default function BasicTable() {
             >
               <TableCell sx={{color:"#10223D"}} align="center" component="th" scope="row">{row.materia}</TableCell>
               <TableCell sx={{color:"#10223D"}} align="center">{row.tipoClase}</TableCell>
-              <TableCell sx={{color:"#10223D"}} align="center">${row.costo}</TableCell>
               <TableCell sx={{color:"#10223D"}} align="center">{row.frecuencia}</TableCell>
+              <TableCell sx={{color:"#10223D"}} align="center">${row.costo}</TableCell>
               <TableCell align="center">
               <InfoIcon
                 onClick={()=>viewClaseSeleccionada(row)}
@@ -316,7 +315,7 @@ export default function BasicTable() {
 
               </EditIcon>
               <Modal
-                sx={{opacity:"0.7"}}
+                sx={{opacity:"1"}}
                 open={isOpenModalEditClases}
                 onClose={closeModalEditClases}
               >
@@ -341,11 +340,11 @@ export default function BasicTable() {
                   open={isOpenModalBorrarClases}
                   onClose={closeModalBorrarClases}
                 >
-                  <ModalConfirmar
+                  <ModalConfirmarBorrarClase
                     mensaje="¿Esta seuro que quiere borrar la clase "
                     close={closeModalBorrarClases}
                     clase={claseSeleccionada}
-                  ></ModalConfirmar>
+                  ></ModalConfirmarBorrarClase>
                 </Modal>        
               
              </TableCell>

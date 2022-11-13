@@ -8,7 +8,7 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
 import List from '@mui/material/List';
-import { Grid, Link,Container, Modal, getTableHeadUtilityClass } from '@mui/material';
+import {Link,Container } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -21,7 +21,14 @@ import CommentIcon from '@mui/icons-material/Comment';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tabla from './TablaClases'
-import { LoadingButton } from '@mui/lab'
+import { useNavigate } from "react-router-dom";
+import {
+  removeToken,
+  removeActiveSession,
+  removeRol,
+  removeID,
+} from "../../Services/mysession";
+
 
 const drawerWidth = 240;
 
@@ -36,11 +43,20 @@ interface Props {
 export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const logout = () =>{
+    
+    removeToken();
+    removeActiveSession();
+    removeID();
+    removeRol();
+    navigate("/")
+    
+  }
   const drawer = (
     <div>
 
@@ -76,6 +92,14 @@ export default function ResponsiveDrawer(props: Props) {
             </ListItemButton>         
           </ListItem>
           <ListItem>
+            <ListItemButton to="/profesores/contratacionesfinalizadas">
+              <ListItemIcon> 
+              <GavelIcon sx={{color:'#d6533c'}}  /> 
+              </ListItemIcon>
+              <ListItemText sx={{color:'#10223D'}} > Contrataciones Finalizadas</ListItemText>
+            </ListItemButton>         
+          </ListItem>
+          <ListItem>
             <ListItemButton to="/profesores/comentarios">
               <ListItemIcon> 
               <CommentIcon sx={{color:'#d6533c'}}  /> 
@@ -87,7 +111,7 @@ export default function ResponsiveDrawer(props: Props) {
       <Divider></Divider>
       <List sx={{backgroundColor:"#F2EDDB"}}>
       <ListItem sx={{backgroundColor:"#F2EDDB"}}>
-            <ListItemButton to="/">
+            <ListItemButton onClick={()=>logout()}>
               <ListItemIcon> 
                 <LogoutIcon sx={{color:'#d6533c'}} ></LogoutIcon>
               </ListItemIcon>
@@ -167,7 +191,7 @@ export default function ResponsiveDrawer(props: Props) {
       >
         <Toolbar sx={{backgroundColor:"#F2EDDB"}} />
         <Tabla></Tabla>
-        <Container sx={{marginTop:"10px" ,height:"500px",backgroundColor:"#F2EDDB"}} ></Container>
+        <Container sx={{marginTop:"10px" ,height:"700px",backgroundColor:"#F2EDDB"}} ></Container>
       </Box>
     </Box>
   );
