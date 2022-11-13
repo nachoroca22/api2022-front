@@ -1,8 +1,8 @@
 import * as React from 'react';
 import  Navbar from "../Components/landing/navBar/NavBar"
-import { useParams } from 'react-router-dom';
 import Filter from '../Components/Common/Filter/Filter.jsx'
 import {Grid} from '@mui/material';
+
 
 function Busquedalanding() {
 

@@ -11,14 +11,14 @@ export const loginProfesor = async (usuario, password) => {
 
 export const loginAlumno = async (usuario, password) => { 
   return await post(webServices.loginAlumno, {
-    usuario: usuario,
+    usuario_alumno: usuario,
     password: password,
   });
 };
 
 export const resetPasswordAlumno = async (usuario) => { 
   return await put(webServices.resetPasswordAlumno, {
-    usuario: usuario,
+    usuario_alumno: usuario,
   });
 };
 

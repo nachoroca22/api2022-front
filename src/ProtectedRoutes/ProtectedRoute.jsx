@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { isConnected } from "../Services/mysession";
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
@@ -11,9 +11,9 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
           return <Component {...props} />;
         } else {
           return (
-            <Redirect
+            <Navigate
               to={{
-                pathname: "/auth/login",
+                pathname: "/",
                 state: {
                   from: props.location,
                 },

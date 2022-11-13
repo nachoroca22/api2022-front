@@ -1,10 +1,10 @@
 import React from 'react'
-import { Grid,Paper,InputLabel, TextField, FormControl, MenuItem, Select} from '@mui/material'
+import { Grid,Paper,InputLabel, Modal, FormControl, MenuItem, Select} from '@mui/material'
 import { LoadingButton } from '@mui/lab';
 import {actualizarEstadoContratacion} from "../../../Services/contrataciones"
 
-export default function ModalEditarContrataciones (props,contratacion,children){
-
+export default function ModalEditarContrataciones (props){
+    
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:450, margin:"50px auto"};
     const [botonCerrar, setBotonCerrar] = React.useState(undefined);
     const [mensajeActualizacion, setMensajeContratacion] = React.useState("");
@@ -19,12 +19,14 @@ export default function ModalEditarContrataciones (props,contratacion,children){
             [e.target.name]: e.target.value,
         }));
     };
+
     const actualizarEstado = () =>{
         actualizarEstadoContratacion(updateContratacion);
         setMensajeContratacion("Se actualizo la contratacion");
         setBotonCerrar(true)
     } 
-    return(
+    return( 
+
                 <Paper elevation={10} style={paperStyle}>
                     <Grid container  alignItems="center">
                         {/* <Grid container alignItems="center" justifyContent="center" sx={{borderBottom: "1px solid #10223D", marginBottom:"5px"}}>
@@ -73,7 +75,7 @@ export default function ModalEditarContrataciones (props,contratacion,children){
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'10px', fontSize:"15px"}}> Estado:  </InputLabel>   
                             <FormControl sx={{width:"86%"}}>
                                 <Select 
-                                    onChange={handleChange}
+                                    onChange={handleChange} 
                                     value={updateContratacion.estado} 
                                     name="estado"
                                     variant="outlined" 
@@ -81,7 +83,7 @@ export default function ModalEditarContrataciones (props,contratacion,children){
                                     style={{color:"#10223D",marginLeft:"43px",marginTop:"2px"}}
                                 > 
                                     <MenuItem value={10}>Solicitada</MenuItem>
-                                    <MenuItem value={20}>Aceptada</MenuItem>
+                                    <MenuItem disabled value={20}>Aceptada</MenuItem>
                                     <MenuItem value={30}>Finalizada</MenuItem>
                                     <MenuItem value={40}>Cancelada</MenuItem>
                                 </Select> 

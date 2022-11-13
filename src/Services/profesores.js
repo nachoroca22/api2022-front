@@ -19,6 +19,7 @@ export const actualizarProfesor = async (data) => {
     return await post(webServices.actualizarProfesor,{
       id_user: data.id_user,
       fechaNac: data.fechaNac,
+      telefono: data.telefono,
       genero: data.genero,
       estudios: data.estudios,
       presentacion: data.presentacion,

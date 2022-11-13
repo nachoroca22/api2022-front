@@ -10,17 +10,17 @@ export function logOut(cb) {
 }
 
 //Token methods
-export function getToken() { return sessionStorage.getItem('token'); }
-export function setToken(value) { return sessionStorage.setItem('token', value); }
-export function removeToken() { return sessionStorage.removeItem('token'); }
+export function getToken() { return localStorage.getItem('token'); }
+export function setToken(value) { return localStorage.setItem('token', value); }
+export function removeToken() { return localStorage.removeItem('token'); }
 
 // ROl
-export function setRol(value) { return sessionStorage.setItem('rol', value); }
-export function removeRol() { return sessionStorage.removeItem('rol'); }
+export function setRol(value) { return localStorage.setItem('rol', value); }
+export function removeRol() { return localStorage.removeItem('rol'); }
 
 // Id user
-export function setID(value) { return sessionStorage.setItem('id', value); }
-export function removeID() { return sessionStorage.removeItem('id'); }
+export function setID(value) { return localStorage.setItem('id', value); }
+export function removeID() { return localStorage.removeItem('id'); }
 
 
 //ActiveSession methods

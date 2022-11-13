@@ -12,14 +12,15 @@ export default function Perfil() {
         usuario: "",
         rol: "",
         estado: null,
+        telefono: "",
         fechaIngreso: "",
         fechaNac: "",  
         genero: "",
         presentacion: "",    
         estudios: "",
     }
-    const token = sessionStorage.getItem("token")
-    const id = sessionStorage.getItem("id")
+    const token = localStorage.getItem("token")
+    const id = localStorage.getItem("id")
     const [profesor, setProfesor] = React.useState(initialProfesor);
     const [submitted, setSubmitted] = React.useState(false);
     const [mensajeUpdatePerfil, setMensajeUpdatePerfil] = React.useState("");
@@ -33,6 +34,7 @@ export default function Perfil() {
                 apellido: response.data.apellido,
                 name: response.data.name,
                 usuario: response.data.usuario,
+                telefono: response.data.telefono,
                 rol: response.data.rol,
                 estado: response.data.estado,
                 fechaIngreso: response.data.fechaIngreso,
@@ -138,6 +140,11 @@ export default function Perfil() {
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center">
                                 <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
                                     <TextField value={profesor.usuario} disabled label="Usuario" id="Email"></TextField>
+                                </FormControl>
+                            </Grid>
+                            <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center" marginTop="15px">
+                                <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
+                                    <TextField onChange={handleChange} value={profesor.telefono} InputProps={{inputProps: { min: 0}}} type="number" name="telefono" label="Telefono" id="Telefono"></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center" marginTop="15px">

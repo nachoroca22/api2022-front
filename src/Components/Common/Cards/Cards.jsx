@@ -9,7 +9,7 @@ export default function Cards(props){
         <div>
             <Grid container spacing={2} backgroundColor='#F2EDDB' direction="row" justifyContent="space-evenly" alignItems="center">
                 {props.clases.map((elemento) => (<Card key={elemento._id} 
-                                    id={elemento.id_clase}
+                                    id_clase={elemento.id_clase}
                                     foto={foto}
                                     profesor={elemento.name + " " + elemento.apellido}
                                     materia={elemento.materia}
@@ -18,6 +18,7 @@ export default function Cards(props){
                                     frecuencia={elemento.frecuencia}
                                     duracion={elemento.duracion}
                                     descripcion={elemento.descripcion}
+                                    calificacion={elemento.calificacion}
                                     
                                 ></Card>))}
             </Grid>

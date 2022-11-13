@@ -19,7 +19,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Tabla from './TablaComentarios'
+import Tabla from './TablaContratacionesFinalizadas'
 import { Container } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import {
@@ -47,7 +47,6 @@ export default function ResponsiveDrawer(props: Props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
   const logout = () =>{
     
     removeToken();
@@ -147,7 +146,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography color="#10223D" variant="h4" noWrap component="div">
-            Comentarios
+            Contrataciones Finalizadas
           </Typography>
         </Toolbar>
       </AppBar>

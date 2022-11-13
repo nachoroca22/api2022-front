@@ -12,20 +12,14 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import StarIcon from '@mui/icons-material/Star';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import InfoIcon from '@mui/icons-material/Info';
+import ModalContrataciones from '../Common/ModalContrataciones/ModalContrataciones.jsx'
 import {Modal} from "@mui/material";
-import ModalAprobarComentario from "./ModalAprobarComentario";
-import ModalRechazarComentario from "./ModalReachazarComentario";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import {comentariosPendientes} from "../../Services/contrataciones"
-import data from '../../data/contrataciones.json'
-
-const rows = data
+import { obtenerContratacionesProfeFinalizadas } from '../../Services/contrataciones.js';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -93,72 +87,78 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-
-
-function createData(
-  clase_id: string,
-  tipo: string,
-  alumno: string,
-  calificacion: string,
-  comentarios: String
-) {
-  return { clase_id, tipo, alumno, calificacion, comentarios };
-}
-
 export default function BasicTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const id_user = localStorage.getItem("id")
-  const [cargarComentarios, setCargarComentarios] = useState(false);
-  const [comentarios, setComentarios] = useState([]);
+  const [contrataciones, cargarContrataciones] = useState(false);
+  const [contratacionesProfesor, setContratacionesProfesor] = useState([]);
 
-  const [isOpenModalAceptarComentario, setIsOpenModalAceptarComentario] = useState();
-  const openModalAceptarComentario = () =>{setIsOpenModalAceptarComentario(true)};
-  const closeModalAceptarComentario = () =>{setIsOpenModalAceptarComentario(false)};
+  const [isOpenModalInfoContratacion, setIsOpenModalInfoContratacion] = useState();
+  const openModalInfoContratacion = () =>{setIsOpenModalInfoContratacion(true)};
+  const closeModalInfoContratacion = () =>{setIsOpenModalInfoContratacion(false)};
 
-  const [isOpenModalBorrarComentario, setIsOpenModalBorrarComentario] = useState();
-  const openModalBorrarComentario = () =>{setIsOpenModalBorrarComentario(true)};
-  const closeModalBorrarComentario = () =>{setIsOpenModalBorrarComentario(false)};
-
-  if(cargarComentarios === false) {
-    setCargarComentarios(true)
-    comentariosPendientes(id_user)
-    .then((response) => {
-      setComentarios(response.data.docs)})
-  }
-  const [comentarioSeleccionado,setComentarioSeleccionado] = useState({
-    id_contratacion:'',
-    tipoClase:'',
-    alumno:'',
-    calificacion_alumno:'',
-    comentario:'',
+  const [contracionSeleccionada,setContratacionSeleccionada] = useState({
+    id_alumno: null,
+    id_user: null,
+    id_clase: null,
+    costo: null,
+    mensaje: null,
+    horario: null,
+    profesor: null,
+    usuario: null,
+    tipoClase: null,
+    duracion: null,
+    frecuencia: null,
+    materia: null,
+    alumno: null,
+    telefono_alumno: null,
+    usuario_alumno: null,
+    calificacion_alumno: null,
+    estado: null,
+    comentario: null,
+    estado_comentario: null,
+    id_contratacion: null,
   });
 
-  const viewAceptarComentarioSeleccionado =(comentario) => {
-    setComentarioSeleccionado({
-      id_contratacion: comentario.id_contratacion,
-      tipoClase: comentario.tipoClase,
-      alumno: comentario.alumno,
-      calificacion_alumno: comentario.calificacion_alumno,
-      comentario: comentario.comentario,  
-    })
-    openModalAceptarComentario(comentario)
+  if(contrataciones === false) {
+    cargarContrataciones(true)
+    obtenerContratacionesProfeFinalizadas(id_user)
+    .then((response) => {
+      setContratacionesProfesor(response.data.docs)})
   }
 
-  const viewBorrarComentarioSeleccionado =(comentario) => {
-    setComentarioSeleccionado({
-      id_contratacion: comentario.id_contratacion,
-      tipoClase: comentario.tipoClase,
-      alumno: comentario.alumno,
-      calificacion_alumno: comentario.calificacion_alumno,
-      comentario: comentario.comentario,  
+  const viewInfoContratacionSeleccionada =(contratacion) => {
+    setContratacionSeleccionada({
+      id_alumno: contratacion.id_alumno,
+      id_user: contratacion.id_user,
+      id_clase: contratacion.id_clase,
+      costo: contratacion.costo,
+      mensaje: contratacion.mensaje,
+      horario: contratacion.horario,
+      profesor: contratacion.profesor,
+      usuario: contratacion.usuario,
+      tipoClase: contratacion.tipoClase,
+      duracion: contratacion.duracion,
+      frecuencia: contratacion.frecuencia,
+      materia: contratacion.materia,
+      alumno: contratacion.alumno,
+      telefono_alumno: contratacion.telefono_alumno,
+      usuario_alumno: contratacion.usuario_alumno,
+      calificacion_alumno: contratacion.calificacion_alumno,
+      estado: contratacion.estado,
+      comentario: contratacion.comentario,
+      estado_comentario: contratacion.estado_comentario,
+      id_contratacion: contratacion.id_contratacion,
+
     })
-    openModalBorrarComentario(comentario)
+    openModalInfoContratacion()
   }
 
+ 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - comentarios.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - contratacionesProfesor.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -173,80 +173,59 @@ export default function BasicTable() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+
+  
   return (
     <TableContainer 
     component={Paper} >
       <Table  sx={{minWidth: 450, minHeight: 500, backgroundColor:"#F2EDDB"}} aria-label="simple table">
         <TableHead sticky sx={{backgroundColor:"#10223D"}}>
           <TableRow> 
-
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Clase</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Tipo</TableCell>
+            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Frecuencia</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Alumno</TableCell>
-            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Calificacion</TableCell>
-            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Comentario</TableCell>
-            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Gestionar</TableCell>
+            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Costo</TableCell>
+            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Info</TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{justifyContent:"center", alignContent:"center"}}>
         {(rowsPerPage > 0
-            ? comentarios.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : comentarios
+            ? contratacionesProfesor.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : contratacionesProfesor
           ).map((row) => (
             <TableRow
               key={row}
               sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
             >
+
               <TableCell sx={{color:"#10223D"}} align="center" component="th" scope="row">{row.materia}</TableCell>
               <TableCell sx={{color:"#10223D"}} align="center">{row.tipoClase}</TableCell>
+              <TableCell sx={{color:"#10223D"}} align="center">{row.frecuencia}</TableCell>
               <TableCell sx={{color:"#10223D"}} align="center">{row.alumno}</TableCell>
-              <TableCell sx={{color:"#10223D"}} align="center"><StarIcon sx={{color:'#d6533c'}}></StarIcon>{row.calificacion_alumno}</TableCell>
-              <TableCell sx={{color:"#10223D"}} align="center"  style={{width: '40%',}}>{row.comentario}</TableCell>
+              <TableCell sx={{color:"#10223D"}} align="center">${row.costo}</TableCell>
               <TableCell align="center">
-              <CheckCircleIcon 
-                      onClick={()=>viewAceptarComentarioSeleccionado(row)}
+              <InfoIcon 
+                      onClick={() => viewInfoContratacionSeleccionada(row)}
                       variant="contained"
                       sx={{
                         alignItems: "center",
                         justifyItems: "center",
                         cursor: "pointer",
                         color: "#d6533c",
-                      }}
-                    >
-              </CheckCircleIcon>
+                      }}>      
+              </InfoIcon>
               <Modal
-                reloadcomentarios={setCargarComentarios}
-                comentario={comentarioSeleccionado}
-                open={isOpenModalAceptarComentario}
-                onClose={closeModalAceptarComentario}
+                open={isOpenModalInfoContratacion}
+                onClose={closeModalInfoContratacion}
               >
-                <ModalAprobarComentario
-                  comentario={comentarioSeleccionado}
-                  mensaje="¿Esta seguro que quiere APROBAR el comentario"
-                  close={closeModalAceptarComentario}
-                ></ModalAprobarComentario>
+                <ModalContrataciones
+                  mensaje="¿Esta seuro que quiere APROBAR el comentario"
+                  close={closeModalInfoContratacion}
+                  contratacion={contracionSeleccionada}
+                ></ModalContrataciones>
               </Modal>  
-
-              <ThumbDownAltIcon 
-                      onClick={()=>viewBorrarComentarioSeleccionado(row)}
-                      variant="contained"
-                      sx={{
-                        alignItems: "center",
-                        justifyItems: "center",
-                        cursor: "pointer",
-                        color: "#d6533c",
-                      }}>
-              </ThumbDownAltIcon>
-              <Modal
-                open={isOpenModalBorrarComentario}
-                onClose={closeModalBorrarComentario}
-              >
-                <ModalRechazarComentario
-                  mensaje="¿Esta seguro que quiere RECHAZAR el comentario"
-                  close={closeModalBorrarComentario}
-                  comentario={comentarioSeleccionado}
-                ></ModalRechazarComentario>
-              </Modal> 
              </TableCell>
             </TableRow>
           ))}
@@ -256,7 +235,7 @@ export default function BasicTable() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={3}
-              count={rows.length}
+              count={contratacionesProfesor.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

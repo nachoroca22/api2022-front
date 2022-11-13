@@ -2,13 +2,18 @@ import webServices from "./webServices";
 import { getById, put, post , de_lete, get } from "./request";
 
 export const obtenerClasesFiltradas = async (data) => {
-  console.log("serviceData", data)
   return await put(webServices.obtenerClasesFiltradas,{
     materia: data.materia,
     tipoClase: data.tipoClase,
     frecuencia: data.frecuencia,
     calificacion: data.calificacion,
   });
+  };
+
+  export const obtenerClaseFull = async (data) => {
+    return await put(webServices.obtnerClaseFull,{
+      id_clase: data,
+    });
   };
 
 export const obtenerMateriasFiltro = async () => {
@@ -28,7 +33,6 @@ export const crearClase = async (data) => {
   };
 
   export const actualizarClase = async (data) => {
-    console.log(data)
     return await put(webServices.actualizarClase,{
       id_clase: data.id_clase,
       id_profesor: data.id_profesor,
@@ -42,7 +46,6 @@ export const crearClase = async (data) => {
   };
 
   export const disableClase = async (data) => {
-    console.log(data)
     return await put(webServices.disableClase,{
       id_clase: data,
     });

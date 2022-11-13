@@ -4,9 +4,9 @@ import { getById, put, post , de_lete, get } from "./request";
 
 export const createAlumno = async (data) => {
   return await post(webServices.createAlumno,{
-    name: data.name,
-    apellido: data.apellido,
-    usuario: data.usuario,
+    name_alumno: data.name_alumno,
+    apellido_alumno: data.apellido_alumno,
+    usuario_alumno: data.usuario_alumno,
   });
 };
 
@@ -20,8 +20,9 @@ export const obtenerAlumno = async (data) => {
 export const actualizarAlumno = async (data) => {
   return await post(webServices.actualizarAlumno,{
     id_alumno: data.id_alumno,
-    fechaNac: data.fechaNac,
-    genero: data.genero,
+    fechaNac_alumno: data.fechaNac_alumno,
+    genero_alumno: data.genero_alumno,
+    telefono_alumno: data.telefono_alumno,
     nivel_primaria: data.nivel_primaria,
     nivel_secundaria: data.nivel_secundaria,
     nivel_terciario: data.nivel_terciario,

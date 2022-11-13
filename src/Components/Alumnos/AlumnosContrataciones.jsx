@@ -12,15 +12,20 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import SchoolIcon from '@mui/icons-material/School';
 import GavelIcon from '@mui/icons-material/Gavel';
-import CommentIcon from '@mui/icons-material/Comment';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tabla from './TablaContrataciones'
 import { Container } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import {
+  removeToken,
+  removeActiveSession,
+  removeRol,
+  removeID,
+} from "../../Services/mysession";
 
 const drawerWidth = 240;
 
@@ -35,11 +40,21 @@ interface Props {
 export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const logout = () =>{
+    
+    removeToken();
+    removeActiveSession();
+    removeID();
+    removeRol();
+    navigate("/")
+    
+  }
   const drawer = (
     <div>
 
@@ -66,11 +81,19 @@ export default function ResponsiveDrawer(props: Props) {
               <ListItemText sx={{color:'#10223D'}} > Contrataciones</ListItemText>
             </ListItemButton>         
           </ListItem>
+          <ListItem>
+            <ListItemButton to="/alumnos/contratacionesfinalizadas">
+              <ListItemIcon> 
+              <GavelIcon sx={{color:'#d6533c'}}  /> 
+              </ListItemIcon>
+              <ListItemText sx={{color:'#10223D'}} > Contrataciones Finalizadas</ListItemText>
+            </ListItemButton>         
+          </ListItem>
       </List>
       <Divider></Divider>
       <List sx={{backgroundColor:"#F2EDDB"}}>
-      <ListItem sx={{backgroundColor:"#F2EDDB"}}>
-            <ListItemButton to="/">
+          <ListItem sx={{backgroundColor:"#F2EDDB"}}>
+            <ListItemButton onClick={()=>logout()}>
               <ListItemIcon> 
                 <LogoutIcon sx={{color:'#d6533c'}} ></LogoutIcon>
               </ListItemIcon>
@@ -150,7 +173,7 @@ export default function ResponsiveDrawer(props: Props) {
       >
         <Toolbar sx={{backgroundColor:"#F2EDDB"}} />
         <Tabla></Tabla>
-        <Container sx={{marginTop:"10px" ,height:"500px",backgroundColor:"#F2EDDB"}} ></Container>
+        <Container sx={{marginTop:"10px" ,height:"700px",backgroundColor:"#F2EDDB"}} ></Container>
       </Box>
     </Box>
   );

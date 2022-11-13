@@ -42,8 +42,7 @@ export default function CardProfe(props) {
         </Typography>
             
         </Typography>
-        <Rating readOnly value={props.calificacion} precision={0.5} size="large" ></Rating>
-        
+        <Rating readOnly value={props.calificacion} precision={1} size="large" ></Rating>
         <Typography  variant="body2" sx={{
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -56,12 +55,12 @@ export default function CardProfe(props) {
       </CardContent>
       <CardActions>
         <Button 
-        onClick={() => openModalClaseProfe()}
+        onClick={() => openModalClaseProfe(props)}
         size="small"
         target="_blank"
-        component={RouterLink} to={`/busqueda/clase/${props.id}`}
+        component={RouterLink} to={`/busqueda/clase/${props.id_clase}`}
         >
-          + infoves
+          + info
         </Button>
       </CardActions>
     </Card>

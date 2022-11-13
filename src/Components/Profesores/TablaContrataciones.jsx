@@ -21,10 +21,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import ModalContrataciones from '../Common/ModalContrataciones/ModalContrataciones.jsx'
 import ModalEditarContrataciones from '../Common/ModalContrataciones/ModalEditarContrataciones.jsx'
 import {Modal} from "@mui/material";
-import data from '../../data/contrataciones.json';
-
-const rows = data
-
+import { obtenerContratacionesProfesor } from '../../Services/contrataciones.js';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -92,26 +89,12 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(
-  clase_id: string,
-  profesor: string,
-  profesorEmail: string,
-  tipo: string,
-  alumno: string,
-  alumno_nombre: string,
-  alumno_telefono: string,
-  costo: string,
-  estado: string,
-  msjContacto: string,
-  horaContacto: string,
-  comentarios: string,
-) {
-  return { clase_id, profesor, profesorEmail, tipo, alumno, alumno_nombre, alumno_telefono, costo, estado,msjContacto,horaContacto,comentarios };
-}
-
 export default function BasicTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const id_user = localStorage.getItem("id")
+  const [contrataciones, cargarContrataciones] = useState(false);
+  const [contratacionesProfesor, setContratacionesProfesor] = useState([]);
 
   const [isOpenModalInfoContratacion, setIsOpenModalInfoContratacion] = useState();
   const openModalInfoContratacion = () =>{setIsOpenModalInfoContratacion(true)};
@@ -119,61 +102,93 @@ export default function BasicTable() {
 
   const [isOpenModalEditarContratacion, setIsOpenModalEditarContratacion] = useState();
   const openModalEditarContratacion = () =>{setIsOpenModalEditarContratacion(true)};
-  const closeModalEditarContratacion = () =>{setIsOpenModalEditarContratacion(false)};
+  const closeModalEditarContratacion = () =>{setIsOpenModalEditarContratacion(false);cargarContrataciones(false)};
 
   const [contracionSeleccionada,setContratacionSeleccionada] = useState({
-    clase_id: "",
-    profesor: "",
-    profesorEmail: "",
-    tipo: "",
-    alumno: "",
-    alumno_nombre: "",
-    alumno_telefono: "",
-    costo: "",
-    estado: "",
-    msjContacto: "",
-    horaContacto: "",
-    comentarios: "",
+    id_alumno: null,
+    id_user: null,
+    id_clase: null,
+    costo: null,
+    mensaje: null,
+    horario: null,
+    profesor: null,
+    usuario: null,
+    tipoClase: null,
+    duracion: null,
+    frecuencia: null,
+    materia: null,
+    alumno: null,
+    telefono_alumno: null,
+    usuario_alumno: null,
+    calificacion_alumno: null,
+    estado: null,
+    comentario: null,
+    estado_comentario: null,
+    id_contratacion: null,
   });
+
+  if(contrataciones === false) {
+    cargarContrataciones(true)
+    obtenerContratacionesProfesor(id_user)
+    .then((response) => {
+      setContratacionesProfesor(response.data.docs)})
+  }
 
   const viewInfoContratacionSeleccionada =(contratacion) => {
     setContratacionSeleccionada({
-      clase_id: contratacion.clase_id,
+      id_alumno: contratacion.id_alumno,
+      id_user: contratacion.id_user,
+      id_clase: contratacion.id_clase,
+      costo: contratacion.costo,
+      mensaje: contratacion.mensaje,
+      horario: contratacion.horario,
       profesor: contratacion.profesor,
-      profesorEmail: contratacion.profesorEmail,
-      tipo: contratacion.tipo,
+      usuario: contratacion.usuario,
+      tipoClase: contratacion.tipoClase,
+      duracion: contratacion.duracion,
+      frecuencia: contratacion.frecuencia,
+      materia: contratacion.materia,
       alumno: contratacion.alumno,
-      alumno_nombre: contratacion.alumno_nombre,  
-      alumno_telefono: contratacion.alumno_telefono,  
-      costo: contratacion.costo,  
-      estado: contratacion.estado,  
-      msjContacto: contratacion.msjContacto,
-      horaContacto: contratacion.horaContacto,
-      comentarios: contratacion.comentarios,
+      telefono_alumno: contratacion.telefono_alumno,
+      usuario_alumno: contratacion.usuario_alumno,
+      calificacion_alumno: contratacion.calificacion_alumno,
+      estado: contratacion.estado,
+      comentario: contratacion.comentario,
+      estado_comentario: contratacion.estado_comentario,
+      id_contratacion: contratacion.id_contratacion,
+
     })
-    openModalInfoContratacion(contratacion)
+    openModalInfoContratacion()
   }
 
   const editInfoContratacionSeleccionada =(contratacion) => {
     setContratacionSeleccionada({
-      clase_id: contratacion.clase_id,
+      id_alumno: contratacion.id_alumno,
+      id_user: contratacion.id_user,
+      id_clase: contratacion.id_clase,
+      costo: contratacion.costo,
+      mensaje: contratacion.mensaje,
+      horario: contratacion.horario,
       profesor: contratacion.profesor,
-      profesorEmail: contratacion.profesorEmail,
-      tipo: contratacion.tipo,
+      usuario: contratacion.usuario,
+      tipoClase: contratacion.tipoClase,
+      duracion: contratacion.duracion,
+      frecuencia: contratacion.frecuencia,
+      materia: contratacion.materia,
       alumno: contratacion.alumno,
-      alumno_nombre: contratacion.alumno_nombre,  
-      alumno_telefono: contratacion.alumno_telefono,  
-      costo: contratacion.costo,  
-      estado: contratacion.estado,  
-      msjContacto: contratacion.msjContacto,
-      horaContacto: contratacion.horaContacto,
-      comentarios: contratacion.comentarios,
+      telefono_alumno: contratacion.telefono_alumno,
+      usuario_alumno: contratacion.usuario_alumno,
+      calificacion_alumno: contratacion.calificacion_alumno,
+      estado: contratacion.estado,
+      comentario: contratacion.comentario,
+      estado_comentario: contratacion.estado_comentario,
+      id_contratacion: contratacion.id_contratacion,
     })
-    openModalEditarContratacion(contratacion)
+    openModalEditarContratacion()
   }
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - contratacionesProfesor.length) : 0;
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -199,27 +214,27 @@ export default function BasicTable() {
           <TableRow> 
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Clase</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Tipo</TableCell>
+            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Frecuencia</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Alumno</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Costo</TableCell>
-            <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Estado</TableCell>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Gestionar</TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{justifyContent:"center", alignContent:"center"}}>
         {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
+            ? contratacionesProfesor.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : contratacionesProfesor
           ).map((row) => (
             <TableRow
               key={row}
               sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
             >
 
-              <TableCell sx={{color:"#10223D"}} align="center" component="th" scope="row">{row.clase_id}</TableCell>
-              <TableCell sx={{color:"#10223D"}} align="center">{row.tipo}</TableCell>
+              <TableCell sx={{color:"#10223D"}} align="center" component="th" scope="row">{row.materia}</TableCell>
+              <TableCell sx={{color:"#10223D"}} align="center">{row.tipoClase}</TableCell>
+              <TableCell sx={{color:"#10223D"}} align="center">{row.frecuencia}</TableCell>
               <TableCell sx={{color:"#10223D"}} align="center">{row.alumno}</TableCell>
               <TableCell sx={{color:"#10223D"}} align="center">${row.costo}</TableCell>
-              <TableCell sx={{color:"#10223D"}} align="center">{row.estado}</TableCell>
               <TableCell align="center">
               <InfoIcon 
                       onClick={() => viewInfoContratacionSeleccionada(row)}
@@ -232,7 +247,6 @@ export default function BasicTable() {
                       }}>      
               </InfoIcon>
               <Modal
-                sx={{opacity:"0.5"}}
                 open={isOpenModalInfoContratacion}
                 onClose={closeModalInfoContratacion}
               >
@@ -257,7 +271,6 @@ export default function BasicTable() {
               </EditIcon>
 
               <Modal
-                sx={{opacity:"0.5"}}
                 open={isOpenModalEditarContratacion}
                 onClose={closeModalEditarContratacion}
               >
@@ -277,7 +290,7 @@ export default function BasicTable() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={3}
-              count={rows.length}
+              count={contratacionesProfesor.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

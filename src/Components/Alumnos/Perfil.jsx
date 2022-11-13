@@ -9,20 +9,21 @@ import { obtenerAlumno, actualizarAlumno} from "../../Services/alumnos";
 export default function Perfil() {
     const initialAlumno = {
         id_alumno: null,
-        apellido: "",
-        name: "",
-        usuario: "",
+        apellido_alumno: "",
+        name_alumno: "",
+        usuario_alumno: "",
         rol: "",
-        estado: null,
-        fechaNac: "",  
-        genero: "",
+        telefono_alumno: "",
+        estado_alumno: null,
+        fechaNac_alumno: "",  
+        genero_alumno: "",
         nivel_primaria: "", 
         nivel_secundaria: "",    
         nivel_terciario: "",    
         nivel_universitario: "",
     }
-    const token = sessionStorage.getItem("token")
-    const id = sessionStorage.getItem("id")
+    const token = localStorage.getItem("token")
+    const id = localStorage.getItem("id")
     const [alumno, setAlumno] = React.useState(initialAlumno);
     const [submitted, setSubmitted] = React.useState(false);
     const [mensajeUpdatePerfil, setMensajeUpdatePerfil] = React.useState("");
@@ -33,13 +34,14 @@ export default function Perfil() {
           .then((response) => {
             setAlumno( 
                 {id_alumno: response.data.id_alumno,
-                apellido: response.data.apellido,
-                name: response.data.name,
-                usuario: response.data.usuario,
+                apellido_alumno: response.data.apellido_alumno,
+                name_alumno: response.data.name_alumno,
+                usuario_alumno: response.data.usuario_alumno,
+                telefono_alumno: response.data.telefono_alumno,
                 rol: response.data.rol,
-                estado: response.data.estado,
-                fechaNac: response.data.fechaNac,
-                genero: response.data.genero,
+                estado_alumno: response.data.estado_alumno,
+                fechaNac_alumno: response.data.fechaNac_alumno,
+                genero_alumno: response.data.genero_alumno,
                 nivel_primaria: response.data.nivel_primaria,  
                 nivel_secundaria: response.data.nivel_secundaria,
                 nivel_terciario: response.data.nivel_terciario,
@@ -72,7 +74,7 @@ export default function Perfil() {
                 <Grid container direction="row" justifyContent="center" alignItems="center" marginTop={1}>   
                     <Grid item xs={12} sm={12} md={12} lg={12} textAlign="center" marginBottom="30px">
                         <Typography color="#10223D" variant="h4" noWrap component="div" >
-                            ¡Hola {alumno.name}!
+                            ¡Hola {alumno.name_alumno}!
                         </Typography>
                         <Typography color="#d6533c" variant="h5" noWrap component="div" >
                             Recorda siempre tener actualizado tu perfil.   
@@ -89,19 +91,19 @@ export default function Perfil() {
                             
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"93%"}}>
-                                    <TextField disabled onChange={handleChange} name="name" size='small' label="Nombre" id="Nombre" value={alumno.name}></TextField>
+                                    <TextField disabled onChange={handleChange} name="name_alumno" size='small' label="Nombre" id="Nombre" value={alumno.name_alumno}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"93%"}}>
-                                    <TextField disabled  onChange={handleChange} name="apellido" size='small' label="Apellido" id="Apellido" value={alumno.apellido}></TextField>
+                                    <TextField disabled  onChange={handleChange} name="apellido_alumno" size='small' label="Apellido" id="Apellido" value={alumno.apellido_alumno}></TextField>
                                 </FormControl>
                             </Grid>
                         </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"94%"}}>
-                                    <Select onChange={handleChange} name="genero" size='small' value={alumno.genero}>
+                                    <Select onChange={handleChange} name="genero_alumno" size='small' value={alumno.genero_alumno}>
                                         <MenuItem value={10}>Femenino</MenuItem>
                                         <MenuItem value={20}>Masculino</MenuItem>
                                         <MenuItem value={30}>No binario</MenuItem>
@@ -110,7 +112,7 @@ export default function Perfil() {
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
                                 <FormControl sx={{minWidth:"95%"}}>
-                                <TextField onChange={handleChange} name="fechaNac" size='small' id="date" label="Fecha de Nacimiento - dd/mm/yyyy" value={alumno.fechaNac}></TextField>
+                                <TextField onChange={handleChange} name="fechaNac_alumno" size='small' id="date" label="Fecha de Nacimiento - dd/mm/yyyy" value={alumno.fechaNac_alumno}></TextField>
                                 </FormControl>
                             </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -124,7 +126,12 @@ export default function Perfil() {
                         <Grid container  xs={12} sm={12} md={12} lg={12} direction="row" justifyContent="center" alignItems="center" marginTop="15px">
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center">
                                 <FormControl  sx={{color:"#d6533c", minWidth:"98%"}}>
-                                    <TextField disabled size='small' label="Email" id="Email"value={alumno.usuario}></TextField>
+                                    <TextField disabled size='small' label="Email" id="Email"value={alumno.usuario_alumno}></TextField>
+                                </FormControl>
+                            </Grid>
+                            <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center" marginTop="15px">
+                                <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
+                                    <TextField onChange={handleChange} value={alumno.telefono_alumno} InputProps={{inputProps: { min: 0}}} type="number" name="telefono_alumno" label="Telefono" id="Telefono"></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={12} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
