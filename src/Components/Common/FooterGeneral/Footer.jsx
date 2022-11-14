@@ -8,7 +8,7 @@ export default function Footer() {
 
     return (
     <Container sx={{position:"flex", height:"20vh",marginTop:"70px"}}>
-         <Grid container textAlign="center" justifyContent="center" sx={{paddingTop:"30px",borderTop:"1px solid"}}> 
+         <Grid container textAlign="center" justifyContent="center" sx={{paddingTop:"10px",borderTop:"1px solid"}}> 
             <Grid item paddingTop={1} xs={12} >
                 <InputLabel style={{color:"#d6533c", fontSize:"35px",paddingTop:"15px"}}> tuprofe.com </InputLabel> 
             </Grid>
