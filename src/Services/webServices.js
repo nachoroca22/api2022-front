@@ -1,6 +1,6 @@
-//const urlApi        = process.env.REACT_APP_URL || "https://api2022-back.herokuapp.com/api/";
+const urlApi        = process.env.REACT_APP_URL || "https://api2022-back.herokuapp.com/api/";
 //Url para prueba local
-const urlApi        = process.env.REACT_APP_URL || "http://localhost:4000/api/";
+//const urlApi        = process.env.REACT_APP_URL || "http://localhost:4000/api/";
 
 
 const webServices = {
