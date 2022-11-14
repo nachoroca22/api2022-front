@@ -19,7 +19,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Tabla from './TablaContratacionesFinalizadas'
+import Tabla from './TablaContratacionesFinalizadas';
+import Footer from "../Common/FooterGeneral/Footer"
 import { Container } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import {
@@ -191,7 +192,7 @@ export default function ResponsiveDrawer(props: Props) {
       >
         <Toolbar sx={{backgroundColor:"#F2EDDB"}} />
         <Tabla></Tabla>
-        <Container sx={{marginTop:"10px" ,height:"700px",backgroundColor:"#F2EDDB"}} ></Container>
+        <Footer></Footer>
       </Box>
     </Box>
   );

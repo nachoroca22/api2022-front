@@ -3,6 +3,7 @@ import {TextField, InputLabel,Container, FormControl, MenuItem,Select, Grid, Typ
 import foto from "../media/foto.jpg"
 import { LoadingButton } from '@mui/lab'
 import { obtenerProfesor,actualizarProfesor } from "../../Services/profesores";
+import {setPasswordProfesor} from "../../Services/login"
 
 export default function Perfil() {
     const initialProfesor = {
@@ -10,6 +11,7 @@ export default function Perfil() {
         apellido: "",
         name: "",
         usuario: "",
+        password:"",
         rol: "",
         estado: null,
         telefono: "",
@@ -57,6 +59,17 @@ export default function Perfil() {
             [e.target.name]: e.target.value,
         }));
     };
+
+    const changePassword = () => {
+        if(profesor.password === ""){
+            setMensajeUpdatePerfil("Debe ingresar una password")
+        }else{
+            setPasswordProfesor(profesor)
+            .then((response) => {
+                response.message === "Reset Password Profesor" ? setMensajeUpdatePerfil("Se cambio la password.") : setMensajeUpdatePerfil("No se pudo cambiar la password.")
+            })
+        }
+    }
 
     const handleActualizarProfesor = () => {
         actualizarProfesor(profesor)
@@ -128,10 +141,15 @@ export default function Perfil() {
                                 <TextField onChange={handleChange} name="fechaNac" value={profesor.fechaNac} label="Fecha de Nacimiento - dd/mm/yyyy" id="date"></TextField>
                                 </FormControl>
                             </Grid>
-                        <Grid container direction="row" justifyContent="center" alignItems="center">
-                            <Grid item xs={12} sm={12} md={12} lg={12} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
-                                <FormControl sx={{minWidth:"96%"}}>
-                                    <TextField label="Nueva password" id="Password" type="password"></TextField>
+                            <Grid container direction="row" justifyContent="center" alignItems="center">
+                            <Grid item xs={6} sm={6} md={6} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
+                                <FormControl sx={{minWidth:"94%"}}>
+                                    <TextField size='small' onChange={handleChange} name="password" label="Nueva password" id="Password" type="password"></TextField>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6} sm={6} md={6} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
+                                <FormControl sx={{minWidth:"60%"}}>
+                                    <LoadingButton onClick={changePassword} variant="contained" sx={{borderRadius:"10px" }}> Cambiar</LoadingButton>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -165,7 +183,7 @@ export default function Perfil() {
                             </Grid>
                         </Grid>    
                     </Card>
-                </Grid>
+                </Grid>                
         </Container>  
     );
 
