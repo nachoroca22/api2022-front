@@ -98,21 +98,6 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-function createData(
-  id_clase: number,
-  id_profesor: number,
-  materia: string,
-  tipoClase: string,
-  costo: number,
-  frecuencia: string,
-  duracion: string,
-  descripcion: string,
-  calificacion: number,
-  contrataciones: number,
-) {
-  return { materia, tipoClase, costo, frecuencia, descripcion, calificacion, id_clase, id_profesor, duracion, contrataciones  };
-}
-
 
 export default function BasicTable() {
   const [page, setPage] = React.useState(0);
@@ -257,7 +242,7 @@ export default function BasicTable() {
               </ModalNewClases>
             </Modal>
         </Grid>
-      <Table  sx={{minWidth: 450, minHeight: 20, backgroundColor:"#F2EDDB"}} aria-label="simple table">
+      <Table  sx={{minWidth: 450, minHeight: "70vh", backgroundColor:"#F2EDDB"}} aria-label="simple table">
         <TableHead sticky sx={{backgroundColor:"#10223D"}}>
           <TableRow>
             <TableCell sx={{color:"#F2EDDB", fontSize:"18px"}} align="center">Materia</TableCell>

@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tabla from './TablaContratacionesFinalizadas'
-import { Container } from '@mui/material';
+import Footer from "../Common/FooterGeneral/Footer"
 import { useNavigate } from "react-router-dom";
 import {
   removeToken,
@@ -173,7 +173,7 @@ export default function ResponsiveDrawer(props: Props) {
       >
         <Toolbar sx={{backgroundColor:"#F2EDDB"}} />
         <Tabla></Tabla>
-        <Container sx={{marginTop:"10px" ,height:"700px",backgroundColor:"#F2EDDB"}} ></Container>
+        <Footer></Footer>
       </Box>
     </Box>
   );

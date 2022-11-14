@@ -20,6 +20,7 @@ import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import Perfil from "./Perfil.jsx";
+import Footer from "../Common/FooterGeneral/Footer"
 import {
   removeToken,
   removeActiveSession,
@@ -177,7 +178,7 @@ export default function ResponsiveDrawer(props: Props) {
         <Toolbar sx={{backgroundColor:"#F2EDDB"}} />
 
         <Perfil></Perfil>
-        <Container sx={{marginTop:"10px" ,height:"200px",backgroundColor:"#F2EDDB"}} ></Container>
+        <Footer></Footer>
       </Box>
     </Box>
   );

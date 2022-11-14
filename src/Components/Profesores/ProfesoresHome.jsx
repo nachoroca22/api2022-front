@@ -7,7 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
 import List from '@mui/material/List';
-import { Grid, Link } from '@mui/material';
+import { Grid, Link, Container } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -19,8 +19,8 @@ import CommentIcon from '@mui/icons-material/Comment';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Container } from '@mui/material';
 import Perfil from "./Perfil.jsx";
+import Footer from "../Common/FooterGeneral/Footer"
 import { useNavigate } from "react-router-dom";
 import {
   removeToken,
@@ -193,7 +193,9 @@ export default function ResponsiveDrawer(props: Props) {
         <Toolbar sx={{backgroundColor:"#F2EDDB"}} />
 
         <Perfil></Perfil>
-        <Container sx={{marginTop:"10px" ,height:"50px",backgroundColor:"#F2EDDB"}} ></Container>
+        
+        <Footer></Footer>
+ 
       </Box>
     </Box>
   );

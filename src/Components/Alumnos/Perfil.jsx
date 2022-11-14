@@ -4,6 +4,7 @@ import foto from "../media/foto.jpg"
 import NativeSelect from '@mui/material/NativeSelect';
 import { LoadingButton } from '@mui/lab'
 import { obtenerAlumno, actualizarAlumno} from "../../Services/alumnos";
+import {setPasswordAlumno} from "../../Services/login"
 
 
 export default function Perfil() {
@@ -12,6 +13,7 @@ export default function Perfil() {
         apellido_alumno: "",
         name_alumno: "",
         usuario_alumno: "",
+        password:"",
         rol: "",
         telefono_alumno: "",
         estado_alumno: null,
@@ -63,6 +65,17 @@ export default function Perfil() {
         }));
     };
     
+    const changePassword = () => {
+        if(alumno.password === ""){
+            setMensajeUpdatePerfil("Debe ingresar una password")
+        }else{
+            setPasswordAlumno(alumno)
+            .then((response) => {
+                response.message === "Reset Password Alumno" ? setMensajeUpdatePerfil("Se cambio la password.") : setMensajeUpdatePerfil("No se pudo cambiar la password.")
+            })
+        }
+    }
+
     const handleActualizarAlumno = () => {
         actualizarAlumno(alumno)
           .then((response) => {
@@ -116,21 +129,26 @@ export default function Perfil() {
                                 </FormControl>
                             </Grid>
                         <Grid container direction="row" justifyContent="center" alignItems="center">
-                            <Grid item xs={12} sm={12} md={12} lg={12} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
-                                <FormControl sx={{minWidth:"98%"}}>
-                                    <TextField size='small' label="Nueva password" id="Password" type="password"></TextField>
+                            <Grid item xs={6} sm={6} md={6} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
+                                <FormControl sx={{minWidth:"94%"}}>
+                                    <TextField onChange={handleChange} size='small' name='password' label="Nueva password" id="Password" type="password"></TextField>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6} sm={6} md={6} lg={6} container marginTop={1} direction="row" justifyContent="center" alignItems="center">
+                                <FormControl sx={{minWidth:"60%"}}>
+                                    <LoadingButton onClick={changePassword} variant="contained" sx={{borderRadius:"10px" }}> Cambiar</LoadingButton>
                                 </FormControl>
                             </Grid>
                         </Grid>
                         </Grid>
                         <Grid container  xs={12} sm={12} md={12} lg={12} direction="row" justifyContent="center" alignItems="center" marginTop="15px">
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center">
-                                <FormControl  sx={{color:"#d6533c", minWidth:"98%"}}>
+                                <FormControl  sx={{color:"#d6533c", minWidth:"97%"}}>
                                     <TextField disabled size='small' label="Email" id="Email"value={alumno.usuario_alumno}></TextField>
                                 </FormControl>
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center" alignItems="center" marginTop="15px">
-                                <FormControl  sx={{color:"#d6533c", minWidth:"96%"}}>
+                                <FormControl  sx={{color:"#d6533c", minWidth:"97%"}}>
                                     <TextField onChange={handleChange} value={alumno.telefono_alumno} InputProps={{inputProps: { min: 0}}} type="number" name="telefono_alumno" label="Telefono" id="Telefono"></TextField>
                                 </FormControl>
                             </Grid>

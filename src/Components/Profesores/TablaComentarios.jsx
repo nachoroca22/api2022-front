@@ -176,7 +176,7 @@ export default function BasicTable() {
   return (
     <TableContainer 
     component={Paper} >
-      <Table  sx={{minWidth: 450, minHeight: 500, backgroundColor:"#F2EDDB"}} aria-label="simple table">
+      <Table  sx={{minWidth: 450, minHeight: "70vh", backgroundColor:"#F2EDDB"}} aria-label="simple table">
         <TableHead sticky sx={{backgroundColor:"#10223D"}}>
           <TableRow> 
 

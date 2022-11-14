@@ -27,3 +27,17 @@ export const resetPasswordProfesor = async (usuario) => {
     usuario: usuario,
   });
 };
+
+export const setPasswordProfesor = async (profesor) => { 
+  return await put(webServices.setPasswordProfesor, {
+    id_user: profesor.id_user,
+    password: profesor.password
+  });
+};
+
+export const setPasswordAlumno = async (alumno) => { 
+  return await put(webServices.setPasswordAlumno, {
+    id_alumno: alumno.id_alumno,
+    password: alumno.password
+  });
+};
