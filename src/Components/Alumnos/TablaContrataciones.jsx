@@ -281,7 +281,6 @@ export default function BasicTable() {
               }}>      
               </InfoIcon>
               <Modal
-                sx={{opacity:"0.7"}}
                 open={isOpenModalInfoContratacion}
                 onClose={closeModalInfoContratacion}
               >
@@ -328,7 +327,6 @@ export default function BasicTable() {
                 }}>
               </CommentIcon>
               <Modal
-                //sx={{opacity:"0.5"}}
                 open={isOpenModalComentar}
                 onClose={closeModalComentar}
               >

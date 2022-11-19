@@ -111,7 +111,7 @@ export default function ModalContrataciones (props){
                             </FormControl>         
                         </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                                <LoadingButton onClick={()=>props.close()} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cerrar</LoadingButton> 
+                                <LoadingButton size="small" onClick={()=>props.close()} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cerrar</LoadingButton> 
                         </Grid>
                     </Grid>
                 </Paper> 

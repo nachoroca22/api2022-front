@@ -23,14 +23,16 @@ export default function ModalClases (props){
         })
     }
     const realizarComentario = () =>{
-        comentarContratacion(contratacion)
-        .then((response) => {
-            setMensajeComentar(response.message)
-           /*  if(response.message === 'Contratacion actualizada' ){
-                setMensajeComentar("Se envío el comentario para revisión.")
-            }else{ setMensajeComentar(response.data)}  */
-        setBotonCerrar(true)
-    })} 
+        if (contratacion.calificacion_alumno===0 || contratacion.comentario===""){
+            setMensajeComentar("Debe completar todos los campos")
+        }else{
+            comentarContratacion(contratacion)
+            .then((response) => {
+                setMensajeComentar(response.message)
+            setBotonCerrar(true)
+        })
+    } 
+    }
 
     const closeModal = () => {
         props.close()
@@ -72,8 +74,13 @@ export default function ModalClases (props){
                                 <InputLabel style={{color:"#10223D", fontSize:"19px"}}> {mensajeComentar} </InputLabel> 
                         </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                            {botonCerrar ? undefined :<LoadingButton onClick={realizarComentario}  variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Comentar</LoadingButton>}
-                            {botonCerrar ?<LoadingButton onClick={() => closeModal()} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cerrar</LoadingButton> : undefined} 
+                            {botonCerrar ? undefined :
+                            <Grid>
+                                <LoadingButton onClick={realizarComentario} size="small" variant="contained" sx={{borderRadius:"10px",marginTop:"15px",marginRight:"5px" }}> Comentar</LoadingButton>
+                                <LoadingButton onClick={() => closeModal()} size="small" variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cancelar</LoadingButton>
+                            </Grid>}
+                            {botonCerrar ? <LoadingButton onClick={() => closeModal()} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cerrar</LoadingButton> : undefined} 
+                            
                         </Grid>
                     </Grid>
                 </Paper> 

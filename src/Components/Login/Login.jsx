@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid,Paper, Avatar, TextField, Typography,Link, InputLabel} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LoadingButton } from '@mui/lab'
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 import { loginProfesor,loginAlumno,resetPasswordAlumno,resetPasswordProfesor } from "../../Services/login";
 import {
@@ -21,9 +21,9 @@ export default function Login (props){
     const avatarStyle={backgroundColor:'#10223D'};
     const btnstyle={backgroundColor:" #d6533c", borderRadius:"10px",width:"35%",margin:'8px'};
 
-    const navigate = useNavigate();
-    const [user, setName] = React.useState('Composed TextField');
-    const [password, setPassword] = React.useState('Composed TextField');
+    //const navigate = useNavigate();
+    const [user, setName] = React.useState('');
+    const [password, setPassword] = React.useState('');
     const [mensajeSignin, setMensajeSigin] = React.useState("");
     const [recuperoPassword, setRecuperoPassword] = React.useState(false);
     const [viewLogin, setViewLogin] = React.useState(true);
@@ -60,36 +60,30 @@ export default function Login (props){
       }
     
     const handleSubmitProfesor = (user,password) => {
-        {
-           loginProfesor(user,password).then((response) => {
-            removeToken();
-            removeActiveSession();
-            removeID();
-            removeRol();
-
-            if (response.status !== 400) {
+        if(user ==="" || password ===""){
+            setMensajeSigin("Debe completar todos los datos.")
+        }else{
+           loginProfesor(user,password)
+            .then((response) => {
+             if (response.status !== 400) {
                 setToken(response.token);
                 setActiveSession(true);
                 setRol(response.rol);
                 setID(response.id_user);
                 props.onClose()
-                //navigate("/profesores/home")
-
-                //this.props.history.replace("/profesores/home");
-              } else{
+                window.location.reload(false);
+                
+            } else{
                 setMensajeSigin("Usuario o password incorrecto")
-              }
+            }
            })
     }}
 
     const handleSubmitAlumno = (user,password) => {
-        {
+        if(user ==="" || password ===""){
+            setMensajeSigin("Debe completar todos los datos.")
+        }else{
            loginAlumno(user,password).then((response) => {
-            removeToken();
-            removeActiveSession();
-            removeID();
-            removeRol();
-
             if (response.status !== 400) {
                 setToken(response.token);
                 setActiveSession(true);
@@ -97,7 +91,7 @@ export default function Login (props){
                 setID(response.id_alumno);
                 props.onClose()
                 window.location.reload(false);
-                //navigate("/alumnos/home")
+
             } else{
                 setMensajeSigin("Usuario o password incorrecto")
             }

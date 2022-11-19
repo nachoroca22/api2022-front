@@ -35,32 +35,38 @@ import {createProfesor} from '../../Services/profesores'
     };
 
     const handleCreateAlumno = () => {
-        createAlumno(usuario)
+        if(usuario.apellido ==="" || usuario.name ==="" || usuario.usuario ===""){
+            setMensajeSignup("Debe completar todos los datos.")
+        }else{
+            createAlumno(usuario)
           .then((response) => {
-            if( response.message === "Succesfully Created Alumno"){
-                setBotonCerrar(true)
-                setMensajeSignup("Se envio la password al correo ingresado.")
-            }else{
-                setBotonCerrar(false)
-                setMensajeSignup("El correo ya se encuentra registrado.")
-                
-            }
-        })
-        
+                if( response.message === "Succesfully Created Alumno"){
+                    setBotonCerrar(true)
+                    setMensajeSignup("Se envio la password al correo ingresado.")
+                }else{
+                    setBotonCerrar(false)
+                    setMensajeSignup("El correo ya se encuentra registrado.")
+                    
+                }
+            })
+        }
     }
 
     const handleCreateProfesor = () => {
+        if(usuario.apellido ==="" || usuario.name ==="" || usuario.usuario ===""){
+            setMensajeSignup("Debe completar todos los datos.")
+        }else{
         createProfesor(usuario)
           .then((response) => {
-            if( response.message !== "Succesfully Created Profesor" ){
-                setBotonCerrar(false)
-                setMensajeSignup("El correo ya se encuentra registrado.")
-            }else{  
-                setBotonCerrar(true)
-                setMensajeSignup("Se envio la password al correo ingresado.")  
-            }
-        })
-        setBotonCerrar(true)
+                if( response.message !== "Succesfully Created Profesor" ){
+                    setBotonCerrar(false)
+                    setMensajeSignup("El correo ya se encuentra registrado.")
+                }else{  
+                    setBotonCerrar(true)
+                    setMensajeSignup("Se envio la password al correo ingresado.")  
+                }
+            })
+        }
     }
       
     return(

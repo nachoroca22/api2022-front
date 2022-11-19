@@ -2,7 +2,8 @@ import * as React from 'react';
 import  Navbar from "../Components/landing/navBar/NavBar"
 import Filter from '../Components/Common/Filter/Filter.jsx'
 import {Grid} from '@mui/material';
-
+import Footer from "../Components/Common/FooterGeneral/Footer"
+import { Container } from '@mui/system';
 
 function Busquedalanding() {
 
@@ -13,7 +14,8 @@ function Busquedalanding() {
           sx={{marginTop:"80px",paddingBottom:"15px",paddingTop:"15px" ,marginBottom:"3px", height:"flex", backgroundColor: "#F2EDDB"}}
         >
           <Filter></Filter>
-        </Grid> 
+          <Footer></Footer>   
+        </Grid>     
       </React.Fragment>
     );
   }
