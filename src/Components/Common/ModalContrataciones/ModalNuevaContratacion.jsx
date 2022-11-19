@@ -27,9 +27,14 @@ export default function ModalNuevaContratacion (props){
 
     const handleSubmiteed = (event) => {
         event.preventDefault();
-        crearContratacion(newContratacion);
-        setMensajeContratacion("Se realizo la contratacion");
-        setBotonCerrar(true);
+        if (newContratacion.mensaje ==="" || newContratacion.horario===""){
+            setMensajeContratacion("Debe completar todos los campos.");
+        }else{
+            crearContratacion(newContratacion);
+            setMensajeContratacion("Se realizo la contratacion");
+            setBotonCerrar(true);
+        }
+        
     }
 
     const handleInputChange = (event) => {
@@ -99,12 +104,11 @@ export default function ModalNuevaContratacion (props){
                                 <InputLabel style={{color:"#10223D", fontSize:"19px"}}> {mensajeContratacion} </InputLabel> 
                         </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                            {botonCerrar ? undefined : <LoadingButton 
-                            variant="contained" 
-                            onClick={handleSubmiteed}
-                            sx={{borderRadius:"10px",marginTop:"15px", marginRight:"10px" }}
-                            > Contratar
-                            </LoadingButton>} 
+                            {botonCerrar ? undefined : 
+                            <Grid>
+                                <LoadingButton variant="contained" onClick={handleSubmiteed} sx={{borderRadius:"10px",marginTop:"15px", marginRight:"10px" }}> Contratar</LoadingButton>
+                                <LoadingButton variant="contained" onClick={() => props.onClose()} sx={{borderRadius:"10px",marginTop:"15px", marginRight:"10px" }}> Camcelar</LoadingButton>
+                            </Grid>} 
                             
                             {botonCerrar ? <LoadingButton 
                                 onClick={() => props.onClose()}

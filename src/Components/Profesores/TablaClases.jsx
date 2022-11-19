@@ -230,8 +230,8 @@ export default function BasicTable() {
               sx={{borderRadius:"10px",marginBottom:"20px",marginTop:"10px" }}
               > Nueva Clase
             </LoadingButton> 
+            
             <Modal
-                sx={{opacity:"1"}}
                 open={isOpenModalNewClases}
                 onClose={closeModalNewClases}
               >

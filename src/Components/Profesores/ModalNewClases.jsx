@@ -25,11 +25,15 @@ export default function ModalNewClases (props){
 
     const handleSubmiteed = (event) => {
         event.preventDefault();
-        crearClase(newClase)
-        .then((response) => {
+        if (newClase.materia==="" || newClase.tipoClase==="" ||newClase.costo==="" || newClase.frecuencia==="" || newClase.duracion==="" || newClase.descripcion===""){
+            setMensajeNewClase("Debe completar todos los datos.")
+        }else {
+            crearClase(newClase)
+             .then((response) => {
             setMensajeNewClase("Se creo la clase: " + newClase.materia)
         })
         setBotonCerrar(true)
+        }
     }
 
 
@@ -110,13 +114,11 @@ export default function ModalNewClases (props){
                                 <InputLabel style={{color:"#10223D", fontSize:"19px"}}> {mensajeNewClase} </InputLabel> 
                         </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                            {botonCerrar ? undefined : <LoadingButton 
-                            onClick={handleSubmiteed} 
-                            variant="contained" 
-                            sx={{borderRadius:"10px",marginTop:"15px", marginRight:"10px" }}
-                            > Guardar
-                            </LoadingButton>} 
-                            
+                            {botonCerrar ? undefined : 
+                                <Grid>
+                                    <LoadingButton onClick={handleSubmiteed} variant="contained" sx={{borderRadius:"10px",marginTop:"15px", marginRight:"10px" }}> Guardar</LoadingButton> 
+                                    <LoadingButton onClick={()=>props.onClose()} variant="contained" sx={{borderRadius:"10px",marginTop:"15px", marginRight:"10px" }}> Cerrar</LoadingButton>
+                                </Grid>}
                             {botonCerrar ? <LoadingButton 
                                 onClick={()=>props.onClose()} 
                                 variant="contained" 

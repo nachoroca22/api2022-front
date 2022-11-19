@@ -82,9 +82,9 @@ export default function ModalEditarContrataciones (props){
                                     size="small" 
                                     style={{color:"#10223D",marginLeft:"43px",marginTop:"2px"}}
                                 > 
-                                    <MenuItem value={10}>Solicitada</MenuItem>
+                                    <MenuItem disabled value={10}>Solicitada</MenuItem>
                                     <MenuItem disabled value={20}>Aceptada</MenuItem>
-                                    <MenuItem value={30}>Finalizada</MenuItem>
+                                    {updateContratacion.estado<20 ? <MenuItem disabled value={30}>Finalizada</MenuItem> : <MenuItem value={30}>Finalizada</MenuItem>}
                                     <MenuItem value={40}>Cancelada</MenuItem>
                                 </Select> 
                             </FormControl>         
@@ -93,7 +93,11 @@ export default function ModalEditarContrataciones (props){
                                 <InputLabel style={{color:"#10223D", fontSize:"19px"}}> {mensajeActualizacion} </InputLabel> 
                         </Grid>
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
-                            {botonCerrar ? undefined :<LoadingButton onClick={actualizarEstado} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Actualizar</LoadingButton>}
+                            {botonCerrar ? undefined :
+                            <Grid>
+                                <LoadingButton size="small" onClick={actualizarEstado} variant="contained" size='small' sx={{borderRadius:"10px",marginTop:"15px",marginRight:"5px" }}> Actualizar</LoadingButton>
+                                <LoadingButton size="small" onClick={()=>props.close()}variant="contained" size='small' sx={{borderRadius:"10px",marginTop:"15px",marginLeft:"5px"}}> Cancelar</LoadingButton>
+                            </Grid>}
                             {botonCerrar ? <LoadingButton onClick={()=>props.close()} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cerrar</LoadingButton> : undefined} 
                         </Grid>
                     </Grid>

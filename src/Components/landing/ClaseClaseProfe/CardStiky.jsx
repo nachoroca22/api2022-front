@@ -45,7 +45,7 @@ export default function CardSticky (props,children){
                                     alt="foto pefil"       
                                 /> 
                                 <Typography variant='h6' sx={{color:"#10223D",textAlign:"center",fontWeight:600, marginTop:"10px" ,marginBottom:"1px"}}>
-                                    {props.profesor}
+                                    {props.name} {props.apellido}
                                 </Typography> 
                                 <Rating readOnly value={props.calificacion} precision={0.5} size="medium" sx={{marginTop:"5px", paddingBottom:"5px"}}></Rating>
                                 <Grid container  alignItems="center" justifyItems="center" justifyContent="center" textAlign="center">

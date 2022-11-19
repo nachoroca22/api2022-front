@@ -3,11 +3,35 @@ import {Container, Box, Paper, Grid, Typography, Card, CardMedia, InputLabel} fr
 import CardSticky from './CardStiky';
 import CommentBox from './CommentBox';
 import data from "../../../data/contrataciones.json"
+import Footer from "../../Common/FooterGeneral/Footer"
+import { useParams } from 'react-router-dom';
+import { obtenerComentariosByClase } from '../../../Services/contrataciones';
 
 const contrataciones = data
 
-export default function ModalClasesProfe (props){
-    
+export default function CardClaseProfe (props){
+
+    let {id}  = useParams();
+    const [mensajeSinComentarios, setMensajeSinComentarios] = React.useState("");
+    const [comentarios, setComentarios] = React.useState([])
+    const [submitted,setSubmitted] = React.useState(false);
+    const [clase, setClase] = React.useState({
+        id_clase: id,
+        paginado: null,
+    })
+
+    if (submitted === false){
+        setSubmitted(true)
+        obtenerComentariosByClase(clase)
+        .then((response) => {
+            if (response.data.length === 0){
+                setMensajeSinComentarios("La clase aún no recibió comentarios.")
+            }else{
+                setComentarios(response.data)
+            }  
+        })
+    }
+
     return( 
         <React.Fragment>
 
@@ -74,16 +98,18 @@ export default function ModalClasesProfe (props){
                     <Typography variant='h4' sx={{color:"#10223D",textAlign:"left",fontWeight:600, marginTop:"30px",padding:2 ,marginBottom:"1px"}}>
                         Opiniones
                     </Typography> 
-                    {contrataciones.map(contratacion=>(<CommentBox key={contratacion.id} 
-                        id={contratacion.id}
-                        alumno_nombre={contratacion.alumno_nombre}
-                        calificacion={contratacion.calificacion}
-                        comentarios={contratacion.comentarios}
+                    <Grid container alignItems="center" justifyContent="center">
+                        <InputLabel style={{color:"#10223D", fontSize:"25px"}}> {mensajeSinComentarios} </InputLabel> 
+                    </Grid>
+                    {comentarios.map(comentario => (<CommentBox key={comentario._id} 
+                        alumno_nombre={comentario.alumno}
+                        calificacion={comentario.calificacion_alumno}
+                        comentarios={comentario.comentario}
                         ></CommentBox>))
                     } 
                 </Grid>
             </Grid> 
-
+            <Footer></Footer>  
         </Container>
         
         </React.Fragment>

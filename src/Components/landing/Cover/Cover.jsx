@@ -1,7 +1,6 @@
 import * as React from 'react';
 import "./cover.css"
 import videoHome from "../../media/cover.mp4"
-import Filter from '../../Common/Filter/Filter.jsx'
 import { Button } from '@mui/material';
 import {Link as RouterLink,} from 'react-router-dom';
 

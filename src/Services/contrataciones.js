@@ -81,3 +81,10 @@ export const rechazarComentario = async (data) => {
     descargo_comentario: data.descargo_comentario
   });
 };
+
+export const obtenerComentariosByClase = async (data) => {
+  console.log ("webservice",data)
+  return await put(webServices.obtenerComentariosByClase,{
+    id_clase: data.id_clase
+  });
+};

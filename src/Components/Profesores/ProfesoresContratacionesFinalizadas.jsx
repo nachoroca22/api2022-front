@@ -55,7 +55,7 @@ export default function ResponsiveDrawer(props: Props) {
     removeID();
     removeRol();
     navigate("/")
-    
+
   }
 
   const drawer = (

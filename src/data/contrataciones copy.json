@@ -28,7 +28,7 @@
     "estado": "Cancelada",
     "msjContacto":"Hola mi hijo necesita apoyo con una materia de la secundaria",
     "horaContacto":"De 12 a 18hs",
-    "comentarios": "ooo"
+    "comentarios": "MI hijo Federico aprobó matemáticas de 5to año y por lo tanto la secundaria gracias a que Adrian lo preparo. Pero tanto o mas importante, Adrian le enseño la importancia de no darse por vencido, que para Fede fue una lección de vida. Hemos conocido a un profesor integro y absolutamente compenetrado en el éxito de sus alumnos. Totalmente recomendable sin dudarlo."
 },
 {
     "id": 2,
@@ -44,7 +44,7 @@
     "estado": "Finalizada",
     "msjContacto":"Necesito ayuda con una materia del secundario",
     "horaContacto":"De 15 a 19hs",
-    "comentarios": "ooo"
+    "comentarios": "Nos conocimos en un curso de programación, y aprendí más de Analia sobre HTML y CSS que del curso en sí, ahora gracias a ella, que siempre tenia anotado todo con su porqué al lado, conseguí hace un mes mi primer trabajo como desarrollador de páginas web junior. Enseña muy bien, y la verdad es muy paciente, recuerdo haberle preguntado lo mismo 7 veces y nunca se enojó, sino que buscaba otras maneras de explicarlo, y no me dejaba tranquilo hasta que realmente lo haya entendido jajaja, la mejor profe que hay de lo que sea"
 },
 {
     "id": 3,
@@ -60,7 +60,7 @@
     "estado": "Solicitada",
     "msjContacto":"Me gustaria tomar la clase ya que necesito ayuda para una materia de la universidad",
     "horaContacto":"De 9 a 15hs",
-    "comentarios": "ooo"
+    "comentarios": "Mica es una excelente profesora, muy clara en la comunicación de sus conocimientos, cualidad básica para enseñar un arte tan difícil como es la fotografía. Lúcida, sensible,profunda y lo primordial, su idoneidad en su profesión. Mi primer acercamiento a la fotografía básica, lo hice con ella y luego de completar el ciclo del taller, al tiempo volví por más. Sin fanatismo, digo, que es la mejor"
 },
 {
     "id": 6,
@@ -76,6 +76,6 @@
     "estado": "Solicitada",
     "msjContacto":"Necesito ayuda con esta materia",
     "horaContacto":"De 13 a 17hs",
-    "comentarios": "ooo"
+    "comentarios": "Las mejores clases de piano online que vi en mi vida. Realmente una profesora que entiende la tecnología actual y supo aprovechar al máximo como dar clases de manera profesional desde su casa. Se siente como mirar un stream de Twitch, con cambios de cámara y enfoque al material didáctico de manera clara. Mucho amor en su trabajo. Mil gracias por todo!"
 }
 ]

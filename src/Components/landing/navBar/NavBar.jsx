@@ -51,6 +51,7 @@ export default function Navbar ({isScrolling}) {
       navigate("/alumnos/home")
     }else{
       navigate("/profesores/home")
+
     }
   }
 
