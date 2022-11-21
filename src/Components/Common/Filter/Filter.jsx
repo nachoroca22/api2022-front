@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Container } from '@mui/system';
 import { useState } from 'react';
 import About from "../../../Components/landing/about/About"
-import {Link as RouterLink,} from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
 import Cards from "../Cards/Cards";
 import { obtenerMateriasFiltro } from '../../../Services/clases';
 import {obtenerClasesFiltradas} from "../../../Services/clases"
@@ -202,8 +202,11 @@ export default function Filtro() {
           <Grid item>
             <InputLabel sx={{marginTop:"80px",color:"#10223D", fontSize:"25px"}}> {viewMensajeBusquedaVacia} </InputLabel> 
           </Grid>
-          <Grid item sx={{marginTop:"150px",marginBottom:"300px"}}>
-            <About sx={{marginTop: "20px"}}></About>
+            <Grid item sx={{marginTop:"150px",marginBottom:"300px"}}>
+              <About sx={{marginTop: "20px"}}></About>
+            </Grid>
+            <Grid container justifyContent="center">
+              <LoadingButton variant="contained" size='large' sx={{borderRadius:"10px",marginTop:"20px" }}> + comentarios</LoadingButton>
             </Grid>
           </Grid>
         }

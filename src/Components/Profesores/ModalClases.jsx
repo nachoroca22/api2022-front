@@ -3,7 +3,7 @@ import { Grid,Paper,InputLabel, TextField, FormControl} from '@mui/material'
 import Rating from '@mui/material/Rating';
 import { LoadingButton } from '@mui/lab'
 
-export default function ModalClases (props,clase,children){
+export default function ModalClases (props,clase){
 
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:450, margin:"50px auto"};
 

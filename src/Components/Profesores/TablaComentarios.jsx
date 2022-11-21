@@ -23,9 +23,7 @@ import ModalAprobarComentario from "./ModalAprobarComentario";
 import ModalRechazarComentario from "./ModalReachazarComentario";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {comentariosPendientes} from "../../Services/contrataciones"
-import data from '../../data/contrataciones.json'
 
-const rows = data
 
 interface TablePaginationActionsProps {
   count: number;
@@ -256,7 +254,7 @@ export default function BasicTable() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={3}
-              count={rows.length}
+              count={comentarios.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

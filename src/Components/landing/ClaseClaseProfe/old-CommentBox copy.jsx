@@ -6,7 +6,7 @@ import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 
 
-export default function CommentBox (props,children){
+export default function CommentBox (props){
 
     return(
         <React.Fragment>

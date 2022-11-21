@@ -6,7 +6,7 @@ import {actualizarClase} from "../../Services/clases"
 
 
 
-export default function ModalEditClases (props,clase,children){
+export default function ModalEditClases (props,clase){
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:450, margin:"50px auto"};
     const frecuencia = ["Unica","Semanal","Mensual"]
     const tipoClase = ["Individual","Grupal"]

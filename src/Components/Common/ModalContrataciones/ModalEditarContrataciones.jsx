@@ -3,7 +3,7 @@ import { Grid,Paper,InputLabel, TextField, FormControl, MenuItem, Select} from '
 import { LoadingButton } from '@mui/lab';
 import {actualizarEstadoContratacion} from "../../../Services/contrataciones"
 
-export default function ModalEditarContrataciones (props,contratacion,children){
+export default function ModalEditarContrataciones (props,contratacion){
 
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:450, margin:"50px auto"};
     const [botonCerrar, setBotonCerrar] = React.useState(undefined);

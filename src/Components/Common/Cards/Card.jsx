@@ -28,6 +28,7 @@ export default function CardProfe(props) {
             borderRadius:"20px"
           }}
         image={props.foto}
+        //image={"https://res.cloudinary.com/dymsjd16z/image/upload/v1668891050/cld-sample-5.jpg"}
         alt="foto pefil"
         
       />

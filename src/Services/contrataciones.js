@@ -85,6 +85,7 @@ export const rechazarComentario = async (data) => {
 export const obtenerComentariosByClase = async (data) => {
   console.log ("webservice",data)
   return await put(webServices.obtenerComentariosByClase,{
-    id_clase: data.id_clase
+    id_clase: data.id_clase,
+    paginado: data.paginado
   });
 };

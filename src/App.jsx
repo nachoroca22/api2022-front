@@ -39,6 +39,7 @@ export default function App() {
           <Route path='/busqueda/clase/:id' element={<ModalClasesProfe />}/> 
           <Route path="/busqueda/" element={<Busqueda />}/>
           <Route path="*" element={<h1>Pagina Inexistente</h1>}/>
+
 {/* 
             <Route exact path='/profesores/home/' element={(activeSession===true && rol==="Profesor") ? <ProfesoresHome /> : <Navigate to="/"></Navigate>}/> 
             <Route exact path='/profesores/clases' element={(activeSession===true && rol==="Profesor")  ? <ProfesoresClases /> : <Navigate to="/"></Navigate>}/>       
