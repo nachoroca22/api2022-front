@@ -33,7 +33,10 @@ const webServices = {
     comentariosPendientes:          urlApi + "contrataciones/comentariospendientes", 
     aprobarComentario:              urlApi + "contrataciones/aprobarcomentario", 
     rechazarComentario:             urlApi + "contrataciones/rechazarcomentario", 
-    obtenerComentariosByClase:      urlApi + "contrataciones/comentariosbyclase", 
+    obtenerComentariosByClase:      urlApi + "contrataciones/comentariosbyclase",
+    guardarImgUser:                 urlApi + "profesores/guardarImgUser",
+    getImgUser:                     urlApi + "profesores/imgUserByMail",
+    uploadFileImg:                  urlApi + "profesores/uploadImg",
 }   
 
 export default webServices;

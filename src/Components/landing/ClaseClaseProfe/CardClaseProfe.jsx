@@ -1,61 +1,159 @@
 import * as React from 'react';
-import {Container, Box, Paper, Grid, Typography, Card, CardMedia, InputLabel} from '@mui/material';
-import CardSticky from './CardStiky';
-import CommentBox from './CommentBox';
-import data from "../../../data/contrataciones.json"
-import Footer from "../../Common/FooterGeneral/Footer"
+import { useState } from 'react';
+import Footer from "../../Common/FooterGeneral/Footer";
+import {Paper, Grid, Typography, CardMedia, Modal, Container, Box} from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import ModalNuevaContratacion from "../../Common/ModalContrataciones/ModalNuevaContratacion"
+import foto from '../../media/foto.jpg';
 import { useParams } from 'react-router-dom';
+
+import Rating from '@mui/material/Rating';
 import { obtenerComentariosByClase } from '../../../Services/contrataciones';
 
-const contrataciones = data
+
 
 export default function CardClaseProfe (props){
 
     let {id}  = useParams();
-    const [mensajeSinComentarios, setMensajeSinComentarios] = React.useState("");
+    const [viewBotonContratar,setViewBotonContratar] = useState(false);
     const [comentarios, setComentarios] = React.useState([])
-    const [submitted,setSubmitted] = React.useState(false);
+    const [submitted, setSubmitted] = React.useState(false);
+    const [buscarComentarios, setBuscarComentarios] = React.useState(false);
+    const [mensaje, setMensaje] = React.useState("Regístrate o inicia sesión como alumno para contratar la clase.");     
+    const [isOpenModalNuevaContratacion, setIsOpenModalNuevaContratacion] = useState(false);
+    const openModalNuevaContratacion = () =>{setIsOpenModalNuevaContratacion(true)};
+    const closeModalNuevaContratacion = () =>{setIsOpenModalNuevaContratacion(false)}; 
     const [clase, setClase] = React.useState({
         id_clase: id,
-        paginado: null,
+        paginado: 0,
     })
+    
+    if(submitted === false){
+        const token = localStorage.getItem("token")
+        const rol = localStorage.getItem("rol")
+        if (token !== null && rol === "Alumno"){
+            setViewBotonContratar(true)
+            setSubmitted(true)
+        }
+    } 
 
-    if (submitted === false){
-        setSubmitted(true)
+    if (buscarComentarios === false){
+        setBuscarComentarios(true)
         obtenerComentariosByClase(clase)
         .then((response) => {
-            if (response.data.length === 0){
-                setMensajeSinComentarios("La clase aún no recibió comentarios.")
-            }else{
-                setComentarios(response.data)
-            }  
+                 //console.log("tota",response.data[0].totalCount)
+                //setTotalComentarios(response.data[0].totalCount)
+                setComentarios(...comentarios,response.data)
+                setClase({
+                    id_clase: id,
+                    paginado: clase.paginado+2});
+        })
+
+    }
+
+    const cargarMasComentarios = () => {
+        setClase({
+            id_clase: id,
+            paginado: clase.paginado+2});
+        
+        obtenerComentariosByClase(clase)
+        .then((response) => {
+
+            for (var i=0; i<response.data.length; i++){
+                const newComentario = {
+                    _id: response.data[i]._id, 
+                    alumno: response.data[i].alumno, 
+                    calificacion_alumno:response.data[i].calificacion_alumno, 
+                    comentario:response.data[i].comentario,
+                }
+                setComentarios([...comentarios,newComentario])
+
+            }
+            
         })
     }
 
     return( 
+        
         <React.Fragment>
+        <Container>
+            <Grid container justifyContent="center" alignItems="center">
+                <Paper elevation={10} sx={{alignItems:"center",maxWidth:"600px", width:"600px",backgroundColor:"#F2EDDB",borderRadius:"20px",padding:2}}>
+                    <Grid container alignItems="center" justifyItems="center" justifyContent="center" textAlign="center">
+                        <Grid>
+                            <CardMedia component="img"
+                                style={{
+                                    border: "1.5px solid #10223D",
+                                    width: "180px",
+                                    borderRadius:"15px",
+                                    maxHeight: "250px",                
+                                    }}
+                                    //display="flex"
+                                    image={foto}
+                                    alt="foto pefil"       
+                            /> 
+                        </Grid>
+                    </Grid>
+                    <Grid container justifyContent="center" >
+                        <Grid item  xs={12} sm={12} md={12} lg={12}>
+                            <Typography variant='h6' sx={{color:"#10223D",textAlign:"center",fontWeight:600, marginTop:"10px" ,marginBottom:"1px"}}>
+                                    {props.datosclase.name} {props.datosclase.apellido} 
+                            </Typography> 
+                        </Grid>
+                        <Grid  container justifyContent="center">
+                            <Rating readOnly value={props.datosclase.calificacion} size="medium" sx={{marginTop:"5px", paddingBottom:"5px"}}></Rating>
+                        </Grid>
+                        <Grid item  xs={12} sm={12} md={12} lg={12}>
+                            <Typography variant='body2' sx={{color:"#10223D",textAlign:"center",fontWeight:600, marginTop:"1px"}}>
+                                Tarifa
+                            </Typography>
+                            <Typography variant='h6' sx={{color:"#10223D",textAlign:"center",fontWeight:600, marginBottom:"10px"}}>
+                                $ {props.datosclase.costo} 
+                            </Typography> 
+                        </Grid>
+                        {viewBotonContratar ?
+                                <LoadingButton 
+                                    onClick={openModalNuevaContratacion}
+                                    variant="contained" 
+                                    size='large' 
+                                    sx={{borderRadius:"10px",marginBottom:"20px" }}
+                                > Contratar
+                        </LoadingButton>: mensaje} 
+                    </Grid>
+                </Paper>   
+                <Modal
+                                open={isOpenModalNuevaContratacion}
+                                onClose={closeModalNuevaContratacion}
+                                materia= {props.datosclase.materia}
+                                id_clase = {props.datosclase.id_clase}
+                                id_user = {props.datosclase.id_user}
+                                apellido= {props.datosclase.apellido}
+                                name= {props.datosclase.name}
+                                tipoClase= {props.datosclase.tipoClase}
+                                frecuencia= {props.datosclase.frecuencia}
+                                duracion= {props.datosclase.duracion}
+                                costo= {props.datosclase.costo}
+                                usuario={props.datosclase.usuario}
+                            >
+                                <ModalNuevaContratacion
+                                    materia= {props.datosclase.materia}
+                                    id_clase = {props.datosclase.id_clase}
+                                    id_user = {props.datosclase.id_user}
+                                    apellido= {props.datosclase.apellido}
+                                    name= {props.datosclase.name}
+                                    tipoClase= {props.datosclase.tipoClase}
+                                    frecuencia= {props.datosclase.frecuencia}
+                                    duracion= {props.datosclase.duracion}
+                                    costo= {props.datosclase.costo}
+                                    usuario={props.datosclase.usuario}
+                                    open={isOpenModalNuevaContratacion}
+                                    onClose={closeModalNuevaContratacion}
+                                ></ModalNuevaContratacion> 
 
-        <CardSticky 
-            id_user = {props.datosclase.id_user}
-            id_clase = {props.datosclase.id_clase}
-            tipoClase = {props.datosclase.tipoClase}
-            materia = {props.datosclase.materia}
-            frecuencia = {props.datosclase.frecuencia}
-            duracion = {props.datosclase.duracion}
-            name={props.datosclase.name}
-            apellido = {props.datosclase.apellido}
-            calificacion={props.datosclase.calificacion}
-            costo={props.datosclase.costo}
-            usuario={props.datosclase.usuario}
-            apellido_alumno={props.datosalumno.apellido_alumno}
-            name_alumno={props.datosalumno.name_alumno}
-            id_alumno={props.datosalumno.id_alumno}
-            telefono_alumno={props.datosalumno.telefono_alumno}
-            usuario_alumno={props.datosalumno.usuario_alumno}
-        >
-        </CardSticky>
-        <Container  >
-            <Grid container  justifyContent="end">
+                            </Modal>
+            </Grid>
+
+            <Grid container  justifyContent="center">
                 <Grid item xs={6} sm={8} md={9} lg={10}></Grid>
                 <Grid item xs={6} sm={8} md={9} lg={10}>
                     <Typography variant='h3' sx={{color:"#10223D",textAlign:"center",fontWeight:600, marginTop:"30px",padding:2 ,marginBottom:"1px"}}>
@@ -98,15 +196,30 @@ export default function CardClaseProfe (props){
                     <Typography variant='h4' sx={{color:"#10223D",textAlign:"left",fontWeight:600, marginTop:"30px",padding:2 ,marginBottom:"1px"}}>
                         Opiniones
                     </Typography> 
-                    <Grid container alignItems="center" justifyContent="center">
-                        <InputLabel style={{color:"#10223D", fontSize:"25px"}}> {mensajeSinComentarios} </InputLabel> 
+
+                    
+                    
+                    {comentarios.map((elemento) => (<Grid key={elemento._id} >
+                        <Box sx={{border: "1px double #d6533c", borderRadius:"20px", marginBottom:"15px", marginLeft:"10px",paddingLeft:"15px",paddingRight:"15px",paddingBottom:"15px"}}>
+                            <Grid container>
+                                <Grid item xs={6} sm={6} md={6} lg={6}>
+                                    <Typography variant='h6' sx={{color:"#10223D",textAlign:"left",fontWeight:600, marginTop:"15px", marginBottom:"10px"}}>
+                                        {elemento.alumno}
+                                    </Typography>
+                                </Grid>   
+                                <Grid item textAlign="end" xs={6} sm={6} md={6} lg={6} sx={{paddingTop:"15px"}}>
+                                    <Rating readOnly value={elemento.calificacion_alumno} precision={1} ></Rating>
+                                </Grid>  
+                            </Grid>     
+                            <Typography variant='body' sx={{color:"#10223D",textAlign:"left",fontWeight:600}}>
+                            {elemento.comentario}
+                            </Typography>
+                        </Box>     
+                    </Grid>))}
+
+                    <Grid container justifyContent="center">
+                        <LoadingButton variant="contained"onClick={()=>cargarMasComentarios()} size='large' sx={{borderRadius:"10px",marginTop:"20px" }}> + comentarios</LoadingButton>
                     </Grid>
-                    {comentarios.map(comentario => (<CommentBox key={comentario._id} 
-                        alumno_nombre={comentario.alumno}
-                        calificacion={comentario.calificacion_alumno}
-                        comentarios={comentario.comentario}
-                        ></CommentBox>))
-                    } 
                 </Grid>
             </Grid> 
             <Footer></Footer>  

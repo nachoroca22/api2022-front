@@ -3,7 +3,7 @@ import { Grid,Paper,InputLabel} from '@mui/material'
 import { LoadingButton } from '@mui/lab';
 import { disableClase } from '../../Services/clases';
 
-export default function ModalConfirmar (props,mensaje,children){
+export default function ModalConfirmar (props,mensaje){
 
     const paperStyle={backgroundColor:"#F2EDDB", borderRadius:"20px", padding:20,height:'flex',width:550, margin:"50px auto"};
 

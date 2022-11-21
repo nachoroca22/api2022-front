@@ -4,8 +4,8 @@ import foto from "../media/foto.jpg"
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import IconButton from '@mui/material/IconButton';
 import FileUpload from "react-material-file-upload";
-import { LoadingButton } from '@mui/lab' 
-import { obtenerProfesor,actualizarProfesor,getImagenesByUser,uploadFileImg,guardarImgUser} from "../../Services/profesores";
+import { LoadingButton } from '@mui/lab'
+import { obtenerProfesor,actualizarProfesor, uploadFileImg } from "../../Services/profesores";
 import {setPasswordProfesor} from "../../Services/login"
 
 export default function Perfil() {
@@ -29,69 +29,33 @@ export default function Perfil() {
     const [profesor, setProfesor] = React.useState(initialProfesor);
     const [submitted, setSubmitted] = React.useState(false);
     const [mensajeUpdatePerfil, setMensajeUpdatePerfil] = React.useState("");
-    const [fotoPerfil, setFotoPerfil] = React.useState('')
-    const [nombreFoto, setNombreFoto] = React.useState('')
-    const [listaImagenes,setListaImagenes]=React.useState([]);
+    const [fotoPerfil, setFotoPerfil] = React.useState(null)
+    const [nombreFoto, setNombreFoto] = React.useState("")
 
-    const getImagenes = async function (){
-        console.log("Voy a buscar imagenes")
-        console.log("listaImagenesGetImg",listaImagenes)
-        let rdo = await getImagenesByUser();
-        setListaImagenes(rdo);
-        
-        console.log("listaImagenesGetImg",listaImagenes)
-        console.log("rdoGetImagenesGetImg",rdo)
-        
-      }
-
-    const guardarImagen=()=>{
-        subirImagen();
-      }
-    const subirImagen= async function (){
-        let files=[];
-        let nombres=[];
-        let archivoImagen = '';
-        
-        if (fotoPerfil!=='')
-        {
-        files.push(fotoPerfil);
-        //buscar extension archivo fileInput.files[0].name;
-        let archivoOrig = fotoPerfil[0].name;
-        let posExt = archivoOrig.lastIndexOf('.');
-        let extension = archivoOrig.substring(posExt,archivoOrig.length);
-        let aleatorio = Math.random().toString().substring(2,15);
-        nombres.push("img"+"_"+localStorage.getItem('id')+"_"+aleatorio+extension);
-        //subir archivo a servidor
-        archivoImagen = await uploadFileImg(files,nombres);
-        //Si la imagen se subio bien la guardo en la BD
-        if (archivoImagen.ok)
-        {
-            let imgUser={
-                id_user:localStorage.getItem('id'),
-                imagen: nombres[0]
-            }
-            let rdo = await guardarImgUser(imgUser);
-            if (rdo)
-            {
-            alert("Tu imagen se ha almacenado correctamente.")
-            //getImagenes();
-            }
-        }
-        else
-        {
-            alert ("Ocurrio un error al subir tu imagen al servidor. Intenta mas tarde.")
-        } 
-        }
-    }
-    
     const seleccionarFoto = e => {
+        setFotoPerfil(e)
         var fileInput = document.getElementById('contained-button-file');   
         var filename = fileInput.files[0].name;
-        setFotoPerfil(e)
         setNombreFoto(filename)
 
     }
+    
+    const subirFoto = async function (){
+        let files = [];
+        let nombres = [];
+        let archivoFoto = '';
 
+        if(fotoPerfil !==''){
+            files.push(fotoPerfil)
+            let archivoOrig = fotoPerfil.name;
+            let posExt = archivoOrig.indexOf('.');
+            let extension = archivoOrig.substring(posExt,archivoOrig.length);
+            let aleatorio = Math.random().toString().substring(2,15)
+            nombres.push("Img"+localStorage.getItem("id")+"_"+aleatorio+extension)
+            archivoFoto= await uploadFileImg(files,nombres)
+        }
+
+    }
 
     const recargarProfesor = () => {
         obtenerProfesor(id)
@@ -171,7 +135,7 @@ export default function Perfil() {
                         <Typography color="#d6533c" variant="body" noWrap component="div" marginBottom="10px" >
                             {nombreFoto}   
                         </Typography>
-                        <LoadingButton onClick={()=>{guardarImagen()}} size='small' variant="contained" sx={{borderRadius:"10px" }}> Subir </LoadingButton>     
+                        <LoadingButton size='small' variant="contained" sx={{borderRadius:"10px" }}> Subir </LoadingButton>     
                     </Grid>
                 </Grid> 
                 <Grid container direction="row" justifyContent="center" alignItems="center" marginTop={1}>   

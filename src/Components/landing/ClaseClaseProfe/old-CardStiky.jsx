@@ -8,8 +8,9 @@ import { useState } from 'react';
 import { obtenerAlumno} from "../../../Services/alumnos";
 
 
-export default function CardSticky (props,children){
-  
+export default function CardSticky (props){
+    //console.log("CardSticky",props)
+
     const [viewBotonContratar,setViewBotonContratar] = useState(false);
     const [submitted, setSubmitted] = React.useState(false);
     const [mensaje, setMensaje] = React.useState("Registrate o inicia sesion para contratar la clase.");     
@@ -28,7 +29,7 @@ export default function CardSticky (props,children){
     
     return(
 
-                <Grid container position="fixed" top="120px" xs={12} sm={12} md={12} lg={4}>
+                <Grid container position="fixed" top="120px" >
                         <Paper elevation={10} sx={{alignItems:"center",maxWidth:"200px", width:"200px",backgroundColor:"#F2EDDB",borderRadius:"20px", marginLeft:"25px",padding:2}}>
                             <Grid container alignItems="center" justifyItems="center" justifyContent="center" textAlign="center">
                                 <CardMedia 
@@ -45,9 +46,9 @@ export default function CardSticky (props,children){
                                     alt="foto pefil"       
                                 /> 
                                 <Typography variant='h6' sx={{color:"#10223D",textAlign:"center",fontWeight:600, marginTop:"10px" ,marginBottom:"1px"}}>
-                                    {props.name} {props.apellido}
+                                     {/* {props.datos.name} {props.datos.apellido} */}
                                 </Typography> 
-                                <Rating readOnly value={props.calificacion} precision={0.5} size="medium" sx={{marginTop:"5px", paddingBottom:"5px"}}></Rating>
+                                <Rating readOnly value={props.datos.calificacion}  size="medium" sx={{marginTop:"5px", paddingBottom:"5px"}}></Rating>
                                 <Grid container  alignItems="center" justifyItems="center" justifyContent="center" textAlign="center">
                                     <Grid item xs={12} sm={12} md={12} lg={12}>
                                         <Typography variant='body2' sx={{color:"#10223D",textAlign:"center",fontWeight:600, marginTop:"1px"}}>
@@ -56,7 +57,7 @@ export default function CardSticky (props,children){
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={12} lg={12}>
                                         <Typography variant='h6' sx={{color:"#10223D",textAlign:"center",fontWeight:600, marginBottom:"10px"}}>
-                                            ${props.costo}
+                                            ${/* {props.costo} */}
                                         </Typography> 
                                     </Grid>                                  
                                 </Grid>
@@ -70,7 +71,7 @@ export default function CardSticky (props,children){
                                 </LoadingButton>: mensaje}  
                                                            
                             </Grid>  
-                            <Modal
+                           {/*  <Modal
                                 open={isOpenModalNuevaContratacion}
                                 onClose={closeModalNuevaContratacion}
                                 materia= {props.materia}
@@ -109,7 +110,7 @@ export default function CardSticky (props,children){
                                     onClose={closeModalNuevaContratacion}
                                 ></ModalNuevaContratacion> 
 
-                            </Modal>
+                            </Modal> */}
                                                                               
                         </Paper>                  
                 </Grid>

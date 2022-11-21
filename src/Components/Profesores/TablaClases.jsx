@@ -16,7 +16,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import data from '../../data/clases.json'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
@@ -27,9 +26,6 @@ import ModalConfirmarBorrarClase from "./ModalConfirmarBorrarClase";
 import ModalNewClases from "./ModalNewClases.jsx";
 import { LoadingButton } from '@mui/lab'
 import { obtenerClasesProfesor } from "../../Services/clases";
-
-//const rows = data
-
 
 
 interface TablePaginationActionsProps {

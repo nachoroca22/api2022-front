@@ -15,7 +15,7 @@ export default function Footer() {
             <Grid item xs={12}>
                 <h4>Seguínos</h4>
             </Grid>
-                <Grid item xs={12} justifyItems="center" alignItems="center" justifyContent="center" spacing="5px">
+                <Grid item xs={12} justifyItems="center" alignItems="center" justifyContent="center">
                  
                     <a href="https://linkedin.com" target="_blank" rel="noreferrer">
                         <i className="fab fa-linkedin linkedin"> </i>
