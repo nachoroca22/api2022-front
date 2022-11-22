@@ -4,9 +4,9 @@ import { getById, put, post , de_lete, get } from "./request";
 
 export const createAlumno = async (data) => {
   return await post(webServices.createAlumno,{
-    name_alumno: data.name_alumno,
-    apellido_alumno: data.apellido_alumno,
-    usuario_alumno: data.usuario_alumno,
+    name_alumno: data.name,
+    apellido_alumno: data.apellido,
+    usuario_alumno: data.usuario,
   });
 };
 

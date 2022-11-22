@@ -32,8 +32,7 @@ export const subirFotoProfesor = async (FormData) => {
     console.log(value); 
   }
   return await post(webServices.guardarImgProfesor,FormData)
-  };
-
+};
 export const guardarImgUser = async function(message)
   {
       //url webservices
@@ -41,7 +40,7 @@ export const guardarImgUser = async function(message)
       //console.log("url",url);
       //console.log("token",WebToken.webToken);
       const formData = new URLSearchParams();
-      formData.append('id_user', message.id_user);
+      formData.append('email', message.email);
       formData.append('nombreImagen',message.imagen);
       
       try
@@ -51,7 +50,7 @@ export const guardarImgUser = async function(message)
               mode: "cors",
               headers:{
                   'Accept':'application/x-www-form-urlencoded',
-                  'x-access-token': localStorage.getItem('token'),
+                  'x-access-token': localStorage.getItem('x'),
                   'Origin':'http://localhost:3000',
                   'Content-Type': 'application/x-www-form-urlencoded'},
               body:formData
@@ -70,28 +69,29 @@ export const guardarImgUser = async function(message)
           console.log("error",error);
           return false;
       };
-  }
+};
 export const uploadFileImg= async function(files,nombres)
   {
        //url webservices
-    let url = webServices.uploadFileImg;
-    console.log("url",url)
-    console.log('files', files)
-    console.log('nombres',nombres)
-    const formData = new FormData();
+      let url = webServices.uploadFileImg;
+      console.log("url",url)
+      console.log('files', files)
+      console.log('nombres',nombres)
+      const formData = new FormData();
       //agrego archivos para subir
-    for (let i = 0; i < files.length; i++)
+      for (let i = 0; i < files.length; i++)
       {
-        formData.append('file', files[0][i], nombres[i])
-      } 
+          formData.append('files', files[i], nombres[i])
+      }
+     
       try
       {
-        let response = await fetch(url,{
-            method: 'POST', // or 'PUT'
-            mode: "cors",
-            headers:{
+          let response = await fetch(url,{
+              method: 'POST', // or 'PUT'
+              mode: "cors",
+              headers:{
                   'Accept':'application/form-data',
-                  'x-access-token': localStorage.getItem('token'),
+                  'x-access-token': localStorage.getItem('x'),
                   'Origin':'http://localhost:3000',
                   //'Content-Type': 'application/form-data'
               },
@@ -105,7 +105,7 @@ export const uploadFileImg= async function(files,nombres)
           alert('Error uploading the files')
           console.log('Error uploading the files', err)
       }
-  }
+};
 export const getImagenesByUser = async function()
   {
       //url webservices
@@ -113,7 +113,7 @@ export const getImagenesByUser = async function()
       //console.log("url",url);
       //console.log("token",WebToken.webToken);
       const formData = new URLSearchParams();
-      formData.append('id', localStorage.getItem('id'));
+      formData.append('email', localStorage.getItem('email'));
       
       try
       {
@@ -122,7 +122,7 @@ export const getImagenesByUser = async function()
               mode: "cors",
               headers:{
                   'Accept':'application/x-www-form-urlencoded',
-                  'x-access-token': localStorage.getItem('token'),
+                  'x-access-token': localStorage.getItem('x'),
                   'Origin':'http://localhost:3000',
                   'Content-Type': 'application/x-www-form-urlencoded'},
               body:formData
@@ -146,4 +146,4 @@ export const getImagenesByUser = async function()
       {
           console.log("error",error);
       };
-  }
+};
