@@ -1,14 +1,16 @@
-import * as React from 'react';
+import React,{useEffect} from "react";
 import {TextField, Button ,InputLabel,Container, FormControl, MenuItem,Select, Grid, Typography, Card, CardMedia} from '@mui/material';
 import foto from "../media/foto.jpg"
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import IconButton from '@mui/material/IconButton';
 import FileUpload from "react-material-file-upload";
+import CustomFileInput from "../CustomFileInput/CustomFileInput.js";
 import { LoadingButton } from '@mui/lab' 
 import { obtenerProfesor,actualizarProfesor,getImagenesByUser,uploadFileImg,guardarImgUser} from "../../Services/profesores";
 import {setPasswordProfesor} from "../../Services/login"
 
 export default function Perfil() {
+ 
     const initialProfesor = {
         id_user: null,
         apellido: "",
@@ -32,8 +34,9 @@ export default function Perfil() {
     const [fotoPerfil, setFotoPerfil] = React.useState('')
     const [nombreFoto, setNombreFoto] = React.useState('')
     const [listaImagenes,setListaImagenes]=React.useState([]);
+    const [imgAux,setImgAux]= React.useState('');
 
-    const getImagenes = async function (){
+/*     const getImagenes = async function (){
         console.log("Voy a buscar imagenes")
         console.log("listaImagenesGetImg",listaImagenes)
         let rdo = await getImagenesByUser();
@@ -90,7 +93,54 @@ export default function Perfil() {
         setFotoPerfil(e)
         setNombreFoto(filename)
 
-    }
+    } */
+
+
+    const guardarImagen=()=>{
+        subirImagen();
+      }
+      const subirImagen= async function ()
+      {
+        let files=[];
+        let nombres=[];
+        let archivoImagen = '';
+        
+        if (imgAux!=='')
+        {
+          console.log("imgAux",imgAux);
+          files.push(imgAux);
+          //buscar extension archivo
+          let archivoOrig = imgAux.name;
+          let posExt = archivoOrig.indexOf('.');
+          let extension = archivoOrig.substring(posExt,archivoOrig.length);
+          let aleatorio = Math.random().toString().substring(2,15);
+          nombres.push("img"+localStorage.getItem('nombre')+"_"+aleatorio+extension);
+          //subir archivo a servidor
+          archivoImagen = await uploadFileImg(files,nombres);
+          //Si la imagen se subio bien la guardo en la BD
+          if (archivoImagen.ok)
+          {
+            let imgUser={
+              email:localStorage.getItem('email'),
+              imagen: nombres[0]
+            }
+            let rdo = await guardarImgUser(imgUser);
+            if (rdo)
+            {
+              alert("Tu imagen se ha almacenado correctamente.")
+              //getImagenes();
+            }
+          }
+          else
+          {
+            alert ("Ocurrio un error al subir tu imagen al servidor. Intenta mas tarde.")
+          } 
+        }
+      }
+
+
+
+
 
 
     const recargarProfesor = () => {
@@ -163,7 +213,7 @@ export default function Perfil() {
                             <CardMedia component="img"style={{paddingTop:"2px", width: "auto", maxHeight: "200px",borderRadius:"20px"}}image={foto}></CardMedia>
                         </Card>
                     </Grid>
-                    <Grid item xs={2} sm={2} md={2} lg={2} alignItems="center">
+                    {/* <Grid item xs={2} sm={2} md={2} lg={2} alignItems="center">
                         <input style={{ display: "none" }} id="contained-button-file" type="file" name='files' onChange={(e)=>seleccionarFoto(e.target.files)}/>
                         <label htmlFor="contained-button-file">
                             <AddAPhotoIcon sx={{cursor: "pointer",color: "#d6533c", marginBottom:"10px" }}></AddAPhotoIcon>
@@ -172,8 +222,49 @@ export default function Perfil() {
                             {nombreFoto}   
                         </Typography>
                         <LoadingButton onClick={()=>{guardarImagen()}} size='small' variant="contained" sx={{borderRadius:"10px" }}> Subir </LoadingButton>     
-                    </Grid>
+                    </Grid> */}
                 </Grid> 
+
+                {/* //aca arranca lo de la profe */}
+
+ 
+                <Grid container direction="row" justifyContent="center" alignItems="center" marginTop={1}>
+                    <Grid item md={12} sm={12} xs={12}>
+                        <CustomFileInput
+                            //className={classes.footerButtons}
+                            formControlProps={{
+                            fullWidth: true
+                            }}
+                            getImagen={(i)=>setImgAux(i)}
+                            inputProps={{ 
+                            placeholder: "Selecciona la imagen a subir. Recorda que el tamaño maximo de la imagen es 3MB."
+                            
+                            }}
+                            endButton={{
+                            buttonProps: {
+                            round: true,
+                            color: "primary",
+                            justIcon: true,
+                            fileButton: true
+                            },
+                            icon: <AddAPhotoIcon />
+                        }}
+                        />
+                    </Grid>  
+                    <Grid item xs={12} sm={12} md={12}>
+                    <Button 
+                        sx={{color:"orange"}}
+                        onClick= {()=>{guardarImagen()}}
+                        >
+                        Subir imagen
+                    </Button>
+                    </Grid>
+
+
+                </Grid>
+
+                {/* //aca termina lo de la profe */}
+
                 <Grid container direction="row" justifyContent="center" alignItems="center" marginTop={1}>   
     
                     <Card 
