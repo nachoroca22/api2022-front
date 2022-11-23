@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import Card from "./Card.jsx"
-import foto from "../../media/foto.jpg"
 
 export default function Cards(props){
 
@@ -10,7 +9,7 @@ export default function Cards(props){
             <Grid container spacing={2} backgroundColor='#F2EDDB' direction="row" justifyContent="space-evenly" alignItems="center">
                 {props.clases.map((elemento) => (<Card key={elemento._id} 
                                     id_clase={elemento.id_clase}
-                                    foto={foto}
+                                    foto={elemento.nombreImagen}
                                     profesor={elemento.name + " " + elemento.apellido}
                                     materia={elemento.materia}
                                     tipoClase={elemento.tipoClase}

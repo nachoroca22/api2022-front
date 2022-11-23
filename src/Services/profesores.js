@@ -40,7 +40,7 @@ export const guardarImgUser = async function(message)
       //console.log("url",url);
       //console.log("token",WebToken.webToken);
       const formData = new URLSearchParams();
-      formData.append('email', message.email);
+      formData.append('id_user', message.id_user);
       formData.append('nombreImagen',message.imagen);
       
       try
@@ -113,7 +113,7 @@ export const getImagenesByUser = async function()
       //console.log("url",url);
       //console.log("token",WebToken.webToken);
       const formData = new URLSearchParams();
-      formData.append('email', localStorage.getItem('email'));
+      formData.append('id_user', localStorage.getItem('id'));
       
       try
       {

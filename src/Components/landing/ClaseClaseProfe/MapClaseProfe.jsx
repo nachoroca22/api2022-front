@@ -14,6 +14,7 @@ function MapClaseProfe(){
     const [submitted, setSubmitted] = React.useState(false);
 
     const [clase, setClase] = React.useState({
+        nombreImagen:"",
         apellido: "",
         name:  "",
         calificacion:  "",
@@ -34,6 +35,7 @@ function MapClaseProfe(){
         obtenerClaseFull(id)
           .then((response) => {
             setClase({
+                nombreImagen: response.data.nombreImagen,
                 apellido: response.data.apellido,
                 name: response.data.name,
                 calificacion: response.data.calificacion,
