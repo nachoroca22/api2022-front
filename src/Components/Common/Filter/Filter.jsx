@@ -9,7 +9,6 @@ import Cards from "../Cards/Cards";
 import { obtenerMateriasFiltro } from '../../../Services/clases';
 import {obtenerClasesFiltradas} from "../../../Services/clases"
 
-
 const tipoClaseFilter = [
   
     {"id":1,

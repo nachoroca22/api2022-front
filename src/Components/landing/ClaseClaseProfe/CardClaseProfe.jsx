@@ -4,7 +4,6 @@ import Footer from "../../Common/FooterGeneral/Footer";
 import {Paper, Grid, Typography, CardMedia, Modal, Container, Box} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import ModalNuevaContratacion from "../../Common/ModalContrataciones/ModalNuevaContratacion"
-import foto from '../../media/foto.jpg';
 import { useParams } from 'react-router-dom';
 
 import Rating from '@mui/material/Rating';
@@ -89,7 +88,7 @@ export default function CardClaseProfe (props){
                                     maxHeight: "250px",                
                                     }}
                                     //display="flex"
-                                    image={foto}
+                                    image={props.datosclase.nombreImagen}
                                     alt="foto pefil"       
                             /> 
                         </Grid>
