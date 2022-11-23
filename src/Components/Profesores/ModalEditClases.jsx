@@ -51,7 +51,7 @@ export default function ModalEditClases (props,clase){
                             <InputLabel style={{color:"#d6533c", fontSize:"25px"}}> Información de la Clase </InputLabel> 
                             </Grid>
                             <Grid container alignItems="center" justifyContent="center">
-                                <Rating value={newClase.calificacion} precision={0.5} size="medium" sx={{marginBottom:"15px", alignSelf:"center"}}></Rating>
+                                <Rating disabled value={newClase.calificacion} precision={0.5} size="medium" sx={{marginBottom:"15px", alignSelf:"center"}}></Rating>
                             </Grid>
                         </Grid>
                         <Grid container alignItems="center">
@@ -64,7 +64,7 @@ export default function ModalEditClases (props,clase){
                             <InputLabel style={{color:"#d6533c", marginRight:"5px", marginTop:'5px', fontSize:"15px"}}> Tipo de clase:  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
                                 <Select 
-                                        disabled
+                                        //disabled
                                         size="small"
                                         defaultValue={newClase.tipoClase}
                                         onChange={handleInputChange} 
@@ -88,7 +88,7 @@ export default function ModalEditClases (props,clase){
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Frecuencia:  </InputLabel>   
                             <FormControl sx={{width:"79%"}}>
                                 <Select 
-                                        disabled
+                                        //disabled
                                         size="small"
                                         defaultValue={newClase.frecuencia}
                                         onChange={handleInputChange} 
@@ -104,7 +104,9 @@ export default function ModalEditClases (props,clase){
                         <Grid container alignItems="center">
                             <InputLabel style={{color:"#d6533c", marginRight:"5px",marginTop:'5px', fontSize:"15px"}}> Duración (hs):  </InputLabel>   
                             <FormControl sx={{width:"75%"}}>
-                                <TextField disabled onChange={handleInputChange} InputProps={{inputProps: { min: 0 }}} name="duracion" value={newClase.duracion} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
+                                <TextField 
+                                    //disabled 
+                                    onChange={handleInputChange} InputProps={{inputProps: { min: 0 }}} name="duracion" value={newClase.duracion} type="number" variant="outlined" size="small" style={{color:"#10223D", marginLeft:"0px",marginTop:"2px"}}> </TextField> 
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center"  sx={{borderBottom: "1px solid #10223D", paddingBottom:"15px"}}>

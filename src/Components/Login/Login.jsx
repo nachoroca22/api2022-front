@@ -34,14 +34,14 @@ export default function Login (props){
     const handleResetPasswordAlumno =(usuario) => {
         resetPasswordAlumno(usuario)
         .then((response) => {
-            setMensajeCambioPass("Se envio la pasword al correo indicado.")
+            setMensajeCambioPass("Se envio la password al correo indicado.")
         }) 
     }
 
     const handleResetPasswordProfesor =(usuario) => {
         resetPasswordProfesor(usuario)
         .then((response) => {
-            setMensajeCambioPass("Se envio la pasword al correo indicado.")
+            setMensajeCambioPass("Se envio la password al correo indicado.")
         }) 
     }
     const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
