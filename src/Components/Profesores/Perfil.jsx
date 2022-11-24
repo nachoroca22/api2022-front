@@ -1,6 +1,5 @@
 import React,{useEffect} from "react";
 import {TextField, Button ,InputLabel,Container, FormControl, MenuItem,Select, Grid, Typography, Card, CardMedia} from '@mui/material';
-import foto from "../media/foto.jpg"
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import CustomFileInput from "../CustomFileInput/CustomFileInput.js";
 import { LoadingButton } from '@mui/lab' 
@@ -9,6 +8,7 @@ import {setPasswordProfesor} from "../../Services/login"
 
 export default function Perfil() {
  
+
     const initialProfesor = {
         id_user: null,
         nombreImagen: "",
@@ -32,17 +32,34 @@ export default function Perfil() {
     const [mensajeUpdatePerfil, setMensajeUpdatePerfil] = React.useState("");
     const [mensajeUpdateFoto, setMensajeUpdateFoto] = React.useState("");
     const [imgAux,setImgAux]= React.useState('');
+    const delay = ms => new Promise(res => setTimeout(res, ms));
 
     useEffect(()=>{
+        
         async function componentDidMount() 
         {
+          await delay(3000);
           //traer imagenes de User
-          let rdo = await recargarProfesor();
-            console.log("ok")
-            //componentDidMount();
+          obtenerProfesor(id)
+          .then((response) => {
+            setProfesor( 
+                {id_user: response.data.id_user,
+                nombreImagen: response.data.nombreImagen,
+                apellido: response.data.apellido,
+                name: response.data.name,
+                usuario: response.data.usuario,
+                telefono: response.data.telefono,
+                rol: response.data.rol,
+                estado: response.data.estado,
+                fechaIngreso: response.data.fechaIngreso,
+                fechaNac: response.data.fechaNac,
+                genero: response.data.genero,
+                presentacion: response.data.presentacion,  
+                estudios: response.data.estudios}); 
+                }) 
         }
         componentDidMount();
-      },[]);
+      },[imgAux]);
  
     const guardarImagen=()=>{
         subirImagen();
@@ -89,6 +106,7 @@ export default function Perfil() {
 
 
     const recargarProfesor = () => {
+
         obtenerProfesor(id)
           .then((response) => {
             setProfesor( 
@@ -106,7 +124,7 @@ export default function Perfil() {
                 presentacion: response.data.presentacion,  
                 estudios: response.data.estudios}); 
                 })
-            
+
       };
     
     if (submitted === false){
