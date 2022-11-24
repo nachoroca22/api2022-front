@@ -20,7 +20,10 @@ export default function Cards(props){
                                     calificacion={elemento.calificacion}
                                     
                                 ></Card>))}
+                                
             </Grid>
+
+            
         </div>
     )
 }

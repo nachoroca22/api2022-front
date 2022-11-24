@@ -1,7 +1,9 @@
 import webServices from "./webServices";
 import { getById, put, post , de_lete, get } from "./request";
 
-export const obtenerClasesFiltradas = async (data) => {
+export const obtenerClasesFiltradas = async (data,pag) => {
+
+  console.log("serrr",pag)
   return await put(webServices.obtenerClasesFiltradas,{
     materia: data.materia,
     tipoClase: data.tipoClase,

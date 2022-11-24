@@ -81,7 +81,6 @@ export default function CustomFileInput(props) {
   }
   
   return (
-    
     <div className={classes.inputFileWrapper}>
       <input
         type="file"
