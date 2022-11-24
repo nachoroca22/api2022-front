@@ -209,9 +209,7 @@ export default function Filtro() {
             </Grid>
           </Grid>
         }
-          <Grid container justifyContent="center">
-            <LoadingButton variant="contained" size='large' sx={{borderRadius:"10px",marginTop:"20px" }}> + clases</LoadingButton>
-          </Grid>
+        
         </Container>  
   
   );

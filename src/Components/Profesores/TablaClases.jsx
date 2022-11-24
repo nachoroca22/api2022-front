@@ -274,7 +274,7 @@ export default function BasicTable() {
                   }}>
               </InfoIcon>
               <Modal
-                sx={{opacity:"0.7"}}
+                //sx={{opacity:"0.7"}}
                 open={isOpenModalInfoClases}
                 onClose={closeModalInfoClases}
               >
@@ -296,7 +296,7 @@ export default function BasicTable() {
 
               </EditIcon>
               <Modal
-                sx={{opacity:"1"}}
+                //sx={{opacity:"1"}}
                 open={isOpenModalEditClases}
                 onClose={closeModalEditClases}
               >

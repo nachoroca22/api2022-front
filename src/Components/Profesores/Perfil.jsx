@@ -30,6 +30,7 @@ export default function Perfil() {
     const [profesor, setProfesor] = React.useState(initialProfesor);
     const [submitted, setSubmitted] = React.useState(false);
     const [mensajeUpdatePerfil, setMensajeUpdatePerfil] = React.useState("");
+    const [mensajeUpdateFoto, setMensajeUpdateFoto] = React.useState("");
     const [imgAux,setImgAux]= React.useState('');
 
     useEffect(()=>{
@@ -38,6 +39,7 @@ export default function Perfil() {
           //traer imagenes de User
           let rdo = await recargarProfesor();
             console.log("ok")
+            //componentDidMount();
         }
         componentDidMount();
       },[]);
@@ -73,14 +75,14 @@ export default function Perfil() {
             let rdo = await guardarImgUser(imgUser);
             if (rdo)
             {
-              alert("Tu imagen se ha almacenado correctamente.")
+              setMensajeUpdateFoto("Tu imagen se ha almacenado correctamente.")
               //getImagenes();
             }
             setSubmitted(false)
           }
           else
           {
-            alert ("Ocurrio un error al subir tu imagen al servidor. Intenta mas tarde.")
+            setMensajeUpdateFoto("Ocurrio un error al subir tu imagen al servidor. Intenta mas tarde.")
           } 
         }
       }
@@ -158,6 +160,9 @@ export default function Perfil() {
                             <CardMedia component="img" sx={{ padding: "0 0 0 0", objectFit: "contain",borderRadius:"20px"}}image={profesor.nombreImagen}></CardMedia>
                         </Card>
                     </Grid>
+                    <Grid container alignItems="center" justifyContent="center"> 
+                        <InputLabel style={{color:"#10223D", fontSize:"19px",marginTop:"15px"}}> {mensajeUpdateFoto} </InputLabel> 
+                    </Grid>
                     {/* <Grid item xs={2} sm={2} md={2} lg={2} alignItems="center">
                         <input style={{ display: "none" }} id="contained-button-file" type="file" name='files' onChange={(e)=>seleccionarFoto(e.target.files)}/>
                         <label htmlFor="contained-button-file">
@@ -173,7 +178,7 @@ export default function Perfil() {
 
                 {/* //aca arranca lo de la profe */}
  
-                <Grid container direction="row" justifyItems="center" justifyContent="center" alignItems="center" marginTop={1}>
+                <Grid container direction="row" justifyItems="center" justifyContent="center" alignItems="center" marginTop={0}>
                     <Grid item  xs={12} sm={6} md={6} lg={6}>
                         <CustomFileInput
                             //className={classes.footerButtons}
@@ -276,7 +281,7 @@ export default function Perfil() {
                                     <TextField onChange={handleChange} name="presentacion" value={profesor.presentacion} label="Presentacion" id="Presentacion" multiline minRows={3} maxRows={20}></TextField>
                                 </FormControl>
                             </Grid>
-                            <Grid container alignItems="center" justifyContent="center">
+                            <Grid container alignItems="center" justifyContent="center"> 
                                 <InputLabel style={{color:"#10223D", fontSize:"19px"}}> {mensajeUpdatePerfil} </InputLabel> 
                             </Grid>
                             <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
