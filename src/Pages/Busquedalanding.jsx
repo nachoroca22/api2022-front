@@ -3,7 +3,6 @@ import  Navbar from "../Components/landing/navBar/NavBar"
 import Filter from '../Components/Common/Filter/Filter.jsx'
 import {Grid} from '@mui/material';
 import Footer from "../Components/Common/FooterGeneral/Footer"
-import { Container } from '@mui/system';
 
 function Busquedalanding() {
 

@@ -21,7 +21,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tabla from './TablaContratacionesFinalizadas';
 import Footer from "../Common/FooterGeneral/Footer"
-import { Container } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import {
   removeToken,

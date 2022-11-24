@@ -20,7 +20,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Tabla from './TablaContrataciones'
-import { Container } from '@mui/material';
 import Footer from "../Common/FooterGeneral/Footer"
 import { useNavigate } from "react-router-dom";
 import {
