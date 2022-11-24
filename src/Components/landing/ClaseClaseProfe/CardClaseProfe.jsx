@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Footer from "../../Common/FooterGeneral/Footer";
-import {Paper, Grid, Typography, CardMedia, Modal, Container, Box} from '@mui/material';
+import {Paper, Grid, Typography, CardMedia, Modal, Container, InputLabel, Box} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import ModalNuevaContratacion from "../../Common/ModalContrataciones/ModalNuevaContratacion"
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,8 @@ export default function CardClaseProfe (props){
     let {id}  = useParams();
     const [viewBotonContratar,setViewBotonContratar] = useState(false);
     const [comentarios, setComentarios] = React.useState([])
+    const [maxComentarios, setMaxComentarios] = React.useState(0)
+    const [mensajeComentarios, setMensajeComentarios] = React.useState("")
     const [submitted, setSubmitted] = React.useState(false);
     const [buscarComentarios, setBuscarComentarios] = React.useState(false);
     const [mensaje, setMensaje] = React.useState("Regístrate o inicia sesión como alumno para contratar la clase.");     
@@ -45,20 +47,27 @@ export default function CardClaseProfe (props){
                 setComentarios(...comentarios,response.data)
                 setClase({
                     id_clase: id,
-                    paginado: clase.paginado+2});
+                    paginado: 2});
         })
 
     }
 
     const cargarMasComentarios = () => {
+        console.log("pag1",clase.paginado)
         setClase({
             id_clase: id,
             paginado: clase.paginado+2});
         
         obtenerComentariosByClase(clase)
         .then((response) => {
-
-            for (var i=0; i<response.data.length; i++){
+            console.log("pag2",clase.paginado)
+            if(response.data.length!==0){
+                setMaxComentarios(response.data[0].totalCount)
+                setComentarios(comentarios.concat(response.data))
+            }else{
+                setMensajeComentarios("No hay más comentaros de esta clase.")
+            }
+/*             for (var i=0; i<response.data.length; i++){
                 const newComentario = {
                     _id: response.data[i]._id, 
                     alumno: response.data[i].alumno, 
@@ -67,8 +76,7 @@ export default function CardClaseProfe (props){
                 }
                 setComentarios([...comentarios,newComentario])
 
-            }
-            
+            } */
         })
     }
 
@@ -119,7 +127,8 @@ export default function CardClaseProfe (props){
                                 > Contratar
                         </LoadingButton>: mensaje} 
                     </Grid>
-                </Paper>   
+                </Paper >  
+                
                 <Modal
                                 open={isOpenModalNuevaContratacion}
                                 onClose={closeModalNuevaContratacion}
@@ -159,6 +168,14 @@ export default function CardClaseProfe (props){
                         {props.datosclase.materia}
                     </Typography>  
                 </Grid>
+                <Paper elevation={10} sx={{marginTop:"15px",alignItems:"center",height:"30px", width:"400px",backgroundColor:"#F2EDDB",borderRadius:"20px",padding:2}}>
+                    <Grid container alignItems="center" justifyItems="center" justifyContent="center" textAlign="center">
+
+                        <Typography variant='h5' sx={{color:"#d6533c",textAlign:"center",fontWeight:600}}>
+                            {props.datosclase.tipoClase} - {props.datosclase.frecuencia} - {props.datosclase.duracion}hs.
+                        </Typography>
+                    </Grid>
+                </Paper> 
                 <Grid item xs={6} sm={8} md={9} lg={10}></Grid>
                 <Grid item xs={6} sm={8} md={9} lg={10}>
                                  
@@ -215,10 +232,14 @@ export default function CardClaseProfe (props){
                             </Typography>
                         </Box>     
                     </Grid>))}
-
-                    <Grid container justifyContent="center">
-                        <LoadingButton variant="contained"onClick={()=>cargarMasComentarios()} size='large' sx={{borderRadius:"10px",marginTop:"20px" }}> + comentarios</LoadingButton>
+                    
+                    <Grid container alignItems="center" justifyContent="center">
+                            <InputLabel style={{color:"#10223D", fontSize:"19px",marginBottom:"10px",marginTop:"20px"}}> {mensajeComentarios} </InputLabel> 
                     </Grid>
+                    <Grid container justifyContent="center">
+                       <LoadingButton variant="contained"onClick={()=>cargarMasComentarios()} size='large' sx={{borderRadius:"10px",marginTop:"20px" }}> + comentarios</LoadingButton>
+                    </Grid>
+                    
                 </Grid>
             </Grid> 
             <Footer></Footer>  
