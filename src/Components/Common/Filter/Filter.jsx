@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Button,Card,FormControl,Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/system';
-import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import About from "../../../Components/landing/about/About"
 import Cards from "../Cards/Cards";
@@ -52,7 +51,7 @@ const calificacionFilter = [
 ]  
 
 export default function Filtro() {
-  const {materia,tipoclase,frecuencia,calificacion} = useParams()
+  //const {materia,tipoclase,frecuencia,calificacion} = useParams()
   const [paginado, setPaginado] = React.useState(0)
   const[ dataFiltros, setDataFiltros]= React.useState({
     materia: undefined,

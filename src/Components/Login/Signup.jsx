@@ -1,9 +1,8 @@
 import React from 'react'
-import { Grid,Paper, InputLabel, Avatar, TextField,MenuItem,Select,Typography, Modal} from '@mui/material'
+import { Grid,Paper, InputLabel, Avatar, TextField, Modal} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LoadingButton } from '@mui/lab'
 import { useState } from "react";
-import Modalmensaje from "./Modalconfimacion"
 import {createAlumno} from '../../Services/alumnos'
 import {createProfesor} from '../../Services/profesores'
 

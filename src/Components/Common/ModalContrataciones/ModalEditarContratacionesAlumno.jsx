@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid,Paper,InputLabel, Modal, FormControl, MenuItem, Select} from '@mui/material'
+import { Grid,Paper,InputLabel, FormControl, MenuItem, Select} from '@mui/material'
 import { LoadingButton } from '@mui/lab';
 import {actualizarEstadoContratacion} from "../../../Services/contrataciones"
 
@@ -95,8 +95,8 @@ export default function ModalEditarContrataciones (props){
                         <Grid item  xs={12} sm={12} md={12} lg={12} container direction="row" justifyContent="center">
                             {botonCerrar ? undefined :
                             <Grid>
-                                <LoadingButton size="small" onClick={actualizarEstado} variant="contained" size='small' sx={{borderRadius:"10px",marginTop:"15px",marginRight:"5px" }}> Actualizar</LoadingButton>
-                                <LoadingButton size="small" onClick={()=>props.close()}variant="contained" size='small' sx={{borderRadius:"10px",marginTop:"15px",marginLeft:"5px"}}> Cancelar</LoadingButton>
+                                <LoadingButton size="small" onClick={actualizarEstado} variant="contained"  sx={{borderRadius:"10px",marginTop:"15px",marginRight:"5px" }}> Actualizar</LoadingButton>
+                                <LoadingButton size="small" onClick={()=>props.close()}variant="contained"  sx={{borderRadius:"10px",marginTop:"15px",marginLeft:"5px"}}> Cancelar</LoadingButton>
                             </Grid>}
                             {botonCerrar ? <LoadingButton onClick={()=>props.close()} variant="contained" sx={{borderRadius:"10px",marginTop:"15px" }}> Cerrar</LoadingButton> : undefined} 
                         </Grid>

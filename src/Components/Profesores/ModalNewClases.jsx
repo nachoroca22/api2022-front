@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { Grid,Paper,InputLabel, TextField, FormControl, MenuItem, Select} from '@mui/material'
-import Rating from '@mui/material/Rating';
 import { LoadingButton } from '@mui/lab';
 import { crearClase } from '../../Services/clases';
 

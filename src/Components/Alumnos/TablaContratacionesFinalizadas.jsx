@@ -16,12 +16,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import EditIcon from '@mui/icons-material/Edit';
 import InfoIcon from '@mui/icons-material/Info';
-import CommentIcon from '@mui/icons-material/Comment';
 import ModalContrataciones from '../Common/ModalContrataciones/ModalContrataciones.jsx'
-import ModalEditarContratacionesAlumno from '../Common/ModalContrataciones/ModalEditarContratacionesAlumno'
-import ModalComentar from './ModalComentar.jsx'
 import {Modal} from "@mui/material";
 import { obtenerContratacionesAlumnoFinalizadas } from '../../Services/contrataciones.js';
 

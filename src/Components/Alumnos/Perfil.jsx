@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {TextField, Container, FormControl, MenuItem,Select, Grid, Typography, Card, CardMedia,InputLabel} from '@mui/material';
-import foto from "../media/foto.jpg"
-import NativeSelect from '@mui/material/NativeSelect';
+import {TextField, Container, FormControl, MenuItem,Select, Grid, Typography, Card,InputLabel} from '@mui/material';
 import { LoadingButton } from '@mui/lab'
 import { obtenerAlumno, actualizarAlumno} from "../../Services/alumnos";
 import {setPasswordAlumno} from "../../Services/login"
@@ -24,7 +22,6 @@ export default function Perfil() {
         nivel_terciario: "",    
         nivel_universitario: "",
     }
-    const token = localStorage.getItem("token")
     const id = localStorage.getItem("id")
     const [alumno, setAlumno] = React.useState(initialAlumno);
     const [submitted, setSubmitted] = React.useState(false);
